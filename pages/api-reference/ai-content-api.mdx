@@ -1,0 +1,93 @@
+# AI Content API
+
+The AI Content API processes webpage content to generate meaningful summaries, extract key features, and analyze its purpose.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/analyze
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/analyze?access_key=<your-access-key>&url=https://tailwindcss.com
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"summary": "Tailwind CSS is a utility-first CSS framework for modern web design.",
+		"valueProposition": "A flexible CSS framework packed with utility classes.",
+		"keyFeatures": [
+			"Responsive design",
+			"Dark mode",
+			"Animations",
+			"Grid layout"
+		],
+		"categories": [
+			"Web Development",
+			"CSS Frameworks",
+			"Frontend Development",
+			"Responsive Design"
+		],
+		"useCases": [
+			"Building websites",
+			"Customizing themes",
+			"Managing CSS specificity"
+		],
+		"targetAudience": "Web developers and designers.",
+		"emails": ["admin@company.com"],
+		"phoneNumbers": ["+13322767084"]
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The URL of the webpage to capture.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`custom_response`** <small style={{margin:'0 10px'}}>object | string</small> <small style={{margin:'0 10px 0 0'}}>Optional</small> <br/>
+Pass custom response fields to be included in the AI response. This can be provided in two ways:
+As a JSON object in the request body
+As a JSON stringified object in the query parameters
+
+Example:
+
+```
+{
+	"sentiment": "sentiment",
+    "language": "language"
+}
+```
+
+---
+
+**`custom_prompt`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <br/>
+Add your own instructions to guide the AI's analysis.
+
+---
+
+**`proxy`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <br/>
+Specify a proxy server to route your request through. Supports HTTP, HTTPS, and SOCKS5 proxies. Format: `http://username:password@proxy.com:PORT`. Useful for bypassing geo-restrictions and rotating IPs.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).

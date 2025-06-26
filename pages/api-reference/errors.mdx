@@ -1,0 +1,94 @@
+# Error Reference
+
+The Screenshot API uses conventional HTTP response codes to indicate the success or failure of an API request. Here are the possible error responses you might encounter:
+
+## Error Codes
+
+### 400 Bad Request
+
+Returned when the request is malformed or missing required parameters.
+
+```json
+{
+	"success": false,
+	"message": "The \"url\" field is missing"
+}
+```
+
+Also returned when an invalid format is specified:
+
+```json
+{
+	"success": false,
+	"message": "The \"format\" field must be one of: png, jpeg, webp, pdf"
+}
+```
+
+### 429 Too Many Requests
+
+```json
+{
+	"success": false,
+	"message": "Rate limit exceeded, retry in 59 seconds"
+}
+```
+
+### 401 Unauthorized
+
+Returned when no access key is provided.
+
+```json
+{
+	"success": false,
+	"message": "Access key is missing"
+}
+```
+
+### 403 Forbidden
+
+Returned when the provided access key is invalid:
+
+```json
+{
+	"success": false,
+	"message": "Invalid Access key"
+}
+```
+
+Or when you've exceeded your monthly request limit:
+
+```json
+{
+	"success": false,
+	"message": "Request limit exceeded for this month"
+}
+```
+
+### 500 Internal Server Error
+
+Returned when the server encounters an unexpected error:
+
+```json
+{
+	"success": false,
+	"message": "Internal server error"
+}
+```
+
+When screenshot processing fails:
+
+```json
+{
+	"success": false,
+	"message": "Failed to process screenshot"
+}
+```
+
+When page content processing fails:
+
+```json
+{
+	"success": false,
+	"message": "Failed to process content"
+}
+```
