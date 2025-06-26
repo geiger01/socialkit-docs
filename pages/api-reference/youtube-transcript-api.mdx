@@ -1,0 +1,107 @@
+# YouTube Transcript API
+
+The YouTube Transcript API extracts accurate transcripts from YouTube videos, providing both full text and timestamped segments for content analysis and accessibility purposes.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/transcript
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/youtube/transcript?access_key=<your-access-key>&url=https://youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+    "transcript": "[♪♪♪] ♪ We're no strangers to love ♪ ♪ You know the rules\nand so do I ♪ ♪ A full commitment's\nwhat I'm thinking of ♪ ♪ You wouldn't get this\nfrom any other guy ♪ ♪ I just wanna tell you\nhow I'm feeling ♪ ♪ Gotta make you understand ♪ ♪ Never gonna give you up ♪ ♪ Never gonna let you down ♪ ♪ Never gonna run around\nand desert you ♪ ♪ Never gonna make you cry ♪ ♪ Never gonna say goodbye ♪ ♪ Never gonna tell a lie\nand hurt you ♪ ♪ We've known each other\nfor so long ♪ ♪ Your heart's been aching\nbut you're too shy to say it ♪ ♪ Inside we both know\nwhat's been going ♪ ♪ We know the game\nand we're gonna play it ♪ ♪ And if you ask me\nhow I'm feeling ♪ ♪ Don't tell me\nyou're too blind to see ♪ ♪ Never gonna give you up ♪ ♪ Never gonna let you down ♪ ♪ Never gonna run around\nand desert you ♪ ♪ Never gonna make you cry ♪ ♪ Never gonna say goodbye ♪ ♪ Never gonna tell a lie\nand hurt you ♪",
+    "transcriptSegments": [
+      {
+        "text": "[♪♪♪]",
+        "start": 0,
+        "duration": 5,
+        "timestamp": "00:00"
+      },
+      {
+        "text": "♪ We're no strangers to love ♪",
+        "start": 5,
+        "duration": 5,
+        "timestamp": "00:05"
+      },
+      {
+        "text": "♪ You know the rules\nand so do I ♪",
+        "start": 10,
+        "duration": 5,
+        "timestamp": "00:10"
+      },
+      {
+        "text": "♪ A full commitment's\nwhat I'm thinking of ♪",
+        "start": 15,
+        "duration": 5,
+        "timestamp": "00:15"
+      },
+      {
+        "text": "♪ You wouldn't get this\nfrom any other guy ♪",
+        "start": 20,
+        "duration": 5,
+        "timestamp": "00:20"
+      }
+    ],
+    "wordCount": 458,
+    "segments": 61
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The YouTube URL of the video to extract transcript from. Supports various YouTube URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Structure
+
+The API returns both a complete transcript and individual timestamped segments:
+
+### Full Transcript
+- **`transcript`**: Complete text transcript of the video
+- **`wordCount`**: Total number of words in the transcript
+- **`segments`**: Total number of transcript segments
+
+### Timestamped Segments
+Each segment in `transcriptSegments` contains:
+- **`text`**: The spoken text for this segment
+- **`start`**: Start time in seconds
+- **`duration`**: Duration of the segment in seconds
+- **`timestamp`**: Human-readable timestamp (MM:SS format)
+
+## Use Cases
+
+- **Accessibility**: Provide captions and transcripts for hearing-impaired users
+- **Content Analysis**: Analyze spoken content for keywords, topics, and sentiment
+- **Search & Discovery**: Make video content searchable by text
+- **Content Creation**: Extract quotes and key phrases from videos
+- **Language Learning**: Provide text alongside audio for language learners
+- **Research**: Analyze large volumes of video content efficiently
+- **SEO**: Extract text content for search engine optimization 

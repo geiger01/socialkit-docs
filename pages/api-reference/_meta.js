@@ -1,7 +1,6 @@
 export default {
 	index: 'Overview',
-	'screenshot-api': 'Screenshot API',
-	'content-api': 'Page Content API',
-	'ai-content-api': 'AI Content API',
+	'youtube-summarize-api': 'YouTube Summary API',
+	'youtube-transcript-api': 'YouTube Transcript API',
 	errors: 'Errors',
 };

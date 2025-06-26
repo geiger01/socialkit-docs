@@ -14,16 +14,16 @@ export default {
 			titleTemplate: 'Documentation - SocialKit',
 			openGraph: {
 				title:
-					'Documentation | SocialKit - Turn any website into a screenshot with our powerful Screenshot API',
+					'Documentation | SocialKit - Analyze Social Media Videos with a simple API',
 				description:
-					'SocialKit is a powerful API for capturing screenshots, extracting HTML, gathering links, and summarizing content—all with a simple request.',
-				images: [
-					{
-						url: 'https://socialkit-assets.s3.amazonaws.com/socialkit-og+(1).png',
-						width: 1200,
-						height: 630,
-					},
-				],
+					'SocialKit is a powerful API for analyzing social media videos, extracting summaries, transcripts, and engagement metrics from YouTube, TikTok, Instagram, and more.',
+				// images: [
+				// 	{
+				// 		url: 'https://socialkit-assets.s3.amazonaws.com/socialkit-og+(1).png',
+				// 		width: 1200,
+				// 		height: 630,
+				// 	},
+				// ],
 			},
 		};
 	},
@@ -32,7 +32,7 @@ export default {
 		const title = config.title + ' | SocialKit';
 
 		const description =
-			'SocialKit is a powerful API for capturing screenshots, extracting HTML, gathering links, and summarizing content—all with a simple request.';
+			'SocialKit is a powerful API for analyzing social media videos, extracting summaries, transcripts, and engagement metrics from YouTube, TikTok, Instagram, and more.';
 		const ogImage =
 			'https://socialkit-assets.s3.amazonaws.com/socialkit-og+(1).png';
 
@@ -42,7 +42,7 @@ export default {
 				<meta property='og:title' content={title} />
 				<meta property='description' content={description} />
 				<meta property='og:description' content={description} />
-				<meta property='og:image' content={ogImage} />
+				{/* <meta property='og:image' content={ogImage} /> */}
 			</>
 		);
 	},

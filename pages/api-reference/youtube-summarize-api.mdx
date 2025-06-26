@@ -1,0 +1,95 @@
+# YouTube Summary API
+
+The YouTube Summary API analyzes YouTube videos to generate AI-powered summaries, extract key insights, main topics, and provide detailed analysis of video content.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/summarize
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/youtube/summarize?access_key=<your-access-key>&url=https://youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+    "summary": "The video features the song 'Never Gonna Give You Up' by Rick Astley, which expresses themes of love, commitment, and reassurance in a romantic relationship.",
+    "mainTopics": [
+      "Love",
+      "Commitment",
+      "Reassurance"
+    ],
+    "keyPoints": [
+      "The singer emphasizes unwavering commitment to a partner.",
+      "The lyrics convey a sense of understanding and mutual feelings.",
+      "The repetition of key phrases reinforces the message of loyalty."
+    ],
+    "tone": "Uplifting and reassuring",
+    "targetAudience": "Fans of 80s music and pop culture enthusiasts",
+    "quotes": [
+      "Never gonna give you up.",
+      "Your heart's been aching but you're too shy to say it."
+    ],
+    "timeline": "The song follows a structured verse-chorus format, alternating between expressions of commitment and emotional connection."
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The YouTube URL of the video to analyze. Supports various YouTube URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`custom_response`** <small style={{margin:'0 10px'}}>object | string</small> <small style={{margin:'0 10px 0 0'}}>Optional</small> <br/>
+Define custom fields for the AI response. This allows you to extract specific information tailored to your needs.
+
+Example:
+
+```json
+{
+  "title": "Video title",
+  "sentiment": "Overall sentiment of the video",
+  "isMusic": "Whether the video is a music video",
+  "category": "Video category or genre",
+  "language": "Primary language spoken in the video"
+}
+```
+
+---
+
+**`custom_prompt`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <br/>
+Add your own instructions to guide the AI's analysis. For example: "Make it short and concise", "Write in Spanish", "Focus on technical aspects", etc.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Use Cases
+
+- **Content Research**: Quickly understand video content without watching
+- **Social Media Monitoring**: Analyze trending videos and extract insights
+- **Market Research**: Understand competitor content and messaging
+- **Content Creation**: Get inspiration and understand successful video formats
+- **Accessibility**: Provide summaries for users who prefer text over video
+- **Trend Analysis**: Extract topics and themes from popular videos 
