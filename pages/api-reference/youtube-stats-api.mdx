@@ -1,0 +1,81 @@
+# YouTube Stats API
+
+The YouTube Stats API retrieves engagement metrics and metadata for YouTube videos, including view counts, likes, comments, and channel information.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/youtube/stats?access_key=<your-access-key>&url=https://youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+		"title": "Rick Astley - Never Gonna Give You Up (Official Video)",
+		"channelName": "Rick Astley",
+		"channelLink": "https://youtube.com/channel/UCuAXFkgsw1L7xaCfnd5JJOw",
+		"views": 1428567890,
+		"likes": 16234567,
+		"comments": 4567890
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The YouTube URL of the video to get statistics for. Supports various YouTube URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original YouTube URL provided
+- **`title`**: The video title
+- **`channelName`**: The name of the YouTube channel
+- **`channelLink`**: Direct link to the YouTube channel
+- **`views`**: Total view count (number)
+- **`likes`**: Total like count (number)
+- **`comments`**: Total comment count (number)
+
+## Use Cases
+
+- **Social Media Analytics**: Track video performance across different platforms
+- **Content Research**: Analyze engagement metrics for popular videos
+- **Competitor Analysis**: Monitor competitor video performance
+- **Trend Analysis**: Identify viral content and engagement patterns
+- **Marketing Insights**: Understand what content resonates with audiences
+- **Reporting**: Generate reports on video performance metrics
+- **Content Strategy**: Make data-driven decisions about video content
+
+## Notes
+
+- View counts, likes, and comments are retrieved in real-time
+- All numeric fields are returned as integers
+- Channel links use the standard YouTube channel URL format
+- Statistics may vary slightly due to YouTube's real-time updates 

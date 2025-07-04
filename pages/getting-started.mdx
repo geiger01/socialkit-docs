@@ -93,3 +93,26 @@ GET https://api.socialkit.dev/youtube/transcript?access_key=<your-access-key>&ur
 	}
 }
 ```
+
+### YouTube Video Stats
+
+```bash copy
+GET https://api.socialkit.dev/youtube/stats?access_key=<your-access-key>&url=https://youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+		"title": "Rick Astley - Never Gonna Give You Up (Official Video)",
+		"channelName": "Rick Astley",
+		"channelLink": "https://youtube.com/channel/UCuAXFkgsw1L7xaCfnd5JJOw",
+		"views": 1428567890,
+		"likes": 16234567,
+		"comments": 4567890
+	}
+}
+```
