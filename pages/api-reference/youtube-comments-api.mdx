@@ -26,7 +26,7 @@ GET https://api.socialkit.dev/youtube/comments?access_key=<your-access-key>&url=
         "author": "@YouTube",
         "text": "can confirm: he never gave us up",
         "likes": 88,
-        "timestamp": "",
+        "date": "",
         "avatar": "https://yt3.ggpht.com/Bg5wS82KGryRmcsn1YbPThtbXoTmj2XJ9_7LmuE2RF6wbKJBkovfRypbSz6UD3gEu_nHiwGZtQ=s88-c-k-c0x00ffffff-no-rj",
         "replyCount": 1,
         "position": 1
@@ -35,7 +35,7 @@ GET https://api.socialkit.dev/youtube/comments?access_key=<your-access-key>&url=
         "author": "@IIIII911IIIII",
         "text": "But link sayd free robux",
         "likes": 375,
-        "timestamp": "",
+        "date": "",
         "avatar": "https://yt3.ggpht.com/ixP_4DyuJRryaowxiBKNKv_pvpbEyQHIQrHCZODkNBW-0Lk7eTYo_vL1iB3mL4TFgnV0PNVQiQ=s88-c-k-c0x00ffffff-no-rj",
         "replyCount": 738,
         "position": 2
@@ -74,7 +74,7 @@ Each comment in the `comments` array contains:
 - **`author`**: The comment author's username (with @ prefix)
 - **`text`**: The comment text content
 - **`likes`**: Number of likes on the comment (number)
-- **`timestamp`**: Comment timestamp (may be empty)
+- **`date`**: Comment date (may be empty)
 - **`avatar`**: URL to the author's profile picture
 - **`replyCount`**: Number of replies to this comment
 - **`position`**: Comment position in the sorted list
@@ -92,7 +92,6 @@ Each comment in the `comments` array contains:
 ## Notes
 
 - Comments are retrieved in real-time from YouTube
-- Some comments may have empty timestamps depending on YouTube's data
 - Avatar URLs may be empty for some users
 - Reply counts include nested replies and may change over time
 - The `position` field indicates the comment's order in the sorted results
