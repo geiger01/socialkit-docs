@@ -1,0 +1,98 @@
+# YouTube Comments API
+
+The YouTube Comments API retrieves comments from YouTube videos with filtering and sorting options, providing detailed comment data including author information, engagement metrics, and reply counts.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/comments
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/youtube/comments?access_key=<your-access-key>&url=https://youtube.com/watch?v=dQw4w9WgXcQ&limit=2&sortBy=top
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+    "comments": [
+      {
+        "author": "@YouTube",
+        "text": "can confirm: he never gave us up",
+        "likes": 88,
+        "timestamp": "",
+        "avatar": "https://yt3.ggpht.com/Bg5wS82KGryRmcsn1YbPThtbXoTmj2XJ9_7LmuE2RF6wbKJBkovfRypbSz6UD3gEu_nHiwGZtQ=s88-c-k-c0x00ffffff-no-rj",
+        "replyCount": 1,
+        "position": 1
+      },
+      {
+        "author": "@IIIII911IIIII",
+        "text": "But link sayd free robux",
+        "likes": 375,
+        "timestamp": "",
+        "avatar": "https://yt3.ggpht.com/ixP_4DyuJRryaowxiBKNKv_pvpbEyQHIQrHCZODkNBW-0Lk7eTYo_vL1iB3mL4TFgnV0PNVQiQ=s88-c-k-c0x00ffffff-no-rj",
+        "replyCount": 738,
+        "position": 2
+      }
+    ]
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The YouTube URL of the video to get comments for. Supports various YouTube URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
+The number of comments to retrieve. Maximum value is 100.
+
+---
+
+**`sortBy`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 'new'</small><br/>
+Sort comments by 'top' (most popular) or 'new' (most recent).
+
+## Response Fields
+
+The API returns the following data fields:
+
+### Comment Object
+Each comment in the `comments` array contains:
+- **`author`**: The comment author's username (with @ prefix)
+- **`text`**: The comment text content
+- **`likes`**: Number of likes on the comment (number)
+- **`timestamp`**: Comment timestamp (may be empty)
+- **`avatar`**: URL to the author's profile picture
+- **`replyCount`**: Number of replies to this comment
+- **`position`**: Comment position in the sorted list
+
+## Use Cases
+
+- **Community Management**: Monitor and analyze video comments for engagement insights
+- **Sentiment Analysis**: Analyze comment sentiment to understand audience reactions
+- **Content Moderation**: Review comments for inappropriate content or spam
+- **Market Research**: Gather user feedback and opinions from video comments
+- **Competitor Analysis**: Analyze competitor video engagement through comments
+- **Social Listening**: Track mentions and discussions around your content
+- **Content Strategy**: Understand what resonates with your audience based on comment feedback
+
+## Notes
+
+- Comments are retrieved in real-time from YouTube
+- Some comments may have empty timestamps depending on YouTube's data
+- Avatar URLs may be empty for some users
+- Reply counts include nested replies and may change over time
+- The `position` field indicates the comment's order in the sorted results
