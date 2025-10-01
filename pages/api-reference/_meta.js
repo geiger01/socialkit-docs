@@ -4,5 +4,6 @@ export default {
 	'youtube-transcript-api': 'YouTube Transcript API',
 	'youtube-stats-api': 'YouTube Stats API',
 	'youtube-comments-api': 'YouTube Comments API',
+	'tiktok-stats-api': 'TikTok Stats API',
 	errors: 'Errors',
 };

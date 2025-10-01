@@ -1,0 +1,91 @@
+# TikTok Stats API
+
+The TikTok Stats API retrieves engagement metrics and metadata for TikTok videos, including view counts, likes, comments, shares, and video information.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/stats?access_key=<your-access-key>&url=https://www.tiktok.com/@soukainasing1/video/7370790114802322694
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@soukainasing1/video/7370790114802322694?q=coffee",
+		"title": "#icedcoffee #dalgonacoffee #dalgona #soukainasing #coffeetiktok #bottlecoffee #icedlatte #easyrecipe #cafe #nescafe #nestle #coffee #refreshing #learnontiktok #قهوة_باردة #قهوة #foryoupage #fyp",
+		"author": "",
+		"likes": 2100000,
+		"comments": 26000,
+		"shares": 147600,
+		"views": 70700000,
+		"description": "#icedcoffee #dalgonacoffee #dalgona #soukainasing #coffeetiktok #bottlecoffee #icedlatte #easyrecipe #cafe #nescafe #nestle #coffee #refreshing #learnontiktok #قهوة_باردة #قهوة #foryoupage #fyp",
+		"duration": "1:02",
+		"thumbnailUrl": "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/2a1821f54d82fb691390afcccb773d78~tplv-tiktokx-cropcenter:100:100.jpeg?dr=9640&refresh_token=051f7c8b&x-expires=1759514400&x-signature=IoW4IL0SRYOY83gQuyROCbF%2BQbw%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast5"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The TikTok URL of the video to get statistics for. Supports various TikTok URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original TikTok URL provided
+- **`title`**: The video title/caption with hashtags
+- **`author`**: The TikTok username (may be empty)
+- **`likes`**: Total like count (number)
+- **`comments`**: Total comment count (number)
+- **`shares`**: Total share count (number)
+- **`views`**: Total view count (number)
+- **`description`**: The video description/caption
+- **`duration`**: Video duration in MM:SS format
+- **`thumbnailUrl`**: URL to the video thumbnail image
+
+## Use Cases
+
+- **Social Media Analytics**: Track TikTok video performance and engagement metrics
+- **Content Research**: Analyze viral TikTok content and engagement patterns
+- **Competitor Analysis**: Monitor competitor TikTok performance and trends
+- **Trend Analysis**: Identify trending content and viral patterns on TikTok
+- **Marketing Insights**: Understand what TikTok content resonates with audiences
+- **Reporting**: Generate comprehensive reports on TikTok video performance
+- **Content Strategy**: Make data-driven decisions about TikTok content creation
+- **Influencer Marketing**: Analyze influencer performance and reach metrics
+
+## Notes
+
+- View counts, likes, comments, and shares are retrieved in real-time
+- All numeric fields are returned as integers
+- Author field may be empty depending on TikTok's privacy settings
+- Video duration is provided in human-readable MM:SS format
+- Thumbnail URLs are temporary and may expire
+- Statistics may vary slightly due to TikTok's real-time updates
+- Supports various TikTok URL formats including mobile and desktop links

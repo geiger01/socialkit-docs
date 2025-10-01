@@ -153,3 +153,29 @@ GET https://api.socialkit.dev/youtube/comments?access_key=<your-access-key>&url=
 	}
 }
 ```
+
+### TikTok Video Stats
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/stats?access_key=<your-access-key>&url=https://www.tiktok.com/@soukainasing1/video/7370790114802322694
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@soukainasing1/video/7370790114802322694?q=coffee",
+		"title": "#icedcoffee #dalgonacoffee #dalgona #soukainasing #coffeetiktok #bottlecoffee #icedlatte #easyrecipe #cafe #nescafe #nestle #coffee #refreshing #learnontiktok #قهوة_باردة #قهوة #foryoupage #fyp",
+		"author": "",
+		"likes": 2100000,
+		"comments": 26000,
+		"shares": 147600,
+		"views": 70700000,
+		"description": "#icedcoffee #dalgonacoffee #dalgona #soukainasing #coffeetiktok #bottlecoffee #icedlatte #easyrecipe #cafe #nescafe #nestle #coffee #refreshing #learnontiktok #قهوة_باردة #قهوة #foryoupage #fyp",
+		"duration": "1:02",
+		"thumbnailUrl": "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/2a1821f54d82fb691390afcccb773d78~tplv-tiktokx-cropcenter:100:100.jpeg?dr=9640&refresh_token=051f7c8b&x-expires=1759514400&x-signature=IoW4IL0SRYOY83gQuyROCbF%2BQbw%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast5"
+	}
+}
+```
