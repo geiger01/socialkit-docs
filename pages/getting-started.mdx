@@ -176,3 +176,40 @@ GET https://api.socialkit.dev/tiktok/stats?access_key=<your-access-key>&url=http
 	}
 }
 ```
+
+### TikTok Video Comments
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/comments?access_key=<your-access-key>&url=https://www.tiktok.com/@xkikicat/video/7526606933470612744&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@xkikicat/video/7526606933470612744?q=cute%20cat&t=1759508362887",
+		"comments": [
+			{
+				"author": "John",
+				"text": "[sticker]",
+				"likes": 28600,
+				"date": "7-14",
+				"avatar": "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-avt-0068/43859730cad6a553023db23c3bea766f~tplv-tiktokx-cropcenter:100:100.jpg?dr=9640&refresh_token=5ec360b8&x-expires=1759593600&x-signature=PExId0varqKgdsZOJiu9BQ%2BCS%2Bo%3D&t=4d5b0474&ps=13740610&shp=30310797&shcp=ff37627b&idc=useast8",
+				"replyCount": 81,
+				"username": "shahdoos"
+			},
+			{
+				"author": "xanax",
+				"text": "smol car [cry]",
+				"likes": 10500,
+				"date": "7-13",
+				"avatar": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-avt-0068-euttp/aec029c88af7df57dbaf37ebade442b8~tplv-tiktokx-cropcenter:100:100.jpg?dr=9640&refresh_token=cb43e62c&x-expires=1759593600&x-signature=pYTZIciHW%2B3quorj6hlPx%2FahKow%3D&t=4d5b0474&ps=13740610&shp=30310797&shcp=ff37627b&idc=useast8",
+				"replyCount": 95,
+				"username": "xanax_r6"
+			}
+		]
+	}
+}
+```

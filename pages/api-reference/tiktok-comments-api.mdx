@@ -1,0 +1,98 @@
+# TikTok Comments API
+
+The TikTok Comments API retrieves comments from TikTok videos with filtering and sorting options, providing detailed comment data including author information, engagement metrics, and reply counts.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/comments
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/comments?access_key=<your-access-key>&url=https://www.tiktok.com/@xkikicat/video/7526606933470612744&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@xkikicat/video/7526606933470612744?q=cute%20cat&t=1759508362887",
+		"comments": [
+			{
+				"author": "John",
+				"text": "[sticker]",
+				"likes": 28600,
+				"date": "7-14",
+				"avatar": "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-avt-0068/43859730cad6a553023db23c3bea766f~tplv-tiktokx-cropcenter:100:100.jpg?dr=9640&refresh_token=5ec360b8&x-expires=1759593600&x-signature=PExId0varqKgdsZOJiu9BQ%2BCS%2Bo%3D&t=4d5b0474&ps=13740610&shp=30310797&shcp=ff37627b&idc=useast8",
+				"replyCount": 81,
+				"username": "shahdoos"
+			},
+			{
+				"author": "xanax",
+				"text": "smol car [cry]",
+				"likes": 10500,
+				"date": "7-13",
+				"avatar": "https://p16-common-sign.tiktokcdn-us.com/tos-useast2a-avt-0068-euttp/aec029c88af7df57dbaf37ebade442b8~tplv-tiktokx-cropcenter:100:100.jpg?dr=9640&refresh_token=cb43e62c&x-expires=1759593600&x-signature=pYTZIciHW%2B3quorj6hlPx%2FahKow%3D&t=4d5b0474&ps=13740610&shp=30310797&shcp=ff37627b&idc=useast8",
+				"replyCount": 95,
+				"username": "xanax_r6"
+			}
+		]
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The TikTok URL of the video to get comments for. Supports various TikTok URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
+The number of comments to retrieve. Maximum value is 100.
+
+
+
+## Response Fields
+
+The API returns the following data fields:
+
+### Comment Object
+Each comment in the `comments` array contains:
+- **`author`**: The comment author's display name
+- **`username`**: The comment author's username (without @ prefix)
+- **`text`**: The comment text content (may include [sticker] or [emoji] placeholders)
+- **`likes`**: Number of likes on the comment (number)
+- **`date`**: Comment date in MM-DD format
+- **`avatar`**: URL to the author's profile picture
+- **`replyCount`**: Number of replies to this comment
+
+## Use Cases
+
+- **Community Management**: Monitor and analyze TikTok video comments for engagement insights
+- **Sentiment Analysis**: Analyze comment sentiment to understand audience reactions
+- **Content Moderation**: Review comments for inappropriate content or spam
+- **Market Research**: Gather user feedback and opinions from TikTok video comments
+- **Competitor Analysis**: Analyze competitor TikTok engagement through comments
+- **Social Listening**: Track mentions and discussions around your TikTok content
+- **Content Strategy**: Understand what resonates with your TikTok audience based on comment feedback
+- **Trend Analysis**: Identify trending topics and conversations in TikTok comments
+
+## Notes
+
+- Comments are retrieved in real-time from TikTok
+- Text content may include placeholders like `[sticker]` or `[cry]` for emojis and stickers
+- Avatar URLs are temporary and may expire after some time
+- Reply counts include nested replies and may change over time
+- Date format is MM-DD (month-day)
+- Username field provides the actual TikTok handle without the @ symbol
+- Supports various TikTok URL formats including mobile and desktop links
