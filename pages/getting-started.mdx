@@ -50,6 +50,37 @@ GET https://api.socialkit.dev/youtube/summarize?access_key=<your-access-key>&url
 }
 ```
 
+### TikTok Video Summary
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/summarize?access_key=<your-access-key>&url=https://www.tiktok.com/@thepeteffect/video/7522711492140059912
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@thepeteffect/video/7522711492140059912",
+		"summary": "The video explains five reasons why cats might randomly attack their owners, including play aggression, overstimulation, redirected aggression, territorial behavior, and lack of socialization. It also provides tips on how to prevent these attacks by recognizing warning signs and respecting the cat's boundaries.",
+		"mainTopics": ["Cat Behavior", "Pet Care", "Animal Psychology"],
+		"keyPoints": [
+			"Play aggression occurs when cats see hands or feet as prey targets.",
+			"Overstimulation from excessive petting can trigger defensive responses.",
+			"Redirected aggression happens when cats transfer frustration to nearby humans."
+		],
+		"tone": "Educational and informative",
+		"targetAudience": "Cat owners and pet enthusiasts",
+		"quotes": [
+			"Ever been randomly attacked by your cat and thought, what did I do?",
+			"Don't over pet and always respect their personal bubble."
+		],
+		"timeline": "The video systematically presents five reasons for cat aggression, followed by practical prevention tips and warning signs to watch for."
+	}
+}
+```
+
 ### YouTube Video Transcript
 
 ```bash copy
@@ -86,6 +117,46 @@ GET https://api.socialkit.dev/youtube/transcript?access_key=<your-access-key>&ur
 		],
 		"wordCount": 458,
 		"segments": 61
+	}
+}
+```
+
+### TikTok Video Transcript
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/transcript?access_key=<your-access-key>&url=https://www.tiktok.com/@thepeteffect/video/7522711492140059912
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@thepeteffect/video/7522711492140059912",
+		"transcript": "Ever been randomly attacked by your cat and thought, what did I do? Don't worry. There's usually a reason behind the chaos. 1, play aggression. Cats are born hunters and sometimes your hand, foot or even your face becomes the prey. 2, over stimulation. If you've been petting them a bit too long, especially on the belly, tail or sides, they might snap to say, that's enough, human. 3, redirected aggression. Like when your cat spots another feline outside, gets frustrated and decides you are now the enemy. 4, territorial vibes. Cats are super protective of their space and sometimes they throw paws to show who's boss. And 5, lack of socialization. If they weren't used to people early on, even a loving touch can feel like a threat. To avoid surprise attacks, learn the warning signs like twitchy tails or pinned ears. Use toys to redirect energy. Don't over pet and always respect their personal bubble.",
+		"transcriptSegments": [
+			{
+				"text": "Ever been randomly attacked by your cat and thought,",
+				"start": 0.04,
+				"duration": 2.4,
+				"timestamp": "00:00"
+			},
+			{
+				"text": "what did I do? Don't worry.",
+				"start": 2.441,
+				"duration": 1.64,
+				"timestamp": "00:02"
+			},
+			{
+				"text": "There's usually a reason behind the chaos.",
+				"start": 4.082,
+				"duration": 1.899,
+				"timestamp": "00:04"
+			}
+		],
+		"wordCount": 157,
+		"segments": 23
 	}
 }
 ```

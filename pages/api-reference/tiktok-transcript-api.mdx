@@ -1,0 +1,108 @@
+# TikTok Transcript API
+
+The TikTok Transcript API extracts accurate transcripts from TikTok videos, providing both full text and timestamped segments for content analysis and accessibility purposes.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/transcript
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/transcript?access_key=<your-access-key>&url=https://www.tiktok.com/@thepeteffect/video/7522711492140059912
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@thepeteffect/video/7522711492140059912",
+		"transcript": "Ever been randomly attacked by your cat and thought, what did I do? Don't worry. There's usually a reason behind the chaos. 1, play aggression. Cats are born hunters and sometimes your hand, foot or even your face becomes the prey. 2, over stimulation. If you've been petting them a bit too long, especially on the belly, tail or sides, they might snap to say, that's enough, human. 3, redirected aggression. Like when your cat spots another feline outside, gets frustrated and decides you are now the enemy. 4, territorial vibes. Cats are super protective of their space and sometimes they throw paws to show who's boss. And 5, lack of socialization. If they weren't used to people early on, even a loving touch can feel like a threat. To avoid surprise attacks, learn the warning signs like twitchy tails or pinned ears. Use toys to redirect energy. Don't over pet and always respect their personal bubble.",
+		"transcriptSegments": [
+			{
+				"text": "Ever been randomly attacked by your cat and thought,",
+				"start": 0.04,
+				"duration": 2.4,
+				"timestamp": "00:00"
+			},
+			{
+				"text": "what did I do? Don't worry.",
+				"start": 2.441,
+				"duration": 1.64,
+				"timestamp": "00:02"
+			},
+			{
+				"text": "There's usually a reason behind the chaos.",
+				"start": 4.082,
+				"duration": 1.899,
+				"timestamp": "00:04"
+			},
+			{
+				"text": "1, play aggression.",
+				"start": 6.28,
+				"duration": 1.24,
+				"timestamp": "00:06"
+			},
+			{
+				"text": "Cats are born hunters and sometimes your hand,",
+				"start": 7.521,
+				"duration": 2.52,
+				"timestamp": "00:07"
+			}
+		],
+		"wordCount": 157,
+		"segments": 23
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The TikTok URL of the video to extract transcript from. Supports various TikTok URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Structure
+
+The API returns both a complete transcript and individual timestamped segments:
+
+### Full Transcript
+- **`transcript`**: Complete text transcript of the TikTok video
+- **`wordCount`**: Total number of words in the transcript
+- **`segments`**: Total number of transcript segments
+
+### Timestamped Segments
+Each segment in `transcriptSegments` contains:
+- **`text`**: The spoken text for this segment
+- **`start`**: Start time in seconds
+- **`duration`**: Duration of the segment in seconds
+- **`timestamp`**: Human-readable timestamp (MM:SS format)
+
+## Use Cases
+
+- **Accessibility**: Provide captions and transcripts for hearing-impaired users
+- **Content Analysis**: Analyze spoken content in TikTok videos for keywords and topics
+- **Search & Discovery**: Make TikTok video content searchable by text
+- **Content Creation**: Extract quotes and key phrases from popular TikTok videos
+- **Language Learning**: Provide text alongside audio for language learners
+- **Research**: Analyze large volumes of TikTok video content efficiently
+- **SEO**: Extract text content for search engine optimization
+- **Social Listening**: Monitor what's being said in TikTok videos about your brand

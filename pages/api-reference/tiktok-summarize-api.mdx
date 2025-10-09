@@ -1,0 +1,95 @@
+# TikTok Summary API
+
+The TikTok Summary API analyzes TikTok videos to generate AI-powered summaries, extract key insights, main topics, and provide detailed analysis of video content.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/summarize
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/summarize?access_key=<your-access-key>&url=https://www.tiktok.com/@thepeteffect/video/7522711492140059912
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.tiktok.com/@thepeteffect/video/7522711492140059912",
+		"summary": "The video explains five reasons why cats might randomly attack their owners, including play aggression, overstimulation, redirected aggression, territorial behavior, and lack of socialization. It also provides tips on how to prevent these attacks by recognizing warning signs and respecting the cat's boundaries.",
+		"mainTopics": ["Cat Behavior", "Pet Care", "Animal Psychology"],
+		"keyPoints": [
+			"Play aggression occurs when cats see hands or feet as prey targets.",
+			"Overstimulation from excessive petting can trigger defensive responses.",
+			"Redirected aggression happens when cats transfer frustration to nearby humans.",
+			"Territorial behavior drives cats to assert dominance in their space.",
+			"Poor early socialization makes cats perceive human touch as threatening."
+		],
+		"tone": "Educational and informative",
+		"targetAudience": "Cat owners and pet enthusiasts",
+		"quotes": [
+			"Ever been randomly attacked by your cat and thought, what did I do?",
+			"Don't over pet and always respect their personal bubble."
+		],
+		"timeline": "The video systematically presents five reasons for cat aggression, followed by practical prevention tips and warning signs to watch for."
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The TikTok URL of the video to analyze. Supports various TikTok URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`custom_response`** <small style={{margin:'0 10px'}}>object | string</small> <small style={{margin:'0 10px 0 0'}}>Optional</small> <br/>
+Define custom fields for the AI response. This allows you to extract specific information tailored to your needs.
+
+Example:
+
+```json
+{
+  "title": "Video title",
+  "sentiment": "Overall sentiment of the video",
+  "isEducational": "Whether the video is educational content",
+  "category": "Video category or genre",
+  "language": "Primary language spoken in the video"
+}
+```
+
+---
+
+**`custom_prompt`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <br/>
+Add your own instructions to guide the AI's analysis. For example: "Make it short and concise", "Write in Spanish", "Focus on technical aspects", etc.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Use Cases
+
+- **Content Research**: Quickly understand TikTok video content without watching
+- **Social Media Monitoring**: Analyze trending TikTok videos and extract insights
+- **Market Research**: Understand competitor TikTok content and messaging
+- **Content Creation**: Get inspiration and understand successful TikTok video formats
+- **Accessibility**: Provide summaries for users who prefer text over video
+- **Trend Analysis**: Extract topics and themes from popular TikTok videos
+- **Educational Content**: Analyze educational TikToks for key learning points
+- **Brand Monitoring**: Track how your brand is discussed in TikTok content
