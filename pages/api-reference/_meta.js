@@ -8,5 +8,6 @@ export default {
 	'tiktok-transcript-api': 'TikTok Transcript API',
 	'tiktok-stats-api': 'TikTok Stats API',
 	'tiktok-comments-api': 'TikTok Comments API',
+	'tiktok-channel-stats-api': 'TikTok Channel Stats API',
 	errors: 'Errors',
 };

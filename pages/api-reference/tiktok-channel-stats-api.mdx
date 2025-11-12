@@ -1,0 +1,94 @@
+# TikTok Channel Stats API
+
+The TikTok Channel Stats API retrieves comprehensive profile statistics and metadata for TikTok channels, including follower counts, engagement metrics, bio information, and verification status.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/channel-stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/channel-stats?access_key=<your-access-key>&url=https://www.tiktok.com/@khaby.lame
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"profileUrl": "https://www.tiktok.com/@khaby.lame",
+		"username": "khaby.lame",
+		"nickname": "Khabane lame",
+		"signature": "Se vuoi ridere sei nel posto giusto😎 If u wanna laugh u r in the right place😎",
+		"verified": true,
+		"avatar": "https://p19-common-sign-useastred.tiktokcdn-eu.com/tos-useast2a-avt-0068-euttp/e755d298d36b3175a2ca87d603b5dc2d~tplv-tiktokx-cropcenter:1080:1080.jpeg",
+		"followers": 161000000,
+		"following": 83,
+		"totalLikes": 2500000000,
+		"totalVideos": 1295,
+		"bioLink": "https://bit.ly/3Zn5cDf"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The TikTok profile URL of the channel to get statistics for. Supports various TikTok URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`profileUrl`**: The TikTok profile URL
+- **`username`**: The channel's username (without @ prefix)
+- **`nickname`**: The channel's display name
+- **`signature`**: The channel's bio/description text
+- **`verified`**: Whether the account is verified (boolean)
+- **`avatar`**: URL to the profile avatar image
+- **`followers`**: Total follower count (number)
+- **`following`**: Total following count (number)
+- **`totalLikes`**: Total likes received across all videos (number)
+- **`totalVideos`**: Total number of videos posted (number)
+- **`bioLink`**: Link in bio (if available)
+
+## Use Cases
+
+- **Influencer Research**: Analyze TikTok creator profiles and audience size for partnerships
+- **Competitive Analysis**: Monitor competitor channel growth and engagement metrics
+- **Brand Monitoring**: Track brand presence and performance on TikTok
+- **Creator Discovery**: Find and evaluate potential content creators for collaborations
+- **Analytics Dashboards**: Build comprehensive TikTok analytics and reporting tools
+- **Market Research**: Understand channel demographics and popularity trends
+- **Performance Tracking**: Monitor your own or client TikTok channel statistics over time
+- **Verification Status**: Identify verified accounts for partnership opportunities
+
+## Notes
+
+- Statistics are retrieved in real-time from TikTok
+- All numeric fields are returned as integers
+- Avatar URLs are temporary and may expire after some time
+- Bio link may be empty if the creator hasn't added one
+- Follower, following, and like counts reflect current values
+- No need to extract channel ID - just provide the full profile URL
+- Supports various TikTok URL formats including mobile and desktop links
+
