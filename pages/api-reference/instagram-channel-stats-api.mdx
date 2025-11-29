@@ -1,0 +1,91 @@
+# Instagram Channel Stats API
+
+The Instagram Channel Stats API retrieves comprehensive profile statistics and metadata for Instagram accounts, including follower counts, post counts, bio information, and verification status.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/instagram/channel-stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/instagram/channel-stats?access_key=<your-access-key>&url=https://instagram.com/yuumi_cat9
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"profileUrl": "https://www.instagram.com/yuumi_cat9",
+		"username": "yuumi_cat9",
+		"nickname": "Yuumi_cat9",
+		"verified": false,
+		"followers": 358995,
+		"following": 0,
+		"totalPosts": 742,
+		"bio": "🐱 If you want to buy a kitten, please come to me❤️",
+		"avatar": "https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/410475202_1774278156432939_4797418128278418348_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QEEe3Z3f-yzE01TYD8jh8EGuKMNI9XctIHFB5tTceJvTPxKxdB53hbSgpxQxZ5lbwI&_nc_ohc=JJ5SzS-2A4QQ7kNvwHIUEx4&_nc_gid=GKf5wcafVC2_VO8lACaqSw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Afh9ybUPpebFPL1eS-YeDjkdAFMDkipWCIJyxntWW9SCSg&oe=6930FFDC&_nc_sid=8b3546"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Instagram profile URL of the account to get statistics for. Supports various Instagram URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`profileUrl`**: The Instagram profile URL
+- **`username`**: The account's username (without @ prefix)
+- **`nickname`**: The account's display name
+- **`verified`**: Whether the account is verified (boolean)
+- **`followers`**: Total follower count (number)
+- **`following`**: Total following count (number)
+- **`totalPosts`**: Total number of posts published (number)
+- **`bio`**: The account's bio/description text
+- **`avatar`**: URL to the profile avatar image
+
+## Use Cases
+
+- **Influencer Research**: Analyze Instagram creator profiles and audience size for partnerships
+- **Competitive Analysis**: Monitor competitor account growth and engagement metrics
+- **Brand Monitoring**: Track brand presence and performance on Instagram
+- **Creator Discovery**: Find and evaluate potential content creators for collaborations
+- **Analytics Dashboards**: Build comprehensive Instagram analytics and reporting tools
+- **Market Research**: Understand account demographics and popularity trends
+- **Performance Tracking**: Monitor your own or client Instagram account statistics over time
+- **Verification Status**: Identify verified accounts for partnership opportunities
+- **Audience Analysis**: Compare follower counts and engagement across multiple accounts
+
+## Notes
+
+- Statistics are retrieved in real-time from Instagram
+- All numeric fields are returned as integers
+- Avatar URLs are temporary and may expire after some time
+- Follower, following, and post counts reflect current values
+- No need to extract account ID - just provide the full profile URL
+- Supports various Instagram URL formats including mobile and desktop links
+- Verification status helps identify authentic brand and creator accounts
+

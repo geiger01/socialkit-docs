@@ -9,5 +9,7 @@ export default {
 	'tiktok-stats-api': 'TikTok Stats API',
 	'tiktok-comments-api': 'TikTok Comments API',
 	'tiktok-channel-stats-api': 'TikTok Channel Stats API',
+	'instagram-stats-api': 'Instagram Stats API',
+	'instagram-channel-stats-api': 'Instagram Channel Stats API',
 	errors: 'Errors',
 };

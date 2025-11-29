@@ -1,0 +1,87 @@
+# Instagram Stats API
+
+The Instagram Stats API retrieves engagement metrics and metadata for Instagram posts and reels, including like counts, comments, author information, and media details.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/instagram/stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/instagram/stats?access_key=<your-access-key>&url=https://instagram.com/reel/DRU4smMj0cu/
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.instagram.com/p/DRU4smMj0cu/",
+		"description": ".\n.\n.\n.\n.\n.\n#cat #catsoftheworld #catsoftheday #catsgram #pet #petlovers #petlover #petsofinstagram #funny #funnyvideos #cute #cutecats #kitten #kittenlove #kittycat #reels",
+		"likes": 34209,
+		"comments": 169,
+		"author": "yuumi_cat9",
+		"authorLink": "https://www.instagram.com/yuumi_cat9/",
+		"duration": "0:27",
+		"thumbnail": "https://scontent-iad3-1.cdninstagram.com/v/t51.71878-15/583855550_1629099614919809_395573344085568572_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=1&ig_cache_key=Mzc3MDg4ODE0MzI5MDQ1MTc1OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjY0MHgxMTM2LnNkci5DMyJ9&_nc_ohc=zr_O0vhYlJEQ7kNvwEMR-Pu&_nc_oc=Adkyl0NA3NIUOpRA9n62pj2pWJUwFmdmdt-HVIXw9k3Friglm6phFxuyfm3UhA0nMZ4&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_gid=wZm30ypG2sM-wdmFeNBlwg&oh=00_AfgTRKOjyj7LRzq0kx_aAGmdA0J8fK6C6UVNE8HPVj8asA&oe=69311DD0"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Instagram URL of the post or reel to get statistics for. Supports various Instagram URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original Instagram URL provided
+- **`description`**: The post/reel caption with hashtags
+- **`likes`**: Total like count (number)
+- **`comments`**: Total comment count (number)
+- **`author`**: The Instagram username
+- **`authorLink`**: Link to the author's Instagram profile
+- **`duration`**: Video duration in M:SS format (for reels/videos)
+- **`thumbnail`**: URL to the post/reel thumbnail image
+
+## Use Cases
+
+- **Social Media Analytics**: Track Instagram post and reel performance metrics
+- **Content Research**: Analyze viral Instagram content and engagement patterns
+- **Competitor Analysis**: Monitor competitor Instagram performance and trends
+- **Influencer Marketing**: Evaluate influencer post performance and engagement rates
+- **Marketing Insights**: Understand what Instagram content resonates with audiences
+- **Reporting**: Generate comprehensive reports on Instagram content performance
+- **Content Strategy**: Make data-driven decisions about Instagram content creation
+- **Engagement Tracking**: Monitor post engagement over time for optimization
+
+## Notes
+
+- Like and comment counts are retrieved in real-time
+- All numeric fields are returned as integers
+- Duration is only provided for video content and reels
+- Thumbnail URLs are temporary and may expire after some time
+- Supports various Instagram URL formats including posts, reels, and mobile links
+- Statistics reflect the current state and may vary due to Instagram's real-time updates
+
