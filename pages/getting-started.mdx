@@ -161,6 +161,77 @@ GET https://api.socialkit.dev/tiktok/transcript?access_key=<your-access-key>&url
 }
 ```
 
+### Instagram Video Summary
+
+```bash copy
+GET https://api.socialkit.dev/instagram/summarize?access_key=<your-access-key>&url=https://www.instagram.com/reels/DSul-0Jk56u/
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.instagram.com/reels/DSul-0Jk56u/",
+		"summary": "The video features the song 'Somebody That I Used to Know' by Gotye, which explores themes of heartbreak, nostalgia, and the complexity of past relationships. The lyrics reflect on memories of being together and the bittersweet nature of moving on.",
+		"mainTopics": ["Heartbreak", "Nostalgia", "Relationships"],
+		"keyPoints": [
+			"The narrator reflects on memories of a past relationship.",
+			"The lyrics express the pain and loneliness felt despite being together.",
+			"The song captures the feeling of being addicted to sadness after a breakup."
+		],
+		"tone": "Melancholic and reflective",
+		"targetAudience": "Music lovers and those experiencing relationship difficulties",
+		"quotes": [
+			"Now and then I think of when we were together.",
+			"You can get addicted to a certain kind of sadness."
+		],
+		"timeline": "The song follows an introspective narrative, moving from nostalgic memories to the realization of the relationship's end and eventual closure."
+	}
+}
+```
+
+### Instagram Video Transcript
+
+```bash copy
+GET https://api.socialkit.dev/instagram/transcript?access_key=<your-access-key>&url=https://www.instagram.com/reels/DSul-0Jk56u/
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.instagram.com/reels/DSul-0Jk56u/",
+		"transcript": "Now and then I think of when we were together. Like when you said you felt so happy you could die. Told myself that you were right for me. But felt so lonely in your company. But that was love and it's an ache I still remember. You can get addicted to a certain kind of sadness. Like resignation to the end, always the end. So when we found that we could not make sense. Well you said that we would still be friends. But I'll admit that I was glad that it was over.",
+		"transcriptSegments": [
+			{
+				"text": "Now and then I think of when we were together.",
+				"start": 0,
+				"duration": 4,
+				"timestamp": "00:00"
+			},
+			{
+				"text": "Like when you said you felt so happy you could die.",
+				"start": 4,
+				"duration": 4,
+				"timestamp": "00:04"
+			},
+			{
+				"text": "Told myself that you were right for me.",
+				"start": 8,
+				"duration": 3,
+				"timestamp": "00:08"
+			}
+		],
+		"wordCount": 112,
+		"segments": 11
+	}
+}
+```
+
 ### YouTube Video Stats
 
 ```bash copy

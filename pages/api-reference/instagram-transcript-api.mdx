@@ -1,0 +1,108 @@
+# Instagram Transcript API
+
+The Instagram Transcript API extracts accurate transcripts from Instagram Reels and videos, providing both full text and timestamped segments for content analysis and accessibility purposes.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/instagram/transcript
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/instagram/transcript?access_key=<your-access-key>&url=https://www.instagram.com/reels/DSul-0Jk56u/
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://www.instagram.com/reels/DSul-0Jk56u/",
+    "transcript": "Now and then I think of when we were together. Like when you said you felt so happy you could die. Told myself that you were right for me. But felt so lonely in your company. But that was love and it's an ache I still remember. You can get addicted to a certain kind of sadness. Like resignation to the end, always the end. So when we found that we could not make sense. Well you said that we would still be friends. But I'll admit that I was glad that it was over.",
+    "transcriptSegments": [
+      {
+        "text": "Now and then I think of when we were together.",
+        "start": 0,
+        "duration": 4,
+        "timestamp": "00:00"
+      },
+      {
+        "text": "Like when you said you felt so happy you could die.",
+        "start": 4,
+        "duration": 4,
+        "timestamp": "00:04"
+      },
+      {
+        "text": "Told myself that you were right for me.",
+        "start": 8,
+        "duration": 3,
+        "timestamp": "00:08"
+      },
+      {
+        "text": "But felt so lonely in your company.",
+        "start": 11,
+        "duration": 4,
+        "timestamp": "00:11"
+      },
+      {
+        "text": "But that was love and it's an ache I still remember.",
+        "start": 15,
+        "duration": 4,
+        "timestamp": "00:15"
+      }
+    ],
+    "wordCount": 112,
+    "segments": 11
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Instagram URL of the video or reel to extract transcript from. Supports various Instagram URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Structure
+
+The API returns both a complete transcript and individual timestamped segments:
+
+### Full Transcript
+- **`transcript`**: Complete text transcript of the video
+- **`wordCount`**: Total number of words in the transcript
+- **`segments`**: Total number of transcript segments
+
+### Timestamped Segments
+Each segment in `transcriptSegments` contains:
+- **`text`**: The spoken text for this segment
+- **`start`**: Start time in seconds
+- **`duration`**: Duration of the segment in seconds
+- **`timestamp`**: Human-readable timestamp (MM:SS format)
+
+## Use Cases
+
+- **Accessibility**: Provide captions and transcripts for hearing-impaired users
+- **Content Analysis**: Analyze spoken content for keywords, topics, and sentiment
+- **Search & Discovery**: Make video content searchable by text
+- **Content Creation**: Extract quotes and key phrases from videos
+- **Language Learning**: Provide text alongside audio for language learners
+- **Research**: Analyze large volumes of video content efficiently
+- **SEO**: Extract text content for search engine optimization
+
