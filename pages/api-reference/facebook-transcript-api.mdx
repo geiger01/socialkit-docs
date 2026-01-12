@@ -1,0 +1,108 @@
+# Facebook Transcript API
+
+The Facebook Transcript API extracts accurate transcripts from Facebook videos, providing both full text and timestamped segments for content analysis and accessibility purposes.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/facebook/transcript
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/facebook/transcript?access_key=<your-access-key>&url=https://www.facebook.com/watch?v=876091671461782
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://www.facebook.com/watch?v=876091671461782",
+    "transcript": "You take the man out of the city, out of the city, out the man, you take the man out of the And when I'm back in Chicago, I see the end Another version of me, I'm losing it Oh, I'll make it back to the end, to begin To begin",
+    "transcriptSegments": [
+      {
+        "text": "You take the man out of the city, out of the city, out the man, you take the man out of the",
+        "start": 0,
+        "duration": 10,
+        "timestamp": "0:00"
+      },
+      {
+        "text": "And when I'm back in Chicago, I see the end",
+        "start": 10,
+        "duration": 6,
+        "timestamp": "0:10"
+      },
+      {
+        "text": "Another version of me, I'm losing it",
+        "start": 16,
+        "duration": 5,
+        "timestamp": "0:16"
+      },
+      {
+        "text": "Oh, I'll make it back to the end, to begin",
+        "start": 21,
+        "duration": 7,
+        "timestamp": "0:21"
+      },
+      {
+        "text": "To begin",
+        "start": 28,
+        "duration": 2,
+        "timestamp": "0:28"
+      }
+    ],
+    "wordCount": 51,
+    "segments": 5
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Facebook video URL to extract transcript from. Supports various Facebook video URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Structure
+
+The API returns both a complete transcript and individual timestamped segments:
+
+### Full Transcript
+- **`transcript`**: Complete text transcript of the video
+- **`wordCount`**: Total number of words in the transcript
+- **`segments`**: Total number of transcript segments
+
+### Timestamped Segments
+Each segment in `transcriptSegments` contains:
+- **`text`**: The spoken text for this segment
+- **`start`**: Start time in seconds
+- **`duration`**: Duration of the segment in seconds
+- **`timestamp`**: Human-readable timestamp (M:SS format)
+
+## Use Cases
+
+- **Accessibility**: Provide captions and transcripts for hearing-impaired users
+- **Content Analysis**: Analyze spoken content for keywords, topics, and sentiment
+- **Search & Discovery**: Make video content searchable by text
+- **Content Creation**: Extract quotes and key phrases from videos
+- **Language Learning**: Provide text alongside audio for language learners
+- **Research**: Analyze large volumes of video content efficiently
+- **SEO**: Extract text content for search engine optimization
+

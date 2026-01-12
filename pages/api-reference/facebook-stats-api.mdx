@@ -1,0 +1,119 @@
+# Facebook Stats API
+
+The Facebook Stats API extracts comprehensive engagement metrics from Facebook videos, including views, likes, comments, shares, and detailed reaction breakdowns.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/facebook/stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/facebook/stats?access_key=<your-access-key>&url=https://www.facebook.com/watch?v=876091671461782
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://www.facebook.com/watch?v=876091671461782",
+    "id": "876091671461782",
+    "description": "Why was i waiting for him to get shot in the back n some guy run off with his guitar!?",
+    "views": 2615704,
+    "likes": 91856,
+    "comments": 523,
+    "shares": 0,
+    "reactions": [
+      {
+        "name": "Like",
+        "count": 79850,
+        "formatted": "79K"
+      },
+      {
+        "name": "Love",
+        "count": 10897,
+        "formatted": "10K"
+      },
+      {
+        "name": "Care",
+        "count": 881,
+        "formatted": "881"
+      },
+      {
+        "name": "Haha",
+        "count": 174,
+        "formatted": "174"
+      },
+      {
+        "name": "Wow",
+        "count": 44,
+        "formatted": "44"
+      },
+      {
+        "name": "Sad",
+        "count": 10,
+        "formatted": "10"
+      }
+    ],
+    "author": "Elliottasalways",
+    "authorLink": "https://www.facebook.com/241592216394061",
+    "isVideo": true
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Facebook video URL to extract statistics from. Supports various Facebook video URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+### Basic Information
+- **`url`**: The complete URL to the video
+- **`id`**: Unique identifier for the video
+- **`description`**: Video description/caption
+- **`author`**: Name of the content creator
+- **`authorLink`**: URL to the author's profile
+- **`isVideo`**: Boolean indicating if the content is a video
+
+### Engagement Metrics
+- **`views`**: Total number of video views
+- **`likes`**: Total number of likes (sum of all reactions)
+- **`comments`**: Number of comments
+- **`shares`**: Number of shares
+
+### Detailed Reactions
+The `reactions` array provides a breakdown of Facebook's reaction types:
+- **`name`**: Reaction type (Like, Love, Care, Haha, Wow, Sad, Angry)
+- **`count`**: Number of reactions of this type
+- **`formatted`**: Human-readable formatted count (e.g., "79K")
+
+## Use Cases
+
+- **Content Performance**: Track video engagement and reach
+- **Viral Analysis**: Identify trending content and viral patterns
+- **Sentiment Analysis**: Understand audience reactions through detailed reaction breakdowns
+- **Competitor Monitoring**: Analyze competitor video performance
+- **Campaign Tracking**: Measure the success of video marketing campaigns
+- **Content Strategy**: Identify what types of content resonate with audiences
+

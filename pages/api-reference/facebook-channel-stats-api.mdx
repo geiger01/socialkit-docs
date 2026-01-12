@@ -1,0 +1,76 @@
+# Facebook Channel Stats API
+
+The Facebook Channel Stats API retrieves comprehensive statistics and profile information from Facebook pages, including follower counts, verification status, profile images, and more.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/facebook/channel-stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/facebook/channel-stats?access_key=<your-access-key>&url=https://www.facebook.com/mlb
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "profileUrl": "https://www.facebook.com/mlb",
+    "id": "5768707450",
+    "fullName": "MLB",
+    "bio": "Welcome to MLB's Facebook home.\n\ntwitter.com/MLB\nInstagram.com/MLB\nYouTube.com/MLB\ntiktok.com/@mlb",
+    "avatar": "https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-1/535523385_1326218042196277_1749405666074657114_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=1&ccb=1-7&_nc_sid=f907e8&_nc_ohc=DLt4_U6ipboQ7kNvwH1SlMQ&_nc_oc=AdlQX0MpJcEijIv61AY5_IqL2uILp5MbnPF_EqdZSIe7qc7KB12_c0FNKlyzSYk72PI&_nc_zt=24&_nc_ht=scontent-iad3-2.xx&_nc_gid=zJTXfrv2lNrqardcvub6og&oh=00_AfodZn_K5mdwoVnocyi4otBo1lrR3ZBHM5OKGqLaVJ0kIA&oe=696B1509",
+    "coverPhoto": "https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/606927426_1436970727787674_4088303187829790838_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=quD6cBEjps8Q7kNvwGPqeWJ&_nc_oc=Adnz2iH2jU19JcN_TmYrgCbNABR4Q36k5HGLTtN2f6MK3g6H_fYMiX6J-3pY197dL7s&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=zJTXfrv2lNrqardcvub6og&oh=00_AfqTOYxOkV8IX3AXuGHGwkf1md2EQqOqjuJd0EdR5cJqTA&oe=696B15F0",
+    "verified": false,
+    "followers": 11000000,
+    "category": "Sports league"
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Facebook page URL to retrieve statistics from.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+- **`profileUrl`**: The complete URL to the Facebook page
+- **`id`**: Unique identifier for the Facebook page
+- **`fullName`**: Display name of the page
+- **`bio`**: Page description/about section
+- **`avatar`**: URL to the profile picture
+- **`coverPhoto`**: URL to the cover photo
+- **`verified`**: Whether the page is verified
+- **`followers`**: Total number of followers
+- **`category`**: Page category (e.g., "Sports league", "Public figure")
+
+## Use Cases
+
+- **Influencer Marketing**: Evaluate page reach and engagement potential
+- **Competitor Analysis**: Monitor competitor page growth and performance
+- **Market Research**: Understand page audiences and demographics
+- **Campaign Planning**: Identify suitable pages for partnerships
+- **Social Listening**: Track page growth trends over time
+- **Content Strategy**: Analyze successful pages in your niche
+

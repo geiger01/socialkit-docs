@@ -13,5 +13,9 @@ export default {
 	'instagram-transcript-api': 'Instagram Transcript API',
 	'instagram-stats-api': 'Instagram Stats API',
 	'instagram-channel-stats-api': 'Instagram Channel Stats API',
+	'facebook-summarize-api': 'Facebook Summary API',
+	'facebook-transcript-api': 'Facebook Transcript API',
+	'facebook-stats-api': 'Facebook Stats API',
+	'facebook-channel-stats-api': 'Facebook Channel Stats API',
 	errors: 'Errors',
 };

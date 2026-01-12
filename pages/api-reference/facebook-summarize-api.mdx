@@ -1,0 +1,96 @@
+# Facebook Summary API
+
+The Facebook Summary API analyzes Facebook videos to generate AI-powered summaries, extract key insights, main topics, and provide detailed analysis of video content.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/facebook/summarize
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/facebook/summarize?access_key=<your-access-key>&url=https://www.facebook.com/watch?v=876091671461782
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://www.facebook.com/watch?v=876091671461782",
+    "summary": "The video features a song about the struggle between city life and personal identity, with lyrics referencing Chicago and the internal conflict of returning to one's roots. The performance captures themes of self-discovery and the cyclical nature of life's journey.",
+    "mainTopics": [
+      "Identity",
+      "City Life",
+      "Self-Discovery"
+    ],
+    "keyPoints": [
+      "The lyrics explore the tension between urban life and personal identity.",
+      "Chicago is referenced as a place of reflection and self-realization.",
+      "The song conveys a sense of losing and finding oneself repeatedly."
+    ],
+    "tone": "Introspective and contemplative",
+    "targetAudience": "Music lovers and those reflecting on personal identity",
+    "quotes": [
+      "You take the man out of the city, out of the city, out the man.",
+      "When I'm back in Chicago, I see the end."
+    ],
+    "timeline": "The song follows a contemplative narrative about the relationship between place and identity, building from reflection to acceptance of life's cyclical nature."
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Facebook video URL to analyze. Supports various Facebook video URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`custom_response`** <small style={{margin:'0 10px'}}>object | string</small> <small style={{margin:'0 10px 0 0'}}>Optional</small> <br/>
+Define custom fields for the AI response. This allows you to extract specific information tailored to your needs.
+
+Example:
+
+```json
+{
+  "title": "Video title",
+  "sentiment": "Overall sentiment of the video",
+  "isMusic": "Whether the video is a music video",
+  "category": "Video category or genre",
+  "language": "Primary language spoken in the video"
+}
+```
+
+---
+
+**`custom_prompt`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <br/>
+Add your own instructions to guide the AI's analysis. For example: "Make it short and concise", "Write in Spanish", "Focus on technical aspects", etc.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Use Cases
+
+- **Content Research**: Quickly understand video content without watching
+- **Social Media Monitoring**: Analyze trending videos and extract insights
+- **Market Research**: Understand competitor content and messaging
+- **Content Creation**: Get inspiration and understand successful video formats
+- **Accessibility**: Provide summaries for users who prefer text over video
+- **Trend Analysis**: Extract topics and themes from popular videos
+

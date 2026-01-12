@@ -234,6 +234,77 @@ GET https://api.socialkit.dev/instagram/transcript?access_key=<your-access-key>&
 }
 ```
 
+### Facebook Video Summary
+
+```bash copy
+GET https://api.socialkit.dev/facebook/summarize?access_key=<your-access-key>&url=https://www.facebook.com/watch?v=876091671461782
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.facebook.com/watch?v=876091671461782",
+		"summary": "The video features a song about the struggle between city life and personal identity, with lyrics referencing Chicago and the internal conflict of returning to one's roots. The performance captures themes of self-discovery and the cyclical nature of life's journey.",
+		"mainTopics": ["Identity", "City Life", "Self-Discovery"],
+		"keyPoints": [
+			"The lyrics explore the tension between urban life and personal identity.",
+			"Chicago is referenced as a place of reflection and self-realization.",
+			"The song conveys a sense of losing and finding oneself repeatedly."
+		],
+		"tone": "Introspective and contemplative",
+		"targetAudience": "Music lovers and those reflecting on personal identity",
+		"quotes": [
+			"You take the man out of the city, out of the city, out the man.",
+			"When I'm back in Chicago, I see the end."
+		],
+		"timeline": "The song follows a contemplative narrative about the relationship between place and identity, building from reflection to acceptance of life's cyclical nature."
+	}
+}
+```
+
+### Facebook Video Transcript
+
+```bash copy
+GET https://api.socialkit.dev/facebook/transcript?access_key=<your-access-key>&url=https://www.facebook.com/watch?v=876091671461782
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.facebook.com/watch?v=876091671461782",
+		"transcript": "You take the man out of the city, out of the city, out the man, you take the man out of the And when I'm back in Chicago, I see the end Another version of me, I'm losing it Oh, I'll make it back to the end, to begin To begin",
+		"transcriptSegments": [
+			{
+				"text": "You take the man out of the city, out of the city, out the man, you take the man out of the",
+				"start": 0,
+				"duration": 10,
+				"timestamp": "0:00"
+			},
+			{
+				"text": "And when I'm back in Chicago, I see the end",
+				"start": 10,
+				"duration": 6,
+				"timestamp": "0:10"
+			},
+			{
+				"text": "Another version of me, I'm losing it",
+				"start": 16,
+				"duration": 5,
+				"timestamp": "0:16"
+			}
+		],
+		"wordCount": 51,
+		"segments": 5
+	}
+}
+```
+
 ### YouTube Video Stats
 
 ```bash copy
@@ -407,6 +478,74 @@ GET https://api.socialkit.dev/instagram/channel-stats?access_key=<your-access-ke
 		"totalPosts": 742,
 		"bio": "🐱 If you want to buy a kitten, please come to me❤️",
 		"avatar": "https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/410475202_1774278156432939_4797418128278418348_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QEEe3Z3f-yzE01TYD8jh8EGuKMNI9XctIHFB5tTceJvTPxKxdB53hbSgpxQxZ5lbwI&_nc_ohc=JJ5SzS-2A4QQ7kNvwHIUEx4&_nc_gid=GKf5wcafVC2_VO8lACaqSw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Afh9ybUPpebFPL1eS-YeDjkdAFMDkipWCIJyxntWW9SCSg&oe=6930FFDC&_nc_sid=8b3546"
+	}
+}
+```
+
+### Facebook Video Stats
+
+```bash copy
+GET https://api.socialkit.dev/facebook/stats?access_key=<your-access-key>&url=https://www.facebook.com/watch?v=876091671461782
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.facebook.com/watch?v=876091671461782",
+		"id": "876091671461782",
+		"description": "Why was i waiting for him to get shot in the back n some guy run off with his guitar!?",
+		"views": 2615704,
+		"likes": 91856,
+		"comments": 523,
+		"shares": 0,
+		"reactions": [
+			{
+				"name": "Like",
+				"count": 79850,
+				"formatted": "79K"
+			},
+			{
+				"name": "Love",
+				"count": 10897,
+				"formatted": "10K"
+			},
+			{
+				"name": "Care",
+				"count": 881,
+				"formatted": "881"
+			}
+		],
+		"author": "Elliottasalways",
+		"authorLink": "https://www.facebook.com/241592216394061",
+		"isVideo": true
+	}
+}
+```
+
+### Facebook Channel Stats
+
+```bash copy
+GET https://api.socialkit.dev/facebook/channel-stats?access_key=<your-access-key>&url=https://www.facebook.com/mlb
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"profileUrl": "https://www.facebook.com/mlb",
+		"id": "5768707450",
+		"fullName": "MLB",
+		"bio": "Welcome to MLB's Facebook home.\n\ntwitter.com/MLB\nInstagram.com/MLB\nYouTube.com/MLB\ntiktok.com/@mlb",
+		"avatar": "https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-1/535523385_1326218042196277_1749405666074657114_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=1&ccb=1-7&_nc_sid=f907e8&_nc_ohc=DLt4_U6ipboQ7kNvwH1SlMQ&_nc_oc=AdlQX0MpJcEijIv61AY5_IqL2uILp5MbnPF_EqdZSIe7qc7KB12_c0FNKlyzSYk72PI&_nc_zt=24&_nc_ht=scontent-iad3-2.xx&_nc_gid=zJTXfrv2lNrqardcvub6og&oh=00_AfodZn_K5mdwoVnocyi4otBo1lrR3ZBHM5OKGqLaVJ0kIA&oe=696B1509",
+		"coverPhoto": "https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/606927426_1436970727787674_4088303187829790838_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=quD6cBEjps8Q7kNvwGPqeWJ&_nc_oc=Adnz2iH2jU19JcN_TmYrgCbNABR4Q36k5HGLTtN2f6MK3g6H_fYMiX6J-3pY197dL7s&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=zJTXfrv2lNrqardcvub6og&oh=00_AfqTOYxOkV8IX3AXuGHGwkf1md2EQqOqjuJd0EdR5cJqTA&oe=696B15F0",
+		"verified": false,
+		"followers": 11000000,
+		"category": "Sports league"
 	}
 }
 ```
