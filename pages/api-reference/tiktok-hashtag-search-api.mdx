@@ -1,0 +1,146 @@
+# TikTok Hashtag Search API
+
+The TikTok Hashtag Search API allows you to search for TikTok videos by hashtag, returning detailed information about matching videos including metadata, author information, statistics, and video URLs.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/hashtag-search
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/hashtag-search?access_key=<your-access-key>&hashtag=funnycats
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "hashtag": "funnycats",
+    "results": [
+      {
+        "id": "7580072621367102743",
+        "desc": "Funniest cat moment ever | Try not to laugh | Cat funny video for kids | Cat funny video compilation #fyp #foryoupage #funnyvideos #trendingcats #cutecats ",
+        "createTime": 1764873191,
+        "textLanguage": "en",
+        "url": "https://www.tiktok.com/@funny_cats_for_kids/video/7580072621367102743",
+        "author": {
+          "id": "7378760219276870688",
+          "uniqueId": "funny_cats_for_kids",
+          "nickname": "Funny Cat😹😂",
+          "avatar": "https://p77-sign-va.tiktokcdn.com/tos-maliva-avt-0068/145d7ef18fbede9dd542a928f4a7cd7f~tplv-tiktokx-cropcenter:100:100.jpeg?dr=14579&refresh_token=5c08075d&x-expires=1768590000&x-signature=O2lpzEcoYV9MuY329BKu3lErJA8%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=maliva",
+          "verified": false
+        },
+        "stats": {
+          "views": 12700000,
+          "likes": 109300,
+          "comments": 20000,
+          "shares": 16200,
+          "saves": 20800
+        },
+        "video": {
+          "duration": 92,
+          "cover": "https://p16-pu-sign-no.tiktokcdn-eu.com/tos-no1a-p-0037-no/osINTRBpFMjpJFZzkWBDegAEkNFfAPYIKQt9Ed~tplv-tiktokx-origin.image?dr=14575&x-expires=1768590000&x-signature=1asEncsUgM7dd3rOypC3EDdaEFM%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=maliva",
+          "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/no1a/tos-no1a-ve-0068c001-no/owmYADJIrHFdF5PfEgkxekpA1MRMMACaEElBQD/?a=1988&bti=ODszNWYuMDE6&ch=0&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C&cv=1&br=1236&bt=618&cs=0&ds=2&ft=-Csk_mcRPD12NQYpzd-Ux8V5aYKt3wv25UcAp&mime_type=video_mp4&qs=0&rc=OWQ3Z2c6NGdlZjY5Nmk7OUBpajluOmw5cm13NzMzbzczNUAxNjVhMjBeXy4xYzE1XjY2YSNpbWgzMmRzMWxhLS1kMTFzcw%3D%3D&btag=e00090000&expire=1768592494&l=20260115034001B5C4D6FED95558264FA2&ply_type=2&policy=2&signature=a1e730c4e8683076fc699538de96c4c2&tk=tt_chain_token"
+        },
+        "music": {
+          "id": "7580072625737599766",
+          "title": "original sound",
+          "author": "Funny Cat😹😂"
+        },
+        "subtitleInfos": [
+          {
+            "languageCodeName": "spa-ES",
+            "source": "ASR"
+          },
+          {
+            "languageCodeName": "eng-US",
+            "source": "MT"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## Parameters
+
+**`hashtag`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The hashtag to search for TikTok videos. Do not include the "#" symbol in the hashtag parameter.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
+Number of search results to return. Maximum value may vary based on TikTok's availability.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Structure
+
+### Search Results
+Each result in the `results` array contains:
+
+#### Basic Information
+- **`id`**: Unique video identifier
+- **`desc`**: Video description/caption including hashtags
+- **`createTime`**: Unix timestamp of when the video was created
+- **`textLanguage`**: Language code of the video text (e.g., "en" for English)
+- **`url`**: Direct URL to the TikTok video
+
+#### Author Information (`author` object)
+- **`id`**: Author's unique identifier
+- **`uniqueId`**: Author's username/handle
+- **`nickname`**: Author's display name
+- **`avatar`**: URL to author's profile picture
+- **`verified`**: Whether the author is verified
+
+#### Statistics (`stats` object)
+- **`views`**: Number of video views
+- **`likes`**: Number of likes
+- **`comments`**: Number of comments
+- **`shares`**: Number of shares
+- **`saves`**: Number of times the video was saved/bookmarked
+
+#### Video Information (`video` object)
+- **`duration`**: Video duration in seconds
+- **`cover`**: URL to the video thumbnail/cover image
+- **`playAddr`**: Direct URL to play the video
+
+#### Music Information (`music` object)
+- **`id`**: Music track identifier
+- **`title`**: Music track title
+- **`author`**: Music track author/creator
+
+#### Subtitle Information (`subtitleInfos` array)
+Each item in `subtitleInfos` contains:
+- **`languageCodeName`**: Language code (e.g., "eng-US", "spa-ES")
+- **`source`**: Source of the subtitle - "ASR" (Automatic Speech Recognition) or "MT" (Machine Translation)
+
+## Use Cases
+
+- **Hashtag Analysis**: Discover trending content within specific hashtags
+- **Campaign Tracking**: Monitor hashtag campaign performance and reach
+- **Competitor Analysis**: Analyze how competitors use specific hashtags
+- **Trend Discovery**: Find viral content within trending hashtags
+- **Content Strategy**: Research successful content strategies for specific hashtags
+- **Influencer Research**: Discover creators active in specific hashtag communities
+- **Market Research**: Understand content themes and trends within hashtag categories
+- **Brand Monitoring**: Track branded hashtag usage and engagement

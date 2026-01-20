@@ -511,6 +511,46 @@ GET https://api.socialkit.dev/tiktok/search?access_key=<your-access-key>&query=f
 }
 ```
 
+### TikTok Hashtag Search
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/hashtag-search?access_key=<your-access-key>&hashtag=funnycats
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"hashtag": "funnycats",
+		"results": [
+			{
+				"id": "7580072621367102743",
+				"desc": "Funniest cat moment ever | Try not to laugh | Cat funny video for kids | Cat funny video compilation #fyp #foryoupage #funnyvideos #trendingcats #cutecats ",
+				"createTime": 1764873191,
+				"textLanguage": "en",
+				"url": "https://www.tiktok.com/@funny_cats_for_kids/video/7580072621367102743",
+				"author": {
+					"id": "7378760219276870688",
+					"uniqueId": "funny_cats_for_kids",
+					"nickname": "Funny Cat😹😂",
+					"avatar": "https://p77-sign-va.tiktokcdn.com/tos-maliva-avt-0068/145d7ef18fbede9dd542a928f4a7cd7f~tplv-tiktokx-cropcenter:100:100.jpeg",
+					"verified": false
+				},
+				"stats": {
+					"views": 12700000,
+					"likes": 109300,
+					"comments": 20000,
+					"shares": 16200,
+					"saves": 20800
+				}
+			}
+		]
+	}
+}
+```
+
 ### Instagram Video Stats
 
 ```bash copy
