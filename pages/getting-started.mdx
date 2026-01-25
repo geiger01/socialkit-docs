@@ -341,6 +341,32 @@ GET https://api.socialkit.dev/youtube/stats?access_key=<your-access-key>&url=htt
 }
 ```
 
+### YouTube Channel Stats
+
+```bash copy
+GET https://api.socialkit.dev/youtube/channel-stats?access_key=<your-access-key>&url=https://www.youtube.com/@socialkit-dev
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"profileUrl": "https://www.youtube.com/@socialkit-dev",
+		"username": "socialkit-dev",
+		"nickname": "SocialKit",
+		"signature": "Extract video summaries, transcripts, comments, and engagement metrics from YouTube, TikTok, Instagram, and more.",
+		"verified": false,
+		"avatar": "https://yt3.googleusercontent.com/5PP3Q6UlHMjtCR-W2FBz3ZebuyTMAoAfxx0ak0-Im_HFRubAqPggUjTogwxV5IOXePn4SAJliw=s160-c-k-c0x00ffffff-no-rj",
+		"followers": 7,
+		"totalVideos": 9,
+		"bioLink": "http://www.youtube.com/@socialkit-dev",
+		"banner": "https://yt3.googleusercontent.com/pf7gdZUHEh7KtBsbtOQyJ9i3w9yLLxSKDgh7PMy1YBclasHe55xAtCjr_0mr7zKazlxeWTYh6g=w2560-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
+	}
+}
+```
+
 ### YouTube Video Comments
 
 ```bash copy

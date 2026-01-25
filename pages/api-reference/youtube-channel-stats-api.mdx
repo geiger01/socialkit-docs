@@ -1,0 +1,78 @@
+# YouTube Channel Stats API
+
+The YouTube Channel Stats API retrieves comprehensive statistics and profile information from YouTube channels, including subscriber counts, verification status, profile images, and more.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/channel-stats
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/youtube/channel-stats?access_key=<your-access-key>&url=https://www.youtube.com/@socialkit-dev
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "profileUrl": "https://www.youtube.com/@socialkit-dev",
+    "username": "socialkit-dev",
+    "nickname": "SocialKit",
+    "signature": "Extract video summaries, transcripts, comments, and engagement metrics from YouTube, TikTok, Instagram, and more.",
+    "verified": false,
+    "avatar": "https://yt3.googleusercontent.com/5PP3Q6UlHMjtCR-W2FBz3ZebuyTMAoAfxx0ak0-Im_HFRubAqPggUjTogwxV5IOXePn4SAJliw=s160-c-k-c0x00ffffff-no-rj",
+    "followers": 7,
+    "totalVideos": 9,
+    "bioLink": "http://www.youtube.com/@socialkit-dev",
+    "banner": "https://yt3.googleusercontent.com/pf7gdZUHEh7KtBsbtOQyJ9i3w9yLLxSKDgh7PMy1YBclasHe55xAtCjr_0mr7zKazlxeWTYh6g=w2560-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The YouTube channel URL to retrieve statistics from. Supports various YouTube channel URL formats including @username and channel ID formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+- **`profileUrl`**: The complete URL to the YouTube channel
+- **`username`**: Channel username/handle (without the @ symbol)
+- **`nickname`**: Display name of the channel
+- **`signature`**: Channel description/about section
+- **`verified`**: Whether the channel is verified
+- **`avatar`**: URL to the channel profile picture
+- **`followers`**: Total number of subscribers
+- **`totalVideos`**: Total number of videos published on the channel
+- **`bioLink`**: URL to the channel (same as profileUrl)
+- **`banner`**: URL to the channel banner/cover image
+
+## Use Cases
+
+- **Influencer Marketing**: Evaluate channel reach and audience size for partnerships
+- **Competitor Analysis**: Monitor competitor channel growth and performance
+- **Market Research**: Understand channel audiences and content strategies
+- **Campaign Planning**: Identify suitable channels for collaborations
+- **Social Listening**: Track channel growth trends over time
+- **Content Strategy**: Analyze successful channels in your niche
+- **Creator Discovery**: Find and evaluate content creators for partnerships
