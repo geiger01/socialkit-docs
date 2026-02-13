@@ -19,6 +19,80 @@ You can attach your access key to requests in any of these ways:
 
 > **Note:** You can make requests using either GET or POST methods.
 
+### Video Summary
+
+```bash copy
+GET https://api.socialkit.dev/video/summarize?access_key=<your-access-key>&url=https://storage/your-video/123.mp4
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://storage/your-video/123.mp4",
+		"summary": "The video explains how to create and embed a custom video player using an embeddable editor. It guides users through the process of generating a prompt, uploading video content, testing the player, embedding it on a website, and customizing its appearance and settings.",
+		"mainTopics": ["Custom Video Player Creation", "Video Embedding", "Embeddable Editor Features", "Player Customization"],
+		"keyPoints": [
+			"Users can create custom video players by entering a prompt.",
+			"Video content can be uploaded directly into the editor.",
+			"The player's functionality can be tested before embedding.",
+			"Integration code is provided for embedding the player on websites.",
+			"Players can be customized in terms of title display and advanced settings."
+		],
+		"tone": "Informative and instructional",
+		"targetAudience": "Content creators, web developers, and anyone looking to embed custom video players on their websites.",
+		"quotes": [
+			"Start by entering a prompt to generate your custom video player.",
+			"Copy the embed code to easily add your player to any website.",
+			"Explore the settings tab for advanced player options and deploy."
+		],
+		"timeline": "1. Prompt generation for custom player. 2. Uploading video content. 3. Testing player functionality. 4. Embedding the player with integration code. 5. Publishing the embeddable player. 6. Customizing player elements (title, settings)."
+	}
+}
+```
+
+### Video Transcript
+
+```bash copy
+GET https://api.socialkit.dev/video/transcript?access_key=<your-access-key>&url=https://storage/your-video/123.mp4
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://storage/your-video/123.mp4",
+		"transcript": "Start by entering a prompt to generate your custom video player. Then, upload your desired video content for the player widget. The Embeddable editor now displays your custom video player. You can test the player's functionality to ensure it works as expected. When ready, click 'Embed' to get the integration code. Copy the embed code to easily add your player to any website. Next, publish your embeddable to make it live for your audience. Now, return to the editor tab to further customize the player. Here, you can adjust elements like the title display as needed. Explore the settings tab for advanced player options and deploy.",
+		"transcriptSegments": [
+			{
+				"text": "Start by entering a prompt to generate your custom video player.",
+				"start": 0,
+				"duration": 4,
+				"timestamp": "00:00"
+			},
+			{
+				"text": "Then, upload your desired video content for the player widget.",
+				"start": 4,
+				"duration": 4,
+				"timestamp": "00:04"
+			},
+			{
+				"text": "The Embeddable editor now displays your custom video player.",
+				"start": 8,
+				"duration": 5,
+				"timestamp": "00:08"
+			}
+		],
+		"wordCount": 106,
+		"segments": 10
+	}
+}
+```
+
 ### YouTube Video Summary
 
 ```bash copy

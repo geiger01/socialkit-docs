@@ -1,0 +1,104 @@
+# Video Summary API
+
+The Video Summary API analyzes any video file to generate AI-powered summaries, extract key insights, main topics, and provide detailed analysis of video content.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/video/summarize
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/video/summarize?access_key=<your-access-key>&url=https://storage/your-video/123.mp4
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://storage/your-video/123.mp4",
+    "summary": "The video explains how to create and embed a custom video player using an embeddable editor. It guides users through the process of generating a prompt, uploading video content, testing the player, embedding it on a website, and customizing its appearance and settings.",
+    "mainTopics": [
+      "Custom Video Player Creation",
+      "Video Embedding",
+      "Embeddable Editor Features",
+      "Player Customization"
+    ],
+    "keyPoints": [
+      "Users can create custom video players by entering a prompt.",
+      "Video content can be uploaded directly into the editor.",
+      "The player's functionality can be tested before embedding.",
+      "Integration code is provided for embedding the player on websites.",
+      "Players can be customized in terms of title display and advanced settings."
+    ],
+    "tone": "Informative and instructional",
+    "targetAudience": "Content creators, web developers, and anyone looking to embed custom video players on their websites.",
+    "quotes": [
+      "Start by entering a prompt to generate your custom video player.",
+      "Copy the embed code to easily add your player to any website.",
+      "Explore the settings tab for advanced player options and deploy."
+    ],
+    "timeline": "1. Prompt generation for custom player. 2. Uploading video content. 3. Testing player functionality. 4. Embedding the player with integration code. 5. Publishing the embeddable player. 6. Customizing player elements (title, settings)."
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The direct URL to the video file. Supports various video formats including MP4, MOV, AVI, and more.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`custom_response`** <small style={{margin:'0 10px'}}>object | string</small> <small style={{margin:'0 10px 0 0'}}>Optional</small> <br/>
+Define custom fields for the AI response. This allows you to extract specific information tailored to your needs.
+
+Example:
+
+```json
+{
+  "title": "Video title",
+  "sentiment": "Overall sentiment of the video",
+  "category": "Video category or genre",
+  "language": "Primary language spoken in the video"
+}
+```
+
+---
+
+**`custom_prompt`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <br/>
+Add your own instructions to guide the AI's analysis. For example: "Make it short and concise", "Write in Spanish", "Focus on technical aspects", etc.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Credit Cost
+
+<small>**Credit cost:** 1 credit per minute of video (e.g., 1-minute video = 1 credit, 5-minute video = 5 credits)</small>
+
+## Use Cases
+
+- **Content Research**: Quickly understand video content without watching
+- **Video Management**: Organize and categorize large video libraries
+- **Content Moderation**: Screen video content for specific themes or topics
+- **Educational Content**: Generate summaries for training and educational videos
+- **Meeting Analysis**: Summarize recorded meetings and presentations
+- **Content Creation**: Get inspiration from existing video content
+- **Market Research**: Analyze video content trends and themes
+- **Documentation**: Create text documentation from video tutorials

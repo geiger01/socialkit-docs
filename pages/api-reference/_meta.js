@@ -1,5 +1,7 @@
 export default {
 	index: 'Overview',
+	'video-summarize-api': 'Video Summary API',
+	'video-transcript-api': 'Video Transcript API',
 	'youtube-summarize-api': 'YouTube Summary API',
 	'youtube-transcript-api': 'YouTube Transcript API',
 	'youtube-stats-api': 'YouTube Stats API',

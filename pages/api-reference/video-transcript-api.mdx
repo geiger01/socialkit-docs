@@ -1,0 +1,112 @@
+# Video Transcript API
+
+The Video Transcript API extracts accurate transcripts from any video file URL, providing both full text and timestamped segments for content analysis and accessibility purposes.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/video/transcript
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/video/transcript?access_key=<your-access-key>&url=https://storage/your-video/123.mp4
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://storage/your-video/123.mp4",
+    "transcript": "Start by entering a prompt to generate your custom video player. Then, upload your desired video content for the player widget. The Embeddable editor now displays your custom video player. You can test the player's functionality to ensure it works as expected. When ready, click 'Embed' to get the integration code. Copy the embed code to easily add your player to any website. Next, publish your embeddable to make it live for your audience. Now, return to the editor tab to further customize the player. Here, you can adjust elements like the title display as needed. Explore the settings tab for advanced player options and deploy.",
+    "transcriptSegments": [
+      {
+        "text": "Start by entering a prompt to generate your custom video player.",
+        "start": 0,
+        "duration": 4,
+        "timestamp": "00:00"
+      },
+      {
+        "text": "Then, upload your desired video content for the player widget.",
+        "start": 4,
+        "duration": 4,
+        "timestamp": "00:04"
+      },
+      {
+        "text": "The Embeddable editor now displays your custom video player.",
+        "start": 8,
+        "duration": 5,
+        "timestamp": "00:08"
+      },
+      {
+        "text": "You can test the player's functionality to ensure it works as expected.",
+        "start": 13,
+        "duration": 5,
+        "timestamp": "00:13"
+      },
+      {
+        "text": "When ready, click 'Embed' to get the integration code.",
+        "start": 18,
+        "duration": 4,
+        "timestamp": "00:18"
+      }
+    ],
+    "wordCount": 106,
+    "segments": 10
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The direct URL to the video file. Supports various video formats including MP4, MOV, AVI, and more.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Credit Cost
+
+<small>**Credit cost:** 1 credit per minute of video (e.g., 1-minute video = 1 credit, 5-minute video = 5 credits)</small>
+
+## Response Structure
+
+The API returns both a complete transcript and individual timestamped segments:
+
+### Full Transcript
+- **`transcript`**: Complete text transcript of the video
+- **`wordCount`**: Total number of words in the transcript
+- **`segments`**: Total number of transcript segments
+
+### Timestamped Segments
+Each segment in `transcriptSegments` contains:
+- **`text`**: The spoken text for this segment
+- **`start`**: Start time in seconds
+- **`duration`**: Duration of the segment in seconds
+- **`timestamp`**: Human-readable timestamp (MM:SS format)
+
+## Use Cases
+
+- **Accessibility**: Provide captions and transcripts for hearing-impaired users
+- **Content Analysis**: Analyze spoken content for keywords, topics, and sentiment
+- **Search & Discovery**: Make video content searchable by text
+- **Content Creation**: Extract quotes and key phrases from videos
+- **Language Learning**: Provide text alongside audio for language learners
+- **Research**: Analyze large volumes of video content efficiently
+- **SEO**: Extract text content for search engine optimization
+- **Video Editing**: Generate subtitles and captions for video production
