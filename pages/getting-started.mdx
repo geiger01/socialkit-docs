@@ -441,6 +441,101 @@ GET https://api.socialkit.dev/youtube/channel-stats?access_key=<your-access-key>
 }
 ```
 
+### YouTube Search
+
+```bash copy
+GET https://api.socialkit.dev/youtube/search?access_key=<your-access-key>&query=funny%20cats&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"query": "funny cats",
+		"results": [
+			{
+				"videoId": "hY7m5jjJ9mM",
+				"title": "FUNNY CATS Compilation - Most See Funny Cat Videos 2024",
+				"thumbnail": "https://i.ytimg.com/vi/hY7m5jjJ9mM/hq720.jpg",
+				"channelName": "Tiger FunnyWorks",
+				"channelId": "UCJnOm7pVBKFbHCNz2wBQRg",
+				"channelUrl": "https://www.youtube.com/@TigerFunnyWorks",
+				"publishedTime": "3 months ago",
+				"duration": "15:32",
+				"views": 48500000,
+				"viewsFormatted": "48.5M views",
+				"description": "The funniest cat videos of 2024! Watch these hilarious cats doing the most unexpected things...",
+				"url": "https://www.youtube.com/watch?v=hY7m5jjJ9mM",
+				"verified": true
+			},
+			{
+				"videoId": "tpiyEe_CqB4",
+				"title": "Try Not To Laugh - Funny Cat Videos Compilation",
+				"thumbnail": "https://i.ytimg.com/vi/tpiyEe_CqB4/hq720.jpg",
+				"channelName": "MeoWoof",
+				"channelId": "UCw5VJXP2j3s7a90KFKQ4Cjg",
+				"channelUrl": "https://www.youtube.com/@MeoWoof",
+				"publishedTime": "1 month ago",
+				"duration": "12:08",
+				"views": 12300000,
+				"viewsFormatted": "12.3M views",
+				"description": "Try not to laugh at these adorable and funny cat moments! The best cat compilation you'll see today...",
+				"url": "https://www.youtube.com/watch?v=tpiyEe_CqB4",
+				"verified": false
+			}
+		]
+	}
+}
+```
+
+### YouTube Videos
+
+```bash copy
+GET https://api.socialkit.dev/youtube/videos?access_key=<your-access-key>&url=https://www.youtube.com/@MrBeast&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"type": "channel",
+		"url": "https://www.youtube.com/@MrBeast",
+		"results": [
+			{
+				"videoId": "dQw4w9WgXcQ",
+				"title": "I Built 100 Houses And Gave Them Away!",
+				"thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hq720.jpg",
+				"channelName": "MrBeast",
+				"channelId": "UCX6OQ3DkcsbYNE6H8uQQuVA",
+				"duration": "18:22",
+				"index": 1,
+				"views": 95000000,
+				"viewsFormatted": "95M views",
+				"publishedTime": "2 weeks ago",
+				"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+			},
+			{
+				"videoId": "tpiyEe_CqB4",
+				"title": "Would You Sit In A Tank Of Snakes For $10,000?",
+				"thumbnail": "https://i.ytimg.com/vi/tpiyEe_CqB4/hq720.jpg",
+				"channelName": "MrBeast",
+				"channelId": "UCX6OQ3DkcsbYNE6H8uQQuVA",
+				"duration": "21:05",
+				"index": 2,
+				"views": 120000000,
+				"viewsFormatted": "120M views",
+				"publishedTime": "1 month ago",
+				"url": "https://www.youtube.com/watch?v=tpiyEe_CqB4"
+			}
+		]
+	}
+}
+```
+
 ### YouTube Video Comments
 
 ```bash copy

@@ -1,0 +1,114 @@
+# YouTube Search API
+
+The YouTube Search API allows you to search for YouTube videos by keyword or phrase, returning detailed information about matching videos including metadata, channel information, view counts, and video URLs.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/search
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/youtube/search?access_key=<your-access-key>&query=funny%20cats&limit=2
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "query": "funny cats",
+    "results": [
+      {
+        "videoId": "hY7m5jjJ9mM",
+        "title": "FUNNY CATS Compilation - Most See Funny Cat Videos 2024",
+        "thumbnail": "https://i.ytimg.com/vi/hY7m5jjJ9mM/hq720.jpg",
+        "channelName": "Tiger FunnyWorks",
+        "channelId": "UCJnOm7pVBKFbHCNz2wBQRg",
+        "channelUrl": "https://www.youtube.com/@TigerFunnyWorks",
+        "publishedTime": "3 months ago",
+        "duration": "15:32",
+        "views": 48500000,
+        "viewsFormatted": "48.5M views",
+        "description": "The funniest cat videos of 2024! Watch these hilarious cats doing the most unexpected things...",
+        "url": "https://www.youtube.com/watch?v=hY7m5jjJ9mM",
+        "verified": true
+      },
+      {
+        "videoId": "tpiyEe_CqB4",
+        "title": "Try Not To Laugh - Funny Cat Videos Compilation",
+        "thumbnail": "https://i.ytimg.com/vi/tpiyEe_CqB4/hq720.jpg",
+        "channelName": "MeoWoof",
+        "channelId": "UCw5VJXP2j3s7a90KFKQ4Cjg",
+        "channelUrl": "https://www.youtube.com/@MeoWoof",
+        "publishedTime": "1 month ago",
+        "duration": "12:08",
+        "views": 12300000,
+        "viewsFormatted": "12.3M views",
+        "description": "Try not to laugh at these adorable and funny cat moments! The best cat compilation you'll see today...",
+        "url": "https://www.youtube.com/watch?v=tpiyEe_CqB4",
+        "verified": false
+      }
+    ]
+  }
+}
+```
+
+## Parameters
+
+**`query`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The search query to find YouTube videos. Can include keywords, hashtags, or phrases.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
+Number of search results to return. Maximum value is 100.
+
+<small>**Credit cost:** 1 credit per 50 results (e.g., up to 50 results = 1 credit, 51-100 = 2 credits)</small>
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+Each result in the `results` array contains:
+
+- **`videoId`**: Unique YouTube video identifier
+- **`title`**: Video title
+- **`thumbnail`**: URL to the video thumbnail image
+- **`channelName`**: Name of the channel that uploaded the video
+- **`channelId`**: Unique identifier of the channel
+- **`channelUrl`**: URL to the channel page
+- **`publishedTime`**: Relative time when the video was published (e.g., "3 months ago")
+- **`duration`**: Video duration in HH:MM:SS or MM:SS format
+- **`views`**: Number of video views (number)
+- **`viewsFormatted`**: Human-readable view count (e.g., "48.5M views")
+- **`description`**: Video description text
+- **`url`**: Direct URL to the YouTube video
+- **`verified`**: Whether the channel is verified
+
+## Use Cases
+
+- **Content Discovery**: Find trending videos by topic or keyword
+- **Market Research**: Analyze content trends and popular themes on YouTube
+- **Competitor Analysis**: Monitor competitor content and engagement
+- **Influencer Research**: Discover creators in specific niches
+- **Trend Analysis**: Track viral content and emerging trends
+- **Content Curation**: Build collections of videos around specific topics
+- **Campaign Research**: Find successful content strategies for marketing campaigns
+- **Social Listening**: Monitor brand mentions and user-generated content

@@ -1,0 +1,120 @@
+# YouTube Videos API
+
+The YouTube Videos API retrieves videos from a YouTube channel or playlist, returning detailed information about each video including metadata, view counts, and video URLs.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/videos
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/youtube/videos?access_key=<your-access-key>&url=https://www.youtube.com/@MrBeast&limit=2
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "type": "channel",
+    "url": "https://www.youtube.com/@MrBeast",
+    "results": [
+      {
+        "videoId": "dQw4w9WgXcQ",
+        "title": "I Built 100 Houses And Gave Them Away!",
+        "thumbnail": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hq720.jpg",
+        "channelName": "MrBeast",
+        "channelId": "UCX6OQ3DkcsbYNE6H8uQQuVA",
+        "duration": "18:22",
+        "index": 1,
+        "views": 95000000,
+        "viewsFormatted": "95M views",
+        "publishedTime": "2 weeks ago",
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      },
+      {
+        "videoId": "tpiyEe_CqB4",
+        "title": "Would You Sit In A Tank Of Snakes For $10,000?",
+        "thumbnail": "https://i.ytimg.com/vi/tpiyEe_CqB4/hq720.jpg",
+        "channelName": "MrBeast",
+        "channelId": "UCX6OQ3DkcsbYNE6H8uQQuVA",
+        "duration": "21:05",
+        "index": 2,
+        "views": 120000000,
+        "viewsFormatted": "120M views",
+        "publishedTime": "1 month ago",
+        "url": "https://www.youtube.com/watch?v=tpiyEe_CqB4"
+      }
+    ]
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The YouTube channel or playlist URL to retrieve videos from. Supports channel URLs (e.g., `https://www.youtube.com/@ChannelName`) and playlist URLs (e.g., `https://www.youtube.com/playlist?list=PLxxxxxx`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
+Number of videos to return. Maximum value is 100.
+
+<small>**Credit cost:** 1 credit per 50 results (e.g., up to 50 results = 1 credit, 51-100 = 2 credits)</small>
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The response includes:
+
+- **`type`**: Source type — either `"playlist"` or `"channel"`
+- **`url`**: The original URL that was queried
+
+Each result in the `results` array contains:
+
+- **`videoId`**: Unique YouTube video identifier
+- **`title`**: Video title
+- **`thumbnail`**: URL to the video thumbnail image
+- **`channelName`**: Name of the channel that uploaded the video
+- **`channelId`**: Unique identifier of the channel
+- **`duration`**: Video duration in HH:MM:SS or MM:SS format
+- **`index`**: Position of the video in the channel/playlist
+- **`views`**: Number of video views (number)
+- **`viewsFormatted`**: Human-readable view count (e.g., "95M views")
+- **`publishedTime`**: Relative time when the video was published (e.g., "2 weeks ago")
+- **`url`**: Direct URL to the YouTube video
+
+## Use Cases
+
+- **Channel Analysis**: Get a complete list of videos from any YouTube channel
+- **Playlist Extraction**: Retrieve all videos from a YouTube playlist
+- **Content Audit**: Analyze a channel's video catalog and performance
+- **Competitor Monitoring**: Track competitors' latest uploads and view counts
+- **Research & Curation**: Collect videos from specific channels or playlists for analysis
+- **Trend Tracking**: Monitor a channel's recent content and engagement patterns
+- **Bulk Processing**: Fetch video IDs for further analysis with other endpoints (stats, comments, transcripts)
+
+## Notes
+
+- The `type` field indicates whether the URL was detected as a playlist or channel
+- The `index` field reflects the video's position in the playlist or channel upload order
+- For channels, videos are typically returned in reverse chronological order (newest first)
+- For playlists, videos are returned in playlist order
