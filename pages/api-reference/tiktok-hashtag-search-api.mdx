@@ -63,7 +63,10 @@ GET https://api.socialkit.dev/tiktok/hashtag-search?access_key=<your-access-key>
           }
         ]
       }
-    ]
+    ],
+    "totalResults": 10,
+    "cursor": "30",
+    "hasMore": true
   }
 }
 ```
@@ -81,9 +84,14 @@ Your API access key. Can be provided via the `access_key` query parameter, `x-ac
 ---
 
 **`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
-Number of search results to return. Maximum value may vary based on TikTok's availability.
+Number of search results to return per request (maximum 100). To retrieve more results beyond the limit, use the `cursor` parameter for pagination.
 
 <small>**Credit cost:** 1 credit per 50 results (e.g., up to 50 results = 1 credit, 51-100 = 2 credits)</small>
+
+---
+
+**`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor to retrieve the next page of results. Pass the `cursor` value from a previous response to get the next batch. When `hasMore` is `true`, more results are available.
 
 ---
 
@@ -96,6 +104,11 @@ Cache the response for faster subsequent requests.
 Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
 
 ## Response Structure
+
+### Pagination Fields
+- **`totalResults`**: Number of results returned in this response
+- **`cursor`**: Pagination cursor — pass this value in the next request to get more results
+- **`hasMore`**: `true` if more results are available, `false` if you've reached the end
 
 ### Search Results
 Each result in the `results` array contains:

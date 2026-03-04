@@ -47,7 +47,10 @@ GET https://api.socialkit.dev/tiktok/comments?access_key=<your-access-key>&url=h
 				"shareUrl":"",
 				"imageList": []
 			}
-		]
+		],
+		"commentCount": 2,
+		"cursor": 50,
+		"hasMore": true
 	}
 }
 ```
@@ -65,15 +68,23 @@ Your API access key. Can be provided via the `access_key` query parameter, `x-ac
 ---
 
 **`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
-The number of comments to retrieve. Maximum value is 100.
+The number of comments to retrieve per request (maximum 100). To retrieve more comments beyond the limit, use the `cursor` parameter for pagination.
 
 <small>**Credit cost:** 1 credit per 50 results (e.g., up to 50 results = 1 credit, 51-100 = 2 credits)</small>
 
+---
 
+**`cursor`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor to retrieve the next page of comments. Pass the `cursor` value from a previous response to get the next batch. When `hasMore` is `true`, more comments are available.
 
 ## Response Fields
 
 The API returns the following data fields:
+
+### Pagination Fields
+- **`commentCount`**: Number of comments returned in this response
+- **`cursor`**: Pagination cursor — pass this value in the next request to get more comments
+- **`hasMore`**: `true` if more comments are available, `false` if you've reached the end
 
 ### Comment Object
 Each comment in the `comments` array contains:
