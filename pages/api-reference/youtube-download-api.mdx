@@ -1,0 +1,104 @@
+# YouTube Video Download API
+
+The YouTube Video Download API allows you to download YouTube videos in multiple formats and qualities, providing a temporary download URL for offline access and content archival.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/youtube/download
+```
+
+#### Example Request
+
+```bash copy
+POST https://api.socialkit.dev/youtube/download
+
+{
+  "access_key": "<your-access-key>",
+  "url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+  "format": "mp4",
+  "quality": "360p"
+}
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "title": "Video Title",
+    "duration": "3:45",
+    "durationSeconds": 225,
+    "thumbnail": "https://i.ytimg.com/vi/.../hqdefault.jpg",
+    "downloadUrl": "https://socialkit-downloads.s3.amazonaws.com/...",
+    "fileSize": 4200000,
+    "fileSizeMB": "4.00 MB",
+    "format": "mp4",
+    "quality": "360p",
+    "expiresIn": "1 hour"
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The YouTube URL of the video to download. Supports various YouTube URL formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`format`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to mp4</small><br/>
+Output format for the download. Supported formats: `mp4`, `mp3`, `avi`, `webm`, `m4a`, `ogg`, `wav`.
+
+---
+
+**`quality`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 360p</small><br/>
+Video quality for the download. Supported qualities: `240p`, `360p`, `480p`, `720p`, `1080p`.
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`title`**: The video title
+- **`duration`**: Human-readable video duration (MM:SS format)
+- **`durationSeconds`**: Video duration in seconds
+- **`thumbnail`**: URL to the video thumbnail image
+- **`downloadUrl`**: Temporary URL to download the file (expires after 1 hour)
+- **`fileSize`**: File size in bytes
+- **`fileSizeMB`**: Human-readable file size in megabytes
+- **`format`**: The output format used
+- **`quality`**: The video quality used
+- **`expiresIn`**: Time until the download URL expires
+
+## Supported Formats
+
+| Format | Type  | Description          |
+|--------|-------|----------------------|
+| MP4    | Video | Standard video format |
+| AVI    | Video | AVI video format      |
+| WebM   | Video | WebM video format     |
+| MP3    | Audio | MP3 audio format      |
+| M4A    | Audio | M4A audio format      |
+| OGG    | Audio | OGG audio format      |
+| WAV    | Audio | WAV audio format      |
+
+## Use Cases
+
+- **Offline Viewing**: Download YouTube videos for offline access
+- **Audio Extraction**: Convert YouTube videos to MP3 or other audio formats
+- **Educational Archives**: Archive educational content for later reference
+- **Content Backup**: Back up important video content
+- **Social Media Repurposing**: Download and repurpose content for other platforms
+
+## Notes
+
+- Maximum file size per download is 10MB
+- Download URLs expire after 1 hour
+- Audio-only formats (`mp3`, `m4a`, `ogg`, `wav`) will extract the audio track from the video
+- The `quality` parameter applies to video formats only

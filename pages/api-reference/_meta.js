@@ -7,6 +7,7 @@ export default {
 	'youtube-channel-stats-api': 'YouTube Channel Stats API',
 	'youtube-search-api': 'YouTube Search API',
 	'youtube-videos-api': 'YouTube Videos API',
+	'youtube-download-api': 'YouTube Video Download API',
 	'tiktok-transcript-api': 'TikTok Transcript API',
 	'tiktok-summarize-api': 'TikTok Summary API',
 	'tiktok-stats-api': 'TikTok Stats API',
