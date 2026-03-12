@@ -11,7 +11,7 @@ https://api.socialkit.dev/youtube/search
 #### Example Request
 
 ```bash copy
-GET https://api.socialkit.dev/youtube/search?access_key=<your-access-key>&query=funny%20cats&limit=2
+GET https://api.socialkit.dev/youtube/search?access_key=<your-access-key>&query=funny%20cats&limit=2&sortBy=relevance&uploadDate=month&type=video
 ```
 
 #### Response
@@ -73,6 +73,34 @@ Your API access key. Can be provided via the `access_key` query parameter, `x-ac
 Number of search results to return. Maximum value is 100.
 
 <small>**Credit cost:** 1 credit per 50 results (e.g., up to 50 results = 1 credit, 51-100 = 2 credits)</small>
+
+---
+
+**`sortBy`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to `relevance`</small><br/>
+How to sort search results. Available options:
+- `relevance` — Most relevant results (default)
+- `date` — Sort by upload date (newest first)
+- `views` — Sort by view count (most viewed first)
+- `rating` — Sort by rating
+
+---
+
+**`uploadDate`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to all time</small><br/>
+Filter results by upload date. Available options:
+- `hour` — Last hour
+- `today` — Today
+- `week` — This week
+- `month` — This month
+- `year` — This year
+
+If not specified, results from all time are returned.
+
+---
+
+**`type`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to `video`</small><br/>
+The type of YouTube content to search for. Available options:
+- `video` — Regular videos (default)
+- `shorts` — YouTube Shorts only
 
 ---
 

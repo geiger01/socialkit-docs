@@ -11,7 +11,7 @@ https://api.socialkit.dev/tiktok/search
 #### Example Request
 
 ```bash copy
-GET https://api.socialkit.dev/tiktok/search?access_key=<your-access-key>&query=funny%20cats
+GET https://api.socialkit.dev/tiktok/search?access_key=<your-access-key>&query=funny%20cats&sortBy=relevance&datePosted=month
 ```
 
 #### Response
@@ -92,6 +92,26 @@ Number of search results to return per request (maximum 100). To retrieve more r
 
 **`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
 Pagination cursor to retrieve the next page of results. Pass the `cursor` value from a previous response to get the next batch. When `hasMore` is `true`, more results are available.
+
+---
+
+**`sortBy`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to `relevance`</small><br/>
+How to sort search results. Available options:
+- `relevance` — Most relevant results (default)
+- `likes` — Sort by most liked
+- `date` — Sort by newest first
+
+---
+
+**`datePosted`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to all time</small><br/>
+Filter results by when the video was posted. Available options:
+- `day` — Past 24 hours
+- `week` — Past week
+- `month` — Past month
+- `3months` — Past 3 months
+- `6months` — Past 6 months
+
+If not specified, results from all time are returned.
 
 ---
 
