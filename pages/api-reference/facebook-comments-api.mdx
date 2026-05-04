@@ -1,0 +1,121 @@
+# Facebook Comments API
+
+The Facebook Comments API retrieves comments from Facebook posts, videos, watch URLs, and reels with cursor-based pagination, returning detailed comment data including author profiles, like counts, and reply counts.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/facebook/comments
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/facebook/comments?access_key=<your-access-key>&url=https://www.facebook.com/watch?v=876091671461782&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.facebook.com/watch?v=876091671461782",
+		"postUrl": "https://www.facebook.com/watch?v=876091671461782",
+		"commentCount": null,
+		"comments": [
+			{
+				"id": "Y29tbWVudDoxMjY3NzU2MzkxODQwNDc5XzIwNzg1MTcyNDk1NjYxMjU=",
+				"name": "Kelly Mcpherson",
+				"profileUrl": "https://www.facebook.com/kelly.mcpherson...",
+				"profilePicUrl": "https://scontent.fbcdn.net/v/...",
+				"text": "Why does he look like Steve from stranger things? 🤷🏻",
+				"likes": 24,
+				"replyCount": 2,
+				"date": "12-17-2025",
+				"timestamp": 1734456789,
+				"isAuthor": false
+			},
+			{
+				"id": "Y29tbWVudDoxMjY3NzU2MzkxODQwNDc5Xzg4MzQ5NDI1Nzk3NzgzMA==",
+				"name": "Zach Hager",
+				"profileUrl": "https://www.facebook.com/zach.hager...",
+				"profilePicUrl": "https://scontent.fbcdn.net/v/...",
+				"text": "Is that the guy from Stranger Things?",
+				"likes": 8,
+				"replyCount": 0,
+				"date": "12-17-2025",
+				"timestamp": 1734456823,
+				"isAuthor": false
+			}
+		],
+		"limit": 2,
+		"hasMore": true,
+		"cursor": "MToxNzc3ODg2MTM0OgF_olOsDoHrDtXmDuIB0Fi0BLMBONRkdW..."
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Facebook URL of the post, video, watch URL, or reel. Supports `facebook.com/watch?v=...`, `facebook.com/<user>/videos/<id>/`, and `facebook.com/reel/<id>/` formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
+The number of comments to retrieve per request (maximum 100). To retrieve more comments beyond the limit, use the `cursor` parameter for pagination.
+
+<small>**Credit cost:** 1 credit per 50 results (e.g., up to 50 results = 1 credit, 51-100 = 2 credits)</small>
+
+---
+
+**`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor to retrieve the next page of comments. Pass the `cursor` value from a previous response to get the next batch. When `hasMore` is `true`, more comments are available.
+
+## Response Fields
+
+### Top-level Fields
+- **`postUrl`**: The original Facebook post URL
+- **`commentCount`**: Total comment count on the post (`null` for Facebook — use `hasMore` to detect end of pagination)
+- **`limit`**: The limit applied to this request
+- **`cursor`**: Pagination cursor — pass this value in the next request to get more comments
+- **`hasMore`**: `true` if more comments are available, `false` if you've reached the end
+
+### Comment Object
+Each comment in the `comments` array contains:
+- **`id`**: Unique comment identifier (base64-encoded global Facebook ID)
+- **`name`**: The commenter's display name
+- **`profileUrl`**: URL to the commenter's Facebook profile
+- **`profilePicUrl`**: URL to the commenter's profile picture
+- **`text`**: The comment text content
+- **`likes`**: Number of reactions on the comment
+- **`replyCount`**: Number of replies under this comment
+- **`date`**: Comment date in MM-DD-YYYY format
+- **`timestamp`**: Comment creation time as Unix timestamp (seconds)
+- **`isAuthor`**: `true` if the commenter is the post author (OP)
+
+## Use Cases
+
+- **Community Management**: Monitor and analyze Facebook post engagement via comments
+- **Sentiment Analysis**: Analyze comment sentiment to understand audience reactions
+- **Content Moderation**: Review comments for inappropriate content or spam
+- **Market Research**: Gather user feedback on products mentioned in posts
+- **Competitor Analysis**: Compare engagement quality across competing pages
+- **Social Listening**: Track mentions and discussions around your Facebook content
+- **Influencer Research**: Identify top engaged followers and advocates
+- **Trend Analysis**: Identify trending topics based on comment activity
+
+## Notes
+
+- Comments are retrieved in real-time from Facebook's public web GraphQL endpoint
+- Profile picture URLs are signed CDN links and may expire after several hours
+- The `cursor` is an opaque token — pass it back verbatim to resume pagination
+- Total comment count is not provided by Facebook's pagination response; use `hasMore` to know when you've reached the end
+- Supports `/watch?v=...`, `/<user>/videos/<id>/`, and `/reel/<id>/` URL formats
+- Initial page typically returns the top 2 comments; subsequent pagination calls return ~10 per page

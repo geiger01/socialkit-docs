@@ -1,0 +1,131 @@
+# Instagram Comments API
+
+The Instagram Comments API retrieves comments from Instagram posts and reels with cursor-based pagination, returning detailed comment data including author information, like counts, reply counts, and verification badges.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/instagram/comments
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/instagram/comments?access_key=<your-access-key>&url=https://www.instagram.com/reel/DRU4smMj0cu/&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.instagram.com/reel/DRU4smMj0cu/",
+		"postUrl": "https://www.instagram.com/p/DRU4smMj0cu/",
+		"shortcode": "DRU4smMj0cu",
+		"commentCount": 486,
+		"comments": [
+			{
+				"id": "17910074922340073",
+				"username": "risfankhiyarulmizan",
+				"fullName": "",
+				"profilePicUrl": "https://scontent.cdninstagram.com/v/t51.89012-19/...",
+				"verified": false,
+				"text": "😂😂😂😂😂😂😂",
+				"likes": 0,
+				"replyCount": 0,
+				"date": "11-21-2025",
+				"timestamp": 1763744973,
+				"parentCommentId": null
+			},
+			{
+				"id": "18053470208695411",
+				"username": "safiyabai",
+				"fullName": "",
+				"profilePicUrl": "https://scontent.cdninstagram.com/v/t51.89012-19/...",
+				"verified": false,
+				"text": "😍❤️❤️❤️",
+				"likes": 12,
+				"replyCount": 0,
+				"date": "11-21-2025",
+				"timestamp": 1763744981,
+				"parentCommentId": null
+			}
+		],
+		"limit": 2,
+		"hasMore": true,
+		"cursor": "{\"server_cursor\": \"QVF...\"}"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Instagram post or reel URL to get comments for. Supports `/p/`, `/reel/`, `/reels/`, and `/tv/` formats.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 10</small><br/>
+The number of comments to retrieve per request (maximum 100). To retrieve more comments beyond the limit, use the `cursor` parameter for pagination.
+
+<small>**Credit cost:** 1 credit per 50 results (e.g., up to 50 results = 1 credit, 51-100 = 2 credits)</small>
+
+---
+
+**`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor to retrieve the next page of comments. Pass the `cursor` value from a previous response to get the next batch. When `hasMore` is `true`, more comments are available.
+
+---
+
+**`sortBy`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to `popular`</small><br/>
+Comment sort order. Accepts `popular` (top comments first) or `recent` (newest first).
+
+## Response Fields
+
+### Top-level Fields
+- **`postUrl`**: Canonical Instagram post URL
+- **`shortcode`**: The post shortcode extracted from the URL
+- **`commentCount`**: Total comment count on the post (when available)
+- **`limit`**: The limit applied to this request
+- **`cursor`**: Pagination cursor — pass this value in the next request to get more comments
+- **`hasMore`**: `true` if more comments are available, `false` if you've reached the end
+
+### Comment Object
+Each comment in the `comments` array contains:
+- **`id`**: Unique comment identifier
+- **`username`**: The commenter's Instagram handle (without @ prefix)
+- **`fullName`**: The commenter's display name (may be empty)
+- **`profilePicUrl`**: URL to the commenter's profile picture
+- **`verified`**: `true` if the commenter has a verified Instagram account
+- **`text`**: The comment text content (may contain emojis)
+- **`likes`**: Number of likes on the comment
+- **`replyCount`**: Number of replies (threaded comments) under this comment
+- **`date`**: Comment date in MM-DD-YYYY format
+- **`timestamp`**: Comment creation time as Unix timestamp (seconds)
+- **`parentCommentId`**: ID of the parent comment if this is a reply, otherwise `null`
+
+## Use Cases
+
+- **Community Management**: Monitor and analyze Instagram post engagement via comments
+- **Sentiment Analysis**: Analyze comment sentiment to understand audience reactions
+- **Influencer Research**: Identify top engaged followers and brand advocates
+- **Content Moderation**: Review comments for inappropriate content or spam
+- **Market Research**: Gather user feedback and opinions on products mentioned in posts
+- **Competitor Analysis**: Compare engagement quality across competing accounts
+- **Social Listening**: Track conversations and mentions around your Instagram content
+- **Trend Analysis**: Identify trending topics in your niche based on comment activity
+
+## Notes
+
+- Comments are retrieved in real-time from Instagram's public web GraphQL endpoint
+- Profile picture URLs are signed CDN links and may expire after several hours
+- Avatar/full-name fields may be empty for some users (Instagram returns sparse data for accounts with privacy settings)
+- The `cursor` is an opaque token — pass it back verbatim to resume pagination
+- Reply threads can be detected via `replyCount > 0` and `parentCommentId`
+- Supports `/p/`, `/reel/`, `/reels/`, and `/tv/` URL formats
