@@ -1,0 +1,157 @@
+# Instagram Channel Reels API
+
+The Instagram Channel Reels API retrieves the reels-only feed for an Instagram profile, with cursor-based pagination. Each item includes the reel video URL, thumbnail, view/like/comment counts, caption, duration, and author details.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/instagram/channel-reels
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/instagram/channel-reels?access_key=<your-access-key>&url=https://www.instagram.com/nasa&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"profileUrl": "https://www.instagram.com/nasa",
+		"username": "nasa",
+		"items": [
+			{
+				"id": "3890548995286221889",
+				"shortcode": "DW-toGVj4I4",
+				"url": "https://www.instagram.com/p/DW-toGVj4I4/",
+				"type": "reel",
+				"isVideo": true,
+				"caption": "Let's run that back. One more time... Or two? Our @NASAArtemis astronauts are n...",
+				"likes": 1238352,
+				"comments": 10639,
+				"views": 24216808,
+				"plays": 24216808,
+				"duration": 83,
+				"timestamp": 1777920984,
+				"thumbnailUrl": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/...",
+				"videoUrl": "https://scontent-iad6-1.cdninstagram.com/v/t50.71878-16/...",
+				"width": 1080,
+				"height": 1920,
+				"productType": "clips",
+				"author": {
+					"id": "528817151",
+					"username": "nasa",
+					"fullName": "NASA",
+					"isVerified": true,
+					"profilePicUrl": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/..."
+				}
+			},
+			{
+				"id": "3889794756554018042",
+				"shortcode": "DW2k9pLTeQ4",
+				"url": "https://www.instagram.com/p/DW2k9pLTeQ4/",
+				"type": "reel",
+				"isVideo": true,
+				"caption": "Auroras dance across Earth's polar skies — see them from the @ISS...",
+				"likes": 884532,
+				"comments": 5128,
+				"views": 12530194,
+				"plays": 12530194,
+				"duration": 47.5,
+				"timestamp": 1777748400,
+				"thumbnailUrl": "https://scontent-iad6-1.cdninstagram.com/v/t51.71878-15/...",
+				"videoUrl": "https://scontent-iad6-1.cdninstagram.com/v/t50.71878-16/...",
+				"width": 1080,
+				"height": 1920,
+				"productType": "clips",
+				"author": {
+					"id": "528817151",
+					"username": "nasa",
+					"fullName": "NASA",
+					"isVerified": true,
+					"profilePicUrl": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/..."
+				}
+			}
+		],
+		"count": 2,
+		"hasMore": true,
+		"cursor": "QVFBQk9teGRwTHZOQUJ6..."
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Instagram profile URL to fetch reels from (e.g., `https://www.instagram.com/username`). Both `instagram.com/username` and `instagram.com/username/` formats are accepted.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 12</small><br/>
+The number of reels to return per request (maximum 100). To retrieve more reels beyond the limit, use the `cursor` parameter for pagination.
+
+<small>**Credit cost:** 1 credit per 20 results (e.g., up to 20 results = 1 credit, 21-40 = 2 credits)</small>
+
+---
+
+**`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor to retrieve the next page of reels. Pass the `cursor` value from a previous response to resume. When `hasMore` is `true`, more reels are available.
+
+## Response Fields
+
+### Top-level Fields
+- **`profileUrl`**: The original profile URL that was queried
+- **`username`**: The Instagram handle (without @ prefix)
+- **`count`**: Number of reels returned in this response
+- **`cursor`**: Pagination cursor — pass this value in the next request to fetch more reels. `null` when there are no more reels.
+- **`hasMore`**: `true` if more reels are available
+
+### Reel Item
+Each entry in the `items` array contains:
+- **`id`**: Unique Instagram media identifier
+- **`shortcode`**: The reel shortcode used in `instagram.com/reel/<shortcode>/`
+- **`url`**: Canonical Instagram reel URL (using the `/p/` form, which redirects to `/reel/`)
+- **`type`**: Always `"reel"` for this endpoint
+- **`isVideo`**: Always `true` for reels
+- **`caption`**: Reel caption text (may include emojis, hashtags, mentions)
+- **`likes`**: Number of likes on the reel
+- **`comments`**: Number of comments on the reel
+- **`views`**: Total reel view count
+- **`plays`**: Total reel play count (often identical to `views`)
+- **`duration`**: Reel duration in seconds
+- **`timestamp`**: Reel creation time as a Unix timestamp (seconds)
+- **`thumbnailUrl`**: Best-quality cover image URL
+- **`videoUrl`**: Direct video URL (subject to expiry — fetch fresh when needed)
+- **`width`**: Original video width in pixels
+- **`height`**: Original video height in pixels (typically taller than wide for reels)
+- **`productType`**: Always `"clips"` for reels
+- **`author`**: Object containing the reel author's `id`, `username`, `fullName`, `isVerified`, and `profilePicUrl`
+
+## Use Cases
+
+- **Reels Performance Tracking**: Pull view, like, and comment counts for every reel a creator has published
+- **Influencer Vetting**: Filter creators by median reel views or engagement before partnering
+- **Trend Discovery**: Surface a creator's top-performing reels for inspiration or paid promotion
+- **Content Workflow**: Feed reel URLs into the Transcript and Stats endpoints for downstream analysis
+- **Competitor Monitoring**: Track competitors' reels output and reach over time
+- **Reporting Dashboards**: Build a "reels feed" view of any public Instagram account inside your product
+- **Engagement Benchmarks**: Calculate average reel reach for verticals (sports, beauty, food, tech)
+- **Hook Library Building**: Mine top creators' reels captions and openings for swipe files
+
+## Notes
+
+- Reels are returned in reverse chronological order (newest first)
+- The `cursor` is an opaque token — pass it back verbatim to resume pagination
+- Direct `videoUrl` links are signed Instagram CDN URLs and expire after several hours — re-fetch when you need to download
+- For a mixed posts feed (images + videos + carousels), use the `Instagram Channel Posts API` instead
+- The first call for a previously-unseen username runs a one-time profile resolution (~5–10 s); subsequent calls are fast
+- Some accounts have very few or zero reels — in that case `count` will be `0` and `hasMore` will be `false`
+- Profile picture and media URLs are signed CDN links and may expire after several hours

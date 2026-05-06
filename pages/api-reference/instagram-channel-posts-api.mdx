@@ -1,0 +1,157 @@
+# Instagram Channel Posts API
+
+The Instagram Channel Posts API retrieves all posts from an Instagram profile — images, videos, and carousels — with cursor-based pagination. Each item includes media URLs, view/like/comment counts, captions, and author details.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/instagram/channel-posts
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/instagram/channel-posts?access_key=<your-access-key>&url=https://www.instagram.com/natgeo&limit=2
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"profileUrl": "https://www.instagram.com/natgeo",
+		"username": "natgeo",
+		"items": [
+			{
+				"id": "3890548995286221889",
+				"shortcode": "DX-AbK9ScRB",
+				"url": "https://www.instagram.com/p/DX-AbK9ScRB/",
+				"type": "reel",
+				"isVideo": true,
+				"caption": "One trip to Italy is never enough. @StanleyTucci returns for a second season of...",
+				"likes": 104690,
+				"comments": 1438,
+				"views": 4813905,
+				"plays": 4813905,
+				"duration": 73.32,
+				"timestamp": 1778009597,
+				"thumbnailUrl": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/...",
+				"videoUrl": "https://scontent-iad3-1.cdninstagram.com/v/t50.82787-16/...",
+				"width": 1216,
+				"height": 2160,
+				"productType": "clips",
+				"author": {
+					"id": "787132",
+					"username": "natgeo",
+					"fullName": "National Geographic",
+					"isVerified": true,
+					"profilePicUrl": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/..."
+				}
+			},
+			{
+				"id": "3889794756554018042",
+				"shortcode": "DX7lTu0Pq2W",
+				"url": "https://www.instagram.com/p/DX7lTu0Pq2W/",
+				"type": "carousel",
+				"isVideo": false,
+				"caption": "Photos by @paulnicklen | Polar bears traverse the sea ice...",
+				"likes": 218450,
+				"comments": 893,
+				"views": 0,
+				"plays": 0,
+				"duration": 0,
+				"timestamp": 1777920984,
+				"thumbnailUrl": "https://scontent-iad3-1.cdninstagram.com/v/t51.29350-15/...",
+				"videoUrl": "",
+				"width": 1080,
+				"height": 1080,
+				"productType": "carousel_container",
+				"author": {
+					"id": "787132",
+					"username": "natgeo",
+					"fullName": "National Geographic",
+					"isVerified": true,
+					"profilePicUrl": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/..."
+				}
+			}
+		],
+		"count": 2,
+		"hasMore": true,
+		"cursor": "3889718998899684009_25025320"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Instagram profile URL to fetch posts from (e.g., `https://www.instagram.com/username`). Both `instagram.com/username` and `instagram.com/username/` formats are accepted.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 12</small><br/>
+The number of posts to return per request (maximum 100). To retrieve more posts beyond the limit, use the `cursor` parameter for pagination.
+
+<small>**Credit cost:** 1 credit per 20 results (e.g., up to 20 results = 1 credit, 21-40 = 2 credits)</small>
+
+---
+
+**`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor to retrieve the next page of posts. Pass the `cursor` value from a previous response to resume. When `hasMore` is `true`, more posts are available.
+
+## Response Fields
+
+### Top-level Fields
+- **`profileUrl`**: The original profile URL that was queried
+- **`username`**: The Instagram handle (without @ prefix)
+- **`count`**: Number of items returned in this response
+- **`cursor`**: Pagination cursor — pass this value in the next request to fetch more posts. `null` when there are no more posts.
+- **`hasMore`**: `true` if more posts are available
+
+### Post Item
+Each entry in the `items` array contains:
+- **`id`**: Unique Instagram media identifier
+- **`shortcode`**: The post shortcode used in `instagram.com/p/<shortcode>/`
+- **`url`**: Canonical Instagram post URL
+- **`type`**: Media type — `"image"`, `"video"`, `"reel"`, `"carousel"`, or `"unknown"`
+- **`isVideo`**: `true` if the post is a single video (does not flag carousels even when they contain videos)
+- **`caption`**: Post caption text (may include emojis, hashtags, mentions)
+- **`likes`**: Number of likes on the post
+- **`comments`**: Number of comments on the post
+- **`views`**: View count for video posts and reels (`0` for images and carousels without video)
+- **`plays`**: Play count for video posts and reels
+- **`duration`**: Video duration in seconds (`0` for non-video posts)
+- **`timestamp`**: Post creation time as a Unix timestamp (seconds)
+- **`thumbnailUrl`**: Best-quality thumbnail image URL
+- **`videoUrl`**: Direct video URL for video posts (empty string for images)
+- **`width`**: Original media width in pixels
+- **`height`**: Original media height in pixels
+- **`productType`**: Instagram product type (e.g., `"clips"`, `"feed"`, `"carousel_container"`)
+- **`author`**: Object containing the post author's `id`, `username`, `fullName`, `isVerified`, and `profilePicUrl`
+
+## Use Cases
+
+- **Content Audit**: Pull a complete catalog of a creator's posts for performance analysis
+- **Influencer Research**: Evaluate a creator's content mix, posting cadence, and engagement
+- **Competitor Monitoring**: Track competitors' latest posts and engagement metrics
+- **Engagement Benchmarks**: Calculate median like / comment / view rates across posts
+- **Content Planning**: Reference top-performing posts for inspiration and editorial strategy
+- **Brand Safety**: Spot-check accounts before partnering or featuring them
+- **Bulk Processing**: Pull post URLs to feed into the Comments, Stats, or Transcript endpoints
+- **Reporting Dashboards**: Build feed views of an Instagram channel inside your own product
+
+## Notes
+
+- Posts are returned in reverse chronological order (newest first)
+- The `cursor` is an opaque token — pass it back verbatim to resume pagination
+- Carousels return the cover image in `thumbnailUrl` and an empty `videoUrl`
+- For reels-only feeds, use the `Instagram Channel Reels API` instead
+- View counts populate only for videos and reels (Instagram does not expose view counts for static images)
+- Profile picture and media URLs are signed CDN links and may expire after several hours
+- The first call for a previously-unseen username runs a one-time profile resolution (~5–10 s); subsequent calls are fast

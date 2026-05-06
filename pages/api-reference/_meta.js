@@ -20,6 +20,8 @@ export default {
 	'instagram-stats-api': 'Instagram Stats API',
 	'instagram-comments-api': 'Instagram Comments API',
 	'instagram-channel-stats-api': 'Instagram Channel Stats API',
+	'instagram-channel-posts-api': 'Instagram Channel Posts API',
+	'instagram-channel-reels-api': 'Instagram Channel Reels API',
 	'facebook-transcript-api': 'Facebook Transcript API',
 	'facebook-summarize-api': 'Facebook Summary API',
 	'facebook-stats-api': 'Facebook Stats API',
