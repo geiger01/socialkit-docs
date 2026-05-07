@@ -22,6 +22,7 @@ export default {
 	'instagram-channel-stats-api': 'Instagram Channel Stats API',
 	'instagram-channel-posts-api': 'Instagram Channel Posts API',
 	'instagram-channel-reels-api': 'Instagram Channel Reels API',
+	'instagram-reels-search-api': 'Instagram Reels Search API',
 	'facebook-transcript-api': 'Facebook Transcript API',
 	'facebook-summarize-api': 'Facebook Summary API',
 	'facebook-stats-api': 'Facebook Stats API',

@@ -1,0 +1,117 @@
+# Instagram Reels Search API
+
+The Instagram Reels Search API searches Instagram for reels matching a keyword or hashtag. Returns reels with shortcodes, captions, view counts, thumbnails, and author details. No Instagram account required.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/instagram/reels-search
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/instagram/reels-search?access_key=<your-access-key>&query=cats&page=1
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"query": "cats",
+		"page": 1,
+		"items": [
+			{
+				"id": "DU6Fh3QEZ2d",
+				"shortcode": "DU6Fh3QEZ2d",
+				"url": "https://www.instagram.com/reel/DU6Fh3QEZ2d/",
+				"type": "reel",
+				"isVideo": true,
+				"caption": "Which one suits me best? \n\n#cats_of_instagram #foryou #kittenlife #cats #catslovers",
+				"views": 35828358,
+				"plays": 35828358,
+				"likes": 0,
+				"comments": 0,
+				"duration": 0,
+				"timestamp": 1771435687,
+				"thumbnailUrl": "https://scontent.cdninstagram.com/v/t51.71878-15/...",
+				"width": 1080,
+				"height": 1920,
+				"author": {
+					"username": "gush.thecat",
+					"fullName": "Gush",
+					"isVerified": false,
+					"profilePicUrl": "https://scontent.cdninstagram.com/v/t51.82787-19/..."
+				}
+			}
+		],
+		"count": 12,
+		"hasMore": true
+	}
+}
+```
+
+## Parameters
+
+**`query`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The keyword or hashtag to search. Both bare keywords (`cats`) and hashtag forms (`#cats`, `%23cats`) are accepted — leading `#` is automatically stripped, and the keyword is normalized to lowercase.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`page`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 1</small><br/>
+1-indexed page number. Each page returns up to 12 reels. Maximum value is `2` — Instagram caps anonymous search results at ~24 reels per query.
+
+<small>**Credit cost:** 1 credit per call.</small>
+
+## Response Fields
+
+### Top-level Fields
+- **`query`**: The normalized search query (lowercase, no leading `#`)
+- **`page`**: Current page number (1-indexed)
+- **`count`**: Number of reels in this response
+- **`hasMore`**: `true` if `page=2` is available, `false` if you've reached the end (max 2 pages per query)
+
+### Reel Item
+Each entry in the `items` array contains:
+- **`id`**: Instagram media identifier (matches `shortcode` for search results)
+- **`shortcode`**: The reel shortcode used in `instagram.com/reel/<shortcode>/`
+- **`url`**: Canonical Instagram reel URL
+- **`type`**: Always `"reel"` for this endpoint
+- **`isVideo`**: Always `true` for reels
+- **`caption`**: Reel caption text (when available)
+- **`views`**: View count for the reel
+- **`plays`**: Play count (typically equals `views`)
+- **`likes`**: Like count (often `0` from search results — fetch the reel via `/instagram/stats` for fresh likes)
+- **`comments`**: Comment count (often `0` from search results — same caveat)
+- **`duration`**: Reel duration in seconds (when available)
+- **`timestamp`**: Reel creation time as Unix timestamp (seconds, when available)
+- **`thumbnailUrl`**: Best-quality cover image URL
+- **`width`**: Original video width in pixels
+- **`height`**: Original video height in pixels
+- **`author`**: Object with `username`, `fullName`, `isVerified`, and `profilePicUrl` (populated for the first 12 results)
+
+## Use Cases
+
+- **Trend Discovery**: Find the top-viewed reels for any keyword or hashtag in your niche
+- **Influencer Discovery**: Surface creators producing high-performing content for a topic
+- **Hook Mining**: Pull captions from top-performing reels to study what hooks rank well
+- **Content Inspiration**: Build a swipe file of viral reels per niche for your own content team
+- **Competitor Tracking**: Monitor which reels compete for visibility on a target keyword
+- **Social Listening**: Track which reels surface for branded keywords or competitor mentions
+
+## Notes
+
+- Hashtag and keyword queries return the same result — `#cats` and `cats` are equivalent
+- Instagram limits anonymous search results to ~24 reels per query, so `page` is capped at `2`
+- The first call for a previously-unseen query takes ~10–15 seconds (browser render). Subsequent calls hit a 30-minute cache and return in under 2 seconds.
+- View counts come from Instagram's public popular-search render — they reflect what Instagram shows publicly. For fresh per-reel likes/comments, fetch each reel via `/instagram/stats?url=<reel-url>`.
+- Thumbnail URLs are signed Instagram CDN links and expire after several hours
+- The endpoint normalizes the query (strips `#`, URL-decodes `%23`, lowercases, removes spaces)
+- Returns `success: false` if Instagram blocks the render attempt — retry once, the next IP usually succeeds
