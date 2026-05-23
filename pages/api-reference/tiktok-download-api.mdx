@@ -1,0 +1,111 @@
+# TikTok Video Download API
+
+The TikTok Video Download API allows you to download TikTok videos in multiple formats and qualities. It returns a temporary, pre-signed download URL with title, duration, thumbnail, and file size metadata. Same request shape as the [YouTube Download API](/api-reference/youtube-download-api) so client integrations can swap one for the other.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/download
+```
+
+#### Example Request
+
+```bash copy
+POST https://api.socialkit.dev/tiktok/download
+
+{
+  "access_key": "<your-access-key>",
+  "url": "https://www.tiktok.com/@user/video/7522711492140059912",
+  "format": "mp4",
+  "quality": "720p"
+}
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "url": "https://www.tiktok.com/@user/video/7522711492140059912",
+    "title": "Why Do Cats Attack You Randomly? 🫠",
+    "duration": "0:49",
+    "durationSeconds": 49,
+    "thumbnail": "https://p19-common-sign.tiktokcdn.com/...",
+    "downloadUrl": "https://socialkit-downloads.s3.amazonaws.com/...",
+    "fileSize": 5210953,
+    "fileSizeMB": "4.97 MB",
+    "format": "mp4",
+    "quality": "720p",
+    "expiresIn": "1 hour"
+  }
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The TikTok URL of the video to download. Works with regular URLs (`https://www.tiktok.com/@user/video/<id>`) and short share links (`https://vm.tiktok.com/<code>`, `https://vt.tiktok.com/<code>`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`format`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to mp4</small><br/>
+Output format for the download. Supported formats: `mp4`, `mp3`, `avi`, `webm`, `m4a`, `ogg`, `wav`.
+
+---
+
+**`quality`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 720p</small><br/>
+Video quality for the download. Supported qualities: `240p`, `360p`, `480p`, `720p`, `1080p`. Most TikTok videos publish at 720p, so 720p is the sensible default. The quality parameter is ignored for audio-only formats.
+
+## Response Fields
+
+The API returns the following data fields:
+
+- `url`: The original TikTok URL you submitted
+- `title`: The video title (caption / description) as reported by TikTok
+- `duration`: Human-readable video duration (MM:SS format)
+- `durationSeconds`: Video duration in seconds
+- `thumbnail`: URL to the video thumbnail image
+- `downloadUrl`: Pre-signed S3 URL to download the file (expires after 1 hour)
+- `fileSize`: File size in bytes
+- `fileSizeMB`: Human-readable file size in megabytes
+- `format`: The output format used
+- `quality`: The video quality used (or `"audio"` for audio-only formats)
+- `expiresIn`: Time until the download URL expires (`"1 hour"`)
+
+## Supported Formats
+
+| Format | Type  | Description |
+|--------|-------|-------------|
+| MP4    | Video | Standard video format (default, recommended) |
+| AVI    | Video | AVI video container |
+| WebM   | Video | WebM video container (VP8 / VP9) |
+| MP3    | Audio | Standard MP3 audio |
+| M4A    | Audio | AAC audio. Closest to TikTok's native audio stream. |
+| OGG    | Audio | OGG / Vorbis audio |
+| WAV    | Audio | Uncompressed WAV audio |
+
+## Caching Behavior
+
+Repeat downloads of the same `(videoId, format, quality)` tuple hit a deterministic S3 cache and return in under 2 seconds. Cache hits still count as 1 credit because the API call still happens, but you save the download time and the upstream bandwidth cost.
+
+## Use Cases
+
+- Offline viewing: download TikTok videos for later access
+- Audio extraction: convert TikTok videos to MP3 or other audio formats for podcast clipping or transcription
+- Content archiving: keep copies of trending or at-risk videos
+- Content repurposing: download a TikTok and re-cut for YouTube Shorts, Instagram Reels, or X
+- AI / RAG ingestion: feed the raw MP4 into multi-modal models for object detection, scene classification, or training data
+
+## Notes
+
+- Maximum file size per download is 30MB. Covers nearly every standard TikTok upload. Unusually long videos may exceed this.
+- Download URLs expire after 1 hour. Re-request to refresh. Cache hits make the refresh near-instant.
+- Audio-only formats (`mp3`, `m4a`, `ogg`, `wav`) extract the audio track from the video.
+- The `quality` parameter applies to video formats only.
+- 1 successful download = 1 credit. Failed requests are free.

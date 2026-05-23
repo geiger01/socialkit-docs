@@ -15,6 +15,7 @@ export default {
 	'tiktok-channel-stats-api': 'TikTok Channel Stats API',
 	'tiktok-search-api': 'TikTok Search API',
 	'tiktok-hashtag-search-api': 'TikTok Hashtag Search API',
+	'tiktok-download-api': 'TikTok Video Download API',
 	'instagram-transcript-api': 'Instagram Transcript API',
 	'instagram-summarize-api': 'Instagram Summary API',
 	'instagram-stats-api': 'Instagram Stats API',
