@@ -21,14 +21,23 @@ GET https://api.socialkit.dev/instagram/stats?access_key=<your-access-key>&url=h
 	"success": true,
 	"data": {
 		"url": "https://www.instagram.com/p/DRU4smMj0cu/",
+		"id": "3770888143290451758",
+		"shortcode": "DRU4smMj0cu",
 		"description": ".\n.\n.\n.\n.\n.\n#cat #catsoftheworld #catsoftheday #catsgram #pet #petlovers #petlover #petsofinstagram #funny #funnyvideos #cute #cutecats #kitten #kittenlove #kittycat #reels",
-		"likes": 34209,
-		"views": 150232,
-		"comments": 169,
+		"likes": 122973,
+		"views": 3185519,
+		"comments": 485,
+		"shares": 0,
+		"timestamp": 1763744973,
+		"publishedAt": "2025-11-21T17:09:33.000Z",
 		"author": "yuumi_cat9",
 		"authorLink": "https://www.instagram.com/yuumi_cat9/",
 		"duration": "0:27",
-		"thumbnail": "https://scontent-iad3-1.cdninstagram.com/v/t51.71878-15/583855550_1629099614919809_395573344085568572_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=1&ig_cache_key=Mzc3MDg4ODE0MzI5MDQ1MTc1OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjY0MHgxMTM2LnNkci5DMyJ9&_nc_ohc=zr_O0vhYlJEQ7kNvwEMR-Pu&_nc_oc=Adkyl0NA3NIUOpRA9n62pj2pWJUwFmdmdt-HVIXw9k3Friglm6phFxuyfm3UhA0nMZ4&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_gid=wZm30ypG2sM-wdmFeNBlwg&oh=00_AfgTRKOjyj7LRzq0kx_aAGmdA0J8fK6C6UVNE8HPVj8asA&oe=69311DD0"
+		"thumbnail": "https://scontent-iad3-1.cdninstagram.com/...",
+		"isVideo": true,
+		"videoUrl": "https://scontent-iad3-1.cdninstagram.com/.../video.mp4",
+		"contentType": "reel",
+		"isShortForm": true
 	}
 }
 ```
@@ -58,14 +67,23 @@ Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 m
 The API returns the following data fields:
 
 - **`url`**: The original Instagram URL provided
+- **`id`**: Instagram's internal numeric media ID
+- **`shortcode`**: The Instagram shortcode (the `DRU4smMj0cu` portion of `/p/DRU4smMj0cu/` URLs)
 - **`description`**: The post/reel caption with hashtags
-- **`views`**: Total view count (number)
+- **`views`**: Total view count (number, video / reel only)
 - **`likes`**: Total like count (number)
 - **`comments`**: Total comment count (number)
+- **`shares`**: Total shares (Instagram rarely exposes this; usually `0`)
+- **`timestamp`**: Unix timestamp (seconds) of when the post was published
+- **`publishedAt`**: ISO 8601 timestamp of when the post was published (e.g. `2025-11-21T17:09:33.000Z`)
 - **`author`**: The Instagram username
 - **`authorLink`**: Link to the author's Instagram profile
-- **`duration`**: Video duration in M:SS format (for reels/videos)
+- **`duration`**: Video duration in `M:SS` format (for reels/videos)
 - **`thumbnail`**: URL to the post/reel thumbnail image
+- **`isVideo`**: `true` for videos and reels, `false` for image posts and carousels
+- **`videoUrl`**: Temporary CDN URL to the raw video file. Signed by Instagram with the current session and expires quickly. Use [/instagram/download](/api-reference/instagram-download-api) if you need to persist the file.
+- **`contentType`**: One of `"reel"`, `"video"`, `"post"`, or `"carousel"`. Derived from URL pattern plus Instagram's internal `productType` flag.
+- **`isShortForm`**: `true` for Reels, `false` otherwise. Useful for filtering short-form vs long-form content programmatically.
 
 ## Use Cases
 

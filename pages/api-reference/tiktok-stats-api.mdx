@@ -20,9 +20,9 @@ GET https://api.socialkit.dev/tiktok/stats?access_key=<your-access-key>&url=http
 {
 	"success": true,
 	"data": {
-		"url": "https://www.tiktok.com/@soukainasing1/video/7370790114802322694?q=coffee",
-		"videoId": "7370790114802322694",
-		"title": "#icedcoffee #dalgonacoffee #dalgona #soukainasing #coffeetiktok #bottlecoffee #icedlatte #easyrecipe #cafe #nescafe #nestle #coffee #refreshing #learnontiktok #قهوة_باردة #قهوة #foryoupage #fyp",
+		"url": "https://www.tiktok.com/@thepeteffect/video/7522711492140059912",
+		"videoId": "7522711492140059912",
+		"title": "Why Do Cats Attack You Randomly? 🫠",
 		"channelName": "thepeteffect",
 		"channelLink": "https://www.tiktok.com/@thepeteffect",
 		"likes": 2100000,
@@ -30,9 +30,13 @@ GET https://api.socialkit.dev/tiktok/stats?access_key=<your-access-key>&url=http
 		"shares": 147600,
 		"collects": 21800,
 		"views": 70700000,
-		"description": "#icedcoffee #dalgonacoffee #dalgona #soukainasing #coffeetiktok #bottlecoffee #icedlatte #easyrecipe #cafe #nescafe #nestle #coffee #refreshing #learnontiktok #قهوة_باردة #قهوة #foryoupage #fyp",
-		"duration": "1:02",
-		"thumbnailUrl": "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/2a1821f54d82fb691390afcccb773d78~tplv-tiktokx-cropcenter:100:100.jpeg?dr=9640&refresh_token=051f7c8b&x-expires=1759514400&x-signature=IoW4IL0SRYOY83gQuyROCbF%2BQbw%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast5"
+		"description": "Why Do Cats Attack You Randomly? 🫠",
+		"duration": "0:49",
+		"thumbnailUrl": "https://p19-common-sign.tiktokcdn.com/...",
+		"publishedAt": "2025-07-03T04:42:44.000Z",
+		"contentType": "video",
+		"isShortForm": true,
+		"videoUrl": "https://v16-webapp-prime.us.tiktok.com/..."
 	}
 }
 ```
@@ -62,15 +66,22 @@ Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 m
 The API returns the following data fields:
 
 - **`url`**: The original TikTok URL provided
+- **`videoId`**: The TikTok video ID (the numeric ID from the URL)
 - **`title`**: The video title/caption with hashtags
-- **`author`**: The TikTok username (may be empty)
+- **`channelName`**: The TikTok username
+- **`channelLink`**: Direct link to the TikTok channel
 - **`likes`**: Total like count (number)
 - **`comments`**: Total comment count (number)
 - **`shares`**: Total share count (number)
+- **`collects`**: Total saves/collects (number)
 - **`views`**: Total view count (number)
 - **`description`**: The video description/caption
-- **`duration`**: Video duration in MM:SS format
+- **`duration`**: Video duration in `M:SS` format (empty for carousel posts)
 - **`thumbnailUrl`**: URL to the video thumbnail image
+- **`publishedAt`**: ISO 8601 timestamp of when the video was posted (e.g. `2025-07-03T04:42:44.000Z`)
+- **`contentType`**: `"video"` for regular TikTok videos, `"carousel"` for image/photo posts
+- **`isShortForm`**: `true` for TikTok videos (all are short-form by definition), `false` for carousels
+- **`videoUrl`**: Temporary CDN URL to the raw video file. Signed by TikTok with the current session, so it expires quickly and only works from the same IP that fetched it. Use [/tiktok/download](/api-reference/tiktok-download-api) if you need to persist the file.
 
 ## Use Cases
 

@@ -21,15 +21,20 @@ GET https://api.socialkit.dev/youtube/stats?access_key=<your-access-key>&url=htt
 	"success": true,
 	"data": {
 		"url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+		"videoId": "dQw4w9WgXcQ",
 		"title": "Rick Astley - Never Gonna Give You Up (Official Video)",
 		"description": "...",
 		"channelName": "Rick Astley",
 		"channelLink": "https://youtube.com/channel/UCuAXFkgsw1L7xaCfnd5JJOw",
+		"channelHandle": "@RickAstleyYT",
 		"views": 1428567890,
 		"likes": 16234567,
 		"comments": 4567890,
 		"duration": "3:33",
-		"thumbnailUrl": ""
+		"publishedAt": "2009-10-25T07:57:33.000Z",
+		"thumbnailUrl": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+		"contentType": "video",
+		"isShortForm": false
 	}
 }
 ```
@@ -59,12 +64,20 @@ Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 m
 The API returns the following data fields:
 
 - **`url`**: The original YouTube URL provided
+- **`videoId`**: The 11-character YouTube video ID (e.g. `dQw4w9WgXcQ`)
 - **`title`**: The video title
-- **`channelName`**: The name of the YouTube channel
-- **`channelLink`**: Direct link to the YouTube channel
+- **`description`**: The video description
+- **`channelName`**: The display name of the YouTube channel
+- **`channelLink`**: Direct link to the YouTube channel (channel ID URL)
+- **`channelHandle`**: The channel's `@handle` (e.g. `@RickAstleyYT`). Empty for older channels that never set a handle.
 - **`views`**: Total view count (number)
 - **`likes`**: Total like count (number)
 - **`comments`**: Total comment count (number)
+- **`duration`**: Video duration in `M:SS` or `H:MM:SS` format
+- **`publishedAt`**: ISO 8601 timestamp of when the video was published (e.g. `2009-10-25T07:57:33.000Z`). Falls back to the raw upstream string if it can't be parsed.
+- **`thumbnailUrl`**: URL to the video thumbnail
+- **`contentType`**: `"video"` for regular YouTube videos, `"short"` for YouTube Shorts
+- **`isShortForm`**: `true` for Shorts and any video ≤ 60s, `false` otherwise. Useful for filtering long-form vs short-form content programmatically.
 
 ## Use Cases
 
