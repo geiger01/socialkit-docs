@@ -2,6 +2,7 @@ export default {
 	index: 'Introduction',
 	'getting-started': 'Getting Started',
 	'authentication': 'Authentication',
+	'mcp': 'MCP Server',
 	'api-reference': 'API Reference',
 	'openapi-playground': {
 		title: 'API Playground ↗',

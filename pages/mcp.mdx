@@ -1,0 +1,146 @@
+# MCP Server
+
+The SocialKit **MCP server** exposes every endpoint in this API as a Model Context Protocol tool, so an AI agent — Claude Desktop, Claude Code, Cursor, or any custom client that speaks MCP — can call SocialKit directly from a chat or coding session.
+
+The server is hosted at **`https://mcp.socialkit.dev`** and ships **33 tools** across YouTube, TikTok, Instagram, Facebook, and direct-URL video.
+
+## Connection URL
+
+```
+https://mcp.socialkit.dev/mcp
+```
+
+The transport is HTTP-streamable (the standard for remote MCP servers — Claude Desktop, Cursor, Claude Code, and the MCP Inspector all support it natively). No CLI install, no binary download.
+
+## Authentication
+
+The MCP server **never validates your access key itself** — it forwards it to `https://api.socialkit.dev`, which handles auth, credit accounting, and rate limiting. That means the same access key you'd use for a direct API call works here too.
+
+Manage your access key on your project's **Access Keys** page. Treat it like a password — never paste it into a public repo or share it in client-side code.
+
+The MCP server accepts the access key three ways, in this priority order:
+
+- `Authorization: Bearer <your-access-key>` header — the standard for HTTP-streamable MCP clients (Claude Desktop, Cursor, Claude Code).
+- `x-access-key: <your-access-key>` header — same header the REST API accepts directly.
+- `?access_key=<your-access-key>` query string — for clients that don't support custom headers.
+
+Tools are listed even without a key — calls only fail (with a clean 401 surfaced back to the model) once the agent actually tries to invoke one.
+
+## Add to Claude Desktop
+
+Open **Settings → Developer → Edit Config** and add a `socialkit` entry under `mcpServers`:
+
+```json
+{
+  "mcpServers": {
+    "socialkit": {
+      "url": "https://mcp.socialkit.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_ACCESS_KEY"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop. The 33 tools will appear in the tools panel. Try asking: *"Summarize this YouTube video: https://www.youtube.com/watch?v=..."*
+
+## Add to Claude Code
+
+From any project directory:
+
+```bash copy
+claude mcp add --transport http socialkit https://mcp.socialkit.dev/mcp \
+  --header "Authorization: Bearer YOUR_ACCESS_KEY"
+```
+
+Claude Code picks the tools up immediately on the next session.
+
+## Add to Cursor
+
+Open **Settings → MCP → + Add new MCP server** and use:
+
+```json
+{
+  "socialkit": {
+    "url": "https://mcp.socialkit.dev/mcp",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_KEY"
+    }
+  }
+}
+```
+
+## Use it from any MCP client
+
+Any client that speaks the JSON-RPC 2.0 MCP protocol over HTTP-streamable transport works. Minimum viable call:
+
+```bash copy
+curl -X POST https://mcp.socialkit.dev/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Authorization: Bearer YOUR_ACCESS_KEY" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/list",
+    "params": {}
+  }'
+```
+
+Returns the list of all 33 tools with their input schemas.
+
+## Available tools
+
+Tools are grouped by platform. Each one is a thin wrapper over the corresponding REST endpoint — same inputs, same response shapes.
+
+**YouTube (8)** — `youtube_transcript`, `youtube_summarize`, `youtube_stats`, `youtube_comments`, `youtube_channel_stats`, `youtube_videos`, `youtube_search`, `youtube_download`
+
+**TikTok (9)** — `tiktok_transcript`, `tiktok_summarize`, `tiktok_stats`, `tiktok_comments`, `tiktok_channel_stats`, `tiktok_channel_video_metrics`, `tiktok_search`, `tiktok_hashtag_search`, `tiktok_download`
+
+**Instagram (9)** — `instagram_transcript`, `instagram_summarize`, `instagram_stats`, `instagram_comments`, `instagram_channel_stats`, `instagram_channel_posts`, `instagram_channel_reels`, `instagram_reels_search`, `instagram_download`
+
+**Facebook (5)** — `facebook_transcript`, `facebook_summarize`, `facebook_stats`, `facebook_comments`, `facebook_channel_stats`
+
+**Direct video (2)** — `video_transcript`, `video_summarize` (for any direct video file URL — S3, CDN, etc.)
+
+The full input schema for each tool lives in the interactive playground at [api.socialkit.dev/docs](https://api.socialkit.dev/docs).
+
+## Example: call a tool directly
+
+```bash copy
+curl -X POST https://mcp.socialkit.dev/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -H "Authorization: Bearer YOUR_ACCESS_KEY" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
+    "params": {
+      "name": "instagram_stats",
+      "arguments": {
+        "url": "https://www.instagram.com/reel/DHeBXm5tBLu/"
+      }
+    }
+  }'
+```
+
+The response (streamed as Server-Sent Events) contains a `content` array with a JSON-stringified payload — the same shape returned by `POST /instagram/stats` on the REST API.
+
+## Credits and rate limiting
+
+Every tool call costs the same as the REST call it wraps. Free tier users get 20 credits. Per-tier rate limits (40/120/360/600 requests per minute by plan) still apply — the MCP doesn't change the accounting at all.
+
+## Troubleshooting
+
+- **Tools list shows up but every call returns `success: false` with `_httpStatus: 401`** — your access key isn't being forwarded. Re-check the `Authorization: Bearer …` header in your client config.
+- **A specific tool call returns `success: false` with a 4xx** — that's the upstream API rejecting the request (invalid URL, video not found, etc.). The error message is the same as you'd get hitting the REST endpoint directly.
+- **`429 Rate limit exceeded`** — you've hit the per-minute cap for your plan tier. Wait the duration in the `Retry-After` response header or upgrade your plan.
+- **Tool doesn't appear in your client's tools panel** — your client may need to be restarted, or it may not yet support HTTP-streamable transport. Try the curl smoke test above first to confirm the server itself is reachable.
+
+## Security reminders
+
+- Treat your access key like a password — it grants full API privileges and consumes credits.
+- Never paste your access key into a shared MCP config that gets committed to a public repo. Use your client's secret/env-var support instead.
+- Rotate the key from your dashboard if you suspect it's been exposed.
