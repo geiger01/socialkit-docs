@@ -1,5 +1,10 @@
 export default {
 	index: 'Overview',
+	'openapi-playground': {
+		title: 'Interactive Playground ↗',
+		href: 'https://api.socialkit.dev/docs',
+		newWindow: true,
+	},
 	'youtube-transcript-api': 'YouTube Transcript API',
 	'youtube-summarize-api': 'YouTube Summary API',
 	'youtube-stats-api': 'YouTube Stats API',
