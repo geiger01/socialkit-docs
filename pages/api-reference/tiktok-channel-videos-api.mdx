@@ -1,0 +1,133 @@
+# TikTok Channel Videos API
+
+The TikTok Channel Videos API returns a paginated list of recent videos posted to a TikTok channel, including engagement stats, thumbnails, and metadata for each video.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/tiktok/channel-videos
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/tiktok/channel-videos?access_key=<your-access-key>&url=https://www.tiktok.com/@khaby.lame&limit=30
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"type": "tiktok_channel_videos",
+		"url": "https://www.tiktok.com/@khaby.lame",
+		"channelName": "khaby.lame",
+		"results": [
+			{
+				"videoId": "7312345678901234567",
+				"description": "Simplicity is the key 🔑 #learnfromkhaby #comedy",
+				"url": "https://www.tiktok.com/@khaby.lame/video/7312345678901234567",
+				"thumbnail": "https://p16-sign.tiktokcdn-us.com/...",
+				"duration": 14,
+				"createTime": "2024-01-15T12:34:56.000Z",
+				"views": 12500000,
+				"likes": 1430000,
+				"comments": 8200,
+				"shares": 45000,
+				"collects": 62000
+			}
+		],
+		"hasMore": true,
+		"cursor": "1705318496000"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The TikTok profile URL of the channel whose videos you want to retrieve.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 30, max 100</small><br/>
+Maximum number of videos to return.
+
+---
+
+**`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor returned in a previous response. Pass it to fetch the next page of results.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache TTL in seconds. Maximum `2592000` (1 month), minimum `3600` (1 hour).
+
+## Response Fields
+
+**Top-level:**
+- **`channelName`**: Channel username (without @ prefix)
+- **`url`**: The profile URL that was queried
+- **`hasMore`**: Whether more videos are available beyond this page
+- **`cursor`**: Pass this value as `cursor` in your next request to get the next page. `null` when there are no more results.
+
+**Each item in `results`:**
+- **`videoId`**: Unique TikTok video ID
+- **`description`**: Video caption (truncated to 300 characters)
+- **`url`**: Direct link to the video on TikTok
+- **`thumbnail`**: Cover image URL (may expire)
+- **`duration`**: Video length in seconds
+- **`createTime`**: ISO 8601 publish timestamp
+- **`views`**: Total play count
+- **`likes`**: Total like count
+- **`comments`**: Total comment count
+- **`shares`**: Total share count
+- **`collects`**: Total saves/bookmarks count
+
+## Pagination
+
+Use `hasMore` and `cursor` together to paginate through all of a channel's videos:
+
+```js copy
+let cursor = null;
+let allVideos = [];
+
+do {
+  const res = await fetch(
+    `https://api.socialkit.dev/tiktok/channel-videos?access_key=YOUR_KEY` +
+    `&url=https://www.tiktok.com/@username&limit=30` +
+    (cursor ? `&cursor=${cursor}` : '')
+  ).then(r => r.json());
+
+  allVideos.push(...res.data.results);
+  cursor = res.data.hasMore ? res.data.cursor : null;
+} while (cursor);
+```
+
+## Use Cases
+
+- **Content Auditing**: Review all recent posts from a creator or brand account
+- **Feed Monitoring**: Track new uploads from channels you follow or compete with
+- **Engagement Analysis**: Identify top-performing videos by views, likes, or saves
+- **Influencer Research**: Evaluate posting frequency and content quality before a partnership
+- **Analytics Dashboards**: Power creator analytics tools with real-time video data
+- **Trend Detection**: Spot viral content early by monitoring high-view videos from key accounts
+
+## Notes
+
+- Results are ordered by recency (newest first)
+- Thumbnail URLs are temporary CDN links and may expire
+- `collects` (saves/bookmarks) may be 0 for older videos before TikTok tracked this metric
+- This endpoint uses a real browser to load the channel page, so response time is typically 5–15 seconds
+- Private accounts return an error; only public profiles are supported

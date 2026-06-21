@@ -18,6 +18,7 @@ export default {
 	'tiktok-stats-api': 'TikTok Stats API',
 	'tiktok-comments-api': 'TikTok Comments API',
 	'tiktok-channel-stats-api': 'TikTok Channel Stats API',
+	'tiktok-channel-videos-api': 'TikTok Channel Videos API',
 	'tiktok-search-api': 'TikTok Search API',
 	'tiktok-hashtag-search-api': 'TikTok Hashtag Search API',
 	'tiktok-download-api': 'TikTok Video Download API',
