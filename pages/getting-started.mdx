@@ -863,3 +863,59 @@ GET https://api.socialkit.dev/facebook/channel-stats?access_key=<your-access-key
 	}
 }
 ```
+
+### Twitter Profile
+
+```bash copy
+GET https://api.socialkit.dev/twitter/profile?access_key=<your-access-key>&url=https://x.com/OpenAI
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://x.com/OpenAI",
+		"id": "1288910035988885504",
+		"name": "OpenAI",
+		"username": "OpenAI",
+		"bio": "OpenAI is an AI research and deployment company.",
+		"followers": 4966126,
+		"following": 4,
+		"tweets": 8234,
+		"verified": true,
+		"location": "San Francisco, CA",
+		"website": "https://openai.com",
+		"joinedAt": "2018-07-26T00:00:00.000Z"
+	}
+}
+```
+
+### LinkedIn Profile
+
+```bash copy
+GET https://api.socialkit.dev/linkedin/profile?access_key=<your-access-key>&url=https://www.linkedin.com/in/jeffweiner08/
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.linkedin.com/in/jeffweiner08/",
+		"name": "Jeff Weiner",
+		"headline": "Founding Partner Next Play Ventures; Former CEO LinkedIn",
+		"followers": 10000000,
+		"connections": 500,
+		"recentArticles": [
+			{
+				"title": "The Future of Work",
+				"url": "https://www.linkedin.com/pulse/future-work-jeff-weiner/",
+				"date": "2026-05-01"
+			}
+		]
+	}
+}
+```

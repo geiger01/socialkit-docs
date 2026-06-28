@@ -1,0 +1,92 @@
+# LinkedIn Profile API
+
+The LinkedIn Profile API retrieves public profile information for any LinkedIn member, including their headline, follower count, connection count, profile image, and recent articles.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/linkedin/profile
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/linkedin/profile?access_key=<your-access-key>&url=https://www.linkedin.com/in/jeffweiner08/
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.linkedin.com/in/jeffweiner08/",
+		"name": "Jeff Weiner",
+		"headline": "Founding Partner Next Play Ventures; Former CEO LinkedIn",
+		"followers": 10000000,
+		"connections": 500,
+		"profileImage": "https://media.licdn.com/dms/image/C5603AQHaXKLRnbWsaQ/profile-displayphoto-shrink_800_800/0/1638996885815",
+		"recentArticles": [
+			{
+				"title": "The Future of Work",
+				"url": "https://www.linkedin.com/pulse/future-work-jeff-weiner/",
+				"date": "2026-05-01"
+			},
+			{
+				"title": "Managing Compassionately",
+				"url": "https://www.linkedin.com/pulse/managing-compassionately-jeff-weiner/",
+				"date": "2026-03-15"
+			}
+		]
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The LinkedIn profile URL of the member (e.g. `https://www.linkedin.com/in/jeffweiner08/`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original LinkedIn profile URL provided
+- **`name`**: The member's full display name
+- **`headline`**: The professional headline shown below their name
+- **`followers`**: Total LinkedIn follower count (number). LinkedIn caps the display at 10,000,000 for top creators.
+- **`connections`**: Connection count (number). LinkedIn caps the public display at 500 for members with 500+ connections.
+- **`profileImage`**: URL to the member's profile photo
+- **`recentArticles`**: Array of recent LinkedIn articles published by this member. Each item includes `title`, `url`, and `date` (ISO 8601 date string). May be empty if the member has no published articles.
+
+## Use Cases
+
+- **Lead Enrichment**: Augment CRM contact records with live LinkedIn profile data
+- **Influencer Research**: Identify high-follower professionals in a specific industry
+- **Talent Scouting**: Pull structured profile data for recruiting workflows
+- **Sales Intelligence**: Qualify prospects by headline and follower reach before outreach
+- **Content Discovery**: Surface recent articles from thought leaders in your niche
+- **Competitive Intelligence**: Monitor executives at competitor companies
+- **B2B Marketing**: Build targeted lists based on headline keywords and follower counts
+
+## Notes
+
+- Only public LinkedIn profiles are supported; private profiles will return an error
+- LinkedIn's public follower count is capped at 10,000,000 for top creators
+- The `connections` field displays `500` for any member with 500 or more connections, as LinkedIn does not expose the exact figure publicly
+- `recentArticles` reflects publicly visible articles and may not include all published content

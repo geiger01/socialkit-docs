@@ -1,0 +1,95 @@
+# Twitter Profile API
+
+The Twitter Profile API retrieves detailed profile information for any Twitter/X user, including follower counts, bio, verification status, and account metadata.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/twitter/profile
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/twitter/profile?access_key=<your-access-key>&url=https://x.com/OpenAI
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://x.com/OpenAI",
+		"id": "1288910035988885504",
+		"name": "OpenAI",
+		"username": "OpenAI",
+		"bio": "OpenAI is an AI research and deployment company.",
+		"followers": 4966126,
+		"following": 4,
+		"tweets": 8234,
+		"verified": true,
+		"profileImage": "https://pbs.twimg.com/profile_images/1634058036934500352/b4F1eVpJ_400x400.jpg",
+		"bannerImage": "https://pbs.twimg.com/profile_banners/1288910035988885504/1660927899/1500x500",
+		"location": "San Francisco, CA",
+		"website": "https://openai.com",
+		"joinedAt": "2018-07-26T00:00:00.000Z"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Twitter/X profile URL (e.g. `https://x.com/OpenAI` or `https://twitter.com/OpenAI`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original Twitter/X profile URL provided
+- **`id`**: The unique numeric Twitter/X user ID
+- **`name`**: The display name of the user
+- **`username`**: The Twitter/X handle without the `@` symbol
+- **`bio`**: The user's profile bio text
+- **`followers`**: Total follower count (number)
+- **`following`**: Total accounts the user follows (number)
+- **`tweets`**: Total number of tweets/posts published (number)
+- **`verified`**: `true` if the account has a verified checkmark
+- **`profileImage`**: URL to the user's profile picture
+- **`bannerImage`**: URL to the user's profile banner image
+- **`location`**: The location listed on the profile (may be empty)
+- **`website`**: The website URL listed on the profile (may be empty)
+- **`joinedAt`**: ISO 8601 timestamp of when the account was created
+
+## Use Cases
+
+- **Influencer Research**: Look up follower counts and engagement signals before outreach
+- **Brand Monitoring**: Track competitor or partner profile changes over time
+- **Audience Analysis**: Understand the profile of key voices in a niche
+- **Lead Qualification**: Verify account authenticity and reach before partnerships
+- **Media Intelligence**: Pull structured profile data for journalist or public figure databases
+- **Social CRM**: Enrich contact records with live Twitter/X profile data
+- **Content Strategy**: Identify verified accounts and high-follower users in your space
+
+## Notes
+
+- Both `https://x.com/` and `https://twitter.com/` URL formats are supported
+- Follower and tweet counts are retrieved in real-time
+- The `verified` field reflects the current verified status, which may include legacy verification or Twitter Blue
+- `bannerImage` may be empty if the user has not set a banner

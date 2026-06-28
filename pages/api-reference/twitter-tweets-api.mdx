@@ -1,0 +1,133 @@
+# Twitter Tweets API
+
+The Twitter Tweets API retrieves a list of recent tweets from any Twitter/X user, including engagement metrics, media attachments, and author metadata. Supports pagination via cursor.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/twitter/tweets
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/twitter/tweets?access_key=<your-access-key>&url=https://x.com/OpenAI&limit=20
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://x.com/OpenAI",
+		"tweets": [
+			{
+				"id": "1803543210987654321",
+				"text": "We're launching GPT-5 with improved reasoning and multimodal capabilities. Available now in ChatGPT and the API.",
+				"likes": 48200,
+				"retweets": 9100,
+				"replies": 3400,
+				"views": 5200000,
+				"createdAt": "2026-06-20T14:30:00.000Z",
+				"author": {
+					"name": "OpenAI",
+					"username": "OpenAI",
+					"followers": 4966126,
+					"verified": true,
+					"profileImage": "https://pbs.twimg.com/profile_images/1634058036934500352/b4F1eVpJ_400x400.jpg"
+				},
+				"media": []
+			},
+			{
+				"id": "1803100987654321000",
+				"text": "Our latest safety research on alignment is now available. Read the full paper at openai.com/research",
+				"likes": 12500,
+				"retweets": 2800,
+				"replies": 980,
+				"views": 1400000,
+				"createdAt": "2026-06-18T10:15:00.000Z",
+				"author": {
+					"name": "OpenAI",
+					"username": "OpenAI",
+					"followers": 4966126,
+					"verified": true,
+					"profileImage": "https://pbs.twimg.com/profile_images/1634058036934500352/b4F1eVpJ_400x400.jpg"
+				},
+				"media": [
+					{
+						"type": "photo",
+						"url": "https://pbs.twimg.com/media/example_image.jpg"
+					}
+				]
+			}
+		],
+		"nextCursor": "DAABCgABGd9b2X__8xoKAAIYmZzq9__8GBoLAAMAAAAJbm9uZW9mZW0AAAAAA"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The Twitter/X profile URL to retrieve tweets from (e.g. `https://x.com/OpenAI`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`limit`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 20</small><br/>
+The number of tweets to return per request. Maximum value is `100`.
+
+---
+
+**`cursor`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Pagination cursor returned in the previous response as `nextCursor`. Pass this value to retrieve the next page of tweets.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original Twitter/X profile URL provided
+- **`tweets`**: Array of tweet objects
+  - **`id`**: The unique tweet ID string
+  - **`text`**: The full text content of the tweet
+  - **`likes`**: Total like count (number)
+  - **`retweets`**: Total retweet count (number)
+  - **`replies`**: Total reply count (number)
+  - **`views`**: Total view/impression count (number)
+  - **`createdAt`**: ISO 8601 timestamp of when the tweet was posted
+  - **`author`**: Object containing `name`, `username`, `followers`, `verified`, and `profileImage`
+  - **`media`**: Array of media attachments (may be empty). Each item includes `type` and `url`.
+- **`nextCursor`**: Opaque string to pass as the `cursor` parameter for the next page. `null` when no further pages exist.
+
+## Use Cases
+
+- **Content Audits**: Review a brand or creator's recent posting history
+- **Engagement Tracking**: Monitor likes, retweets, and views on recent posts
+- **Competitive Analysis**: Track what competitors are posting and how it performs
+- **Trend Research**: Identify high-performing tweets within a niche
+- **Media Monitoring**: Collect mentions or posts from key accounts in real time
+- **Training Data**: Gather labeled social content for NLP and ML pipelines
+- **Newsletter Digests**: Automatically surface top tweets from followed accounts
+
+## Notes
+
+- Tweets are returned in reverse chronological order (newest first)
+- The `nextCursor` value is opaque — do not attempt to parse or construct it manually
+- Retweets and quote tweets may be included in the results
+- Media attachments of type `photo`, `video`, and `animated_gif` may appear in the `media` array
+- View counts are platform-provided and may lag slightly behind real-time figures

@@ -1,0 +1,79 @@
+# LinkedIn Company API
+
+The LinkedIn Company API retrieves public company page information from LinkedIn, including the company description, follower count, employee range, and logo.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/linkedin/company
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/linkedin/company?access_key=<your-access-key>&url=https://www.linkedin.com/company/openai/
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.linkedin.com/company/openai/",
+		"name": "OpenAI",
+		"description": "OpenAI is an AI research and deployment company. Our mission is to ensure that artificial general intelligence benefits all of humanity.",
+		"followers": 2800000,
+		"employees": 1500,
+		"logo": "https://media.licdn.com/dms/image/C560BAQGkHHd7DQ-s-Q/company-logo_200_200/0/1657312978670"
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The LinkedIn company page URL (e.g. `https://www.linkedin.com/company/openai/`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original LinkedIn company page URL provided
+- **`name`**: The company's display name
+- **`description`**: The company's about/description text from their LinkedIn page
+- **`followers`**: Total LinkedIn follower count for the company page (number)
+- **`employees`**: Approximate employee count as reported on LinkedIn (number)
+- **`logo`**: URL to the company's LinkedIn logo image
+
+## Use Cases
+
+- **Market Research**: Pull company profiles for competitive analysis reports
+- **Lead Enrichment**: Enrich B2B contact data with company size and follower reach
+- **Sales Intelligence**: Qualify accounts by employee count and LinkedIn presence before outreach
+- **Investor Research**: Monitor company growth signals via follower and employee count changes
+- **Directory Builders**: Populate company listings with structured LinkedIn data
+- **CRM Automation**: Keep company records up to date with live LinkedIn metadata
+- **Partnership Evaluation**: Assess brand reach and company scale before co-marketing
+
+## Notes
+
+- Only public LinkedIn company pages are supported
+- The `employees` field reflects the LinkedIn-reported figure, which is based on members who list the company as their employer and may differ from official headcount
+- Follower counts are retrieved in real-time
+- The `description` field returns the full about text and may be lengthy for large enterprises

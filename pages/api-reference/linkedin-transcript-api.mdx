@@ -1,0 +1,94 @@
+# LinkedIn Transcript API
+
+The LinkedIn Transcript API extracts a full spoken transcript from a video attached to a LinkedIn post, including timestamped segments, the complete transcript text, and word count.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/linkedin/transcript
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/linkedin/transcript?access_key=<your-access-key>&url=https://www.linkedin.com/posts/jeffweiner08_leadership-activity-7209876543210123456-AbCd
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://www.linkedin.com/posts/jeffweiner08_leadership-activity-7209876543210123456-AbCd",
+		"transcript": [
+			{
+				"text": "One of the most important lessons I've learned as a leader is the difference between empathy and compassion.",
+				"start": 0,
+				"duration": 5.3
+			},
+			{
+				"text": "Empathy means you feel what others feel. Compassion means you act on it.",
+				"start": 5.3,
+				"duration": 4.7
+			},
+			{
+				"text": "The best managers I've worked with do both — they understand their team deeply and they take action to help them succeed.",
+				"start": 10.0,
+				"duration": 6.2
+			}
+		],
+		"text": "One of the most important lessons I've learned as a leader is the difference between empathy and compassion. Empathy means you feel what others feel. Compassion means you act on it. The best managers I've worked with do both — they understand their team deeply and they take action to help them succeed.",
+		"wordCount": 55
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The URL of a LinkedIn post containing a video (e.g. `https://www.linkedin.com/posts/jeffweiner08_leadership-activity-7209876543210123456-AbCd`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original LinkedIn post URL provided
+- **`transcript`**: Array of timestamped transcript segments
+  - **`text`**: The spoken text for this segment
+  - **`start`**: Start time of the segment in seconds (number)
+  - **`duration`**: Duration of the segment in seconds (number)
+- **`text`**: The full transcript as a single concatenated string
+- **`wordCount`**: Total number of words in the transcript (number)
+
+## Use Cases
+
+- **Content Repurposing**: Convert LinkedIn video posts into articles, newsletters, or social copy
+- **Accessibility**: Generate subtitles or captions for LinkedIn video content
+- **Sales Intelligence**: Transcribe video pitches or product demos shared on LinkedIn
+- **Thought Leadership Research**: Extract and index spoken insights from industry leaders
+- **Training Data**: Collect labeled professional speech content for NLP models
+- **Media Monitoring**: Transcribe video statements from executives or public figures
+- **Internal Knowledge Base**: Archive transcripts of company video announcements
+
+## Notes
+
+- Only LinkedIn posts containing a video attachment are supported; image-only or text-only posts will return an error
+- Transcript accuracy depends on audio clarity and language — English is best supported
+- The `start` and `duration` fields are in seconds and can be used to generate subtitle files (e.g. SRT, VTT)
+- LinkedIn native video posts and externally linked videos are both supported where publicly accessible

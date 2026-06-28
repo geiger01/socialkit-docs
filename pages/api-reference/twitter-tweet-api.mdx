@@ -1,0 +1,101 @@
+# Twitter Tweet API
+
+The Twitter Tweet API retrieves detailed data for a single tweet, including its engagement metrics, media attachments, and full author information.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/twitter/tweet
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/twitter/tweet?access_key=<your-access-key>&url=https://x.com/OpenAI/status/1803543210987654321
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://x.com/OpenAI/status/1803543210987654321",
+		"tweet": {
+			"id": "1803543210987654321",
+			"text": "We're launching GPT-5 with improved reasoning and multimodal capabilities. Available now in ChatGPT and the API.",
+			"likes": 48200,
+			"retweets": 9100,
+			"replies": 3400,
+			"views": 5200000,
+			"createdAt": "2026-06-20T14:30:00.000Z",
+			"author": {
+				"name": "OpenAI",
+				"username": "OpenAI",
+				"followers": 4966126,
+				"verified": true,
+				"profileImage": "https://pbs.twimg.com/profile_images/1634058036934500352/b4F1eVpJ_400x400.jpg"
+			},
+			"media": [
+				{
+					"type": "photo",
+					"url": "https://pbs.twimg.com/media/example_announcement.jpg"
+				}
+			]
+		}
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The full URL of the tweet to retrieve (e.g. `https://x.com/OpenAI/status/1803543210987654321`).
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original tweet URL provided
+- **`tweet`**: Object containing the full tweet data
+  - **`id`**: The unique tweet ID string
+  - **`text`**: The full text content of the tweet
+  - **`likes`**: Total like count (number)
+  - **`retweets`**: Total retweet count (number)
+  - **`replies`**: Total reply count (number)
+  - **`views`**: Total view/impression count (number)
+  - **`createdAt`**: ISO 8601 timestamp of when the tweet was posted
+  - **`author`**: Object containing `name`, `username`, `followers`, `verified`, and `profileImage`
+  - **`media`**: Array of media attachments (may be empty). Each item includes `type` and `url`.
+
+## Use Cases
+
+- **Engagement Snapshots**: Capture real-time metrics for a specific tweet
+- **Viral Content Tracking**: Monitor how quickly a tweet's engagement grows
+- **Press Monitoring**: Pull structured data when a notable tweet is cited in reporting
+- **Social Proof**: Display live engagement stats for embeds or landing pages
+- **Research Pipelines**: Enrich tweet datasets with fresh engagement data
+- **Alert Systems**: Trigger workflows when a tweet surpasses engagement thresholds
+- **Content Attribution**: Verify authorship and metadata before republishing or quoting
+
+## Notes
+
+- Engagement metrics (likes, retweets, views) are retrieved in real-time and may change between requests
+- Both `https://x.com/` and `https://twitter.com/` tweet URL formats are supported
+- Media attachments of type `photo`, `video`, and `animated_gif` may appear in the `media` array
+- Deleted or private tweets will return an error
