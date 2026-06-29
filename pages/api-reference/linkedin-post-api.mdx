@@ -26,13 +26,16 @@ GET https://api.socialkit.dev/linkedin/post?access_key=<your-access-key>&url=htt
 			"text": "Compassionate management isn't about being soft — it's about understanding what motivates people and helping them reach their potential. The most effective leaders I've worked with combine high expectations with genuine empathy.",
 			"likes": 9800,
 			"comments": 640,
-			"shares": 1200,
 			"imageUrl": "https://media.licdn.com/dms/image/D4E22AQF_example/feedshare-shrink_1280/0/1719000000000",
+			"images": [
+				"https://media.licdn.com/dms/image/D4E22AQF_example/feedshare-shrink_1280/0/1719000000000"
+			],
 			"videoUrl": null,
 			"publishedAt": "2026-06-18T11:00:00.000Z",
 			"author": {
 				"name": "Jeff Weiner",
-				"url": "https://www.linkedin.com/in/jeffweiner08/"
+				"headline": "Founding Partner Next Play Ventures; Former CEO at LinkedIn",
+				"profileUrl": "https://www.linkedin.com/in/jeffweiner08/"
 			}
 		}
 	}
@@ -69,11 +72,11 @@ The API returns the following data fields:
   - **`text`**: The full text content of the post
   - **`likes`**: Total like/reaction count (number)
   - **`comments`**: Total comment count (number)
-  - **`shares`**: Total share/repost count (number)
-  - **`imageUrl`**: URL to the post's primary image, or `null` if no image is attached
+  - **`imageUrl`**: URL to the post's primary image, or empty string if no image is attached
+  - **`images`**: Array of all image URLs attached to the post
   - **`videoUrl`**: URL to an attached video, or `null` if no video is present
   - **`publishedAt`**: ISO 8601 timestamp of when the post was published
-  - **`author`**: Object containing `name` and `url` of the post author
+  - **`author`**: Object containing `name`, `headline`, and `profileUrl` of the post author
 
 ## Use Cases
 
