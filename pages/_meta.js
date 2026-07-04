@@ -3,6 +3,7 @@ export default {
 	'getting-started': 'Getting Started',
 	'authentication': 'Authentication',
 	'mcp': 'MCP Server',
+	'skills': 'Agent Skills',
 	'api-reference': 'API Reference',
 	'openapi-playground': {
 		title: 'API Playground ↗',

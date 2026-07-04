@@ -1,0 +1,93 @@
+# Agent Skills
+
+SocialKit **Agent Skills** are a drop-in instruction pack for coding agents. They teach an agent, like Claude Code, Cursor, or Codex, how to use every SocialKit endpoint: the parameters, the response shapes, and the common workflows.
+
+Install them once and the agent stops needing the API explained in every prompt. It just calls the right endpoint and gets structured social data back.
+
+The skills live at **[github.com/SocialKit-API/skills](https://github.com/SocialKit-API/skills)**.
+
+## Skills or MCP?
+
+Both surfaces sit on the same SocialKit REST API and use the same access key.
+
+- **Agent Skills** fit coding agents that read skill files (Claude Code, Cursor, Codex). They call `api.socialkit.dev` directly. **No MCP server is required.**
+- **[MCP Server](/mcp)** fits tool-calling clients (Claude Desktop, MCP Inspector, custom agents) that discover typed tools over Streamable HTTP.
+
+If your agent supports skills, start here. If it speaks MCP, use the [MCP server](/mcp). You can run both.
+
+## Install
+
+In any coding agent that supports the `skills` CLI:
+
+```bash copy
+npx skills add SocialKit-API/skills --all
+```
+
+The `--all` flag installs the full set without an interactive picker. To clone instead:
+
+```bash copy
+git clone https://github.com/SocialKit-API/skills.git
+```
+
+## Authentication
+
+The skills read your access key from the environment. Copy the example file and fill it in:
+
+```bash copy
+cp .env.example .env
+```
+
+```bash
+SOCIALKIT_API_KEY=your_access_key_here
+```
+
+Get a key from your project's **Access Keys** page in the [dashboard](https://socialkit.dev/login). The same key works for the [REST API](/authentication) and the [MCP server](/mcp). The skills attach it as the `x-access-key` header on every request. Treat it like a password, and never commit `.env`.
+
+## What's included
+
+Installing with `--all` gives you seven skills:
+
+| Skill | What it does |
+| --- | --- |
+| `socialkit-api` | Shared routing layer: auth, the full endpoint index, platform coverage, and hard rules |
+| `video-transcripts` | Transcripts across YouTube, TikTok, Instagram, Facebook, X, LinkedIn, and direct URLs, single or bulk |
+| `video-summaries` | AI summaries with topics, key points, tone, and quotes |
+| `channel-research` | Profile and channel stats plus a creator's recent videos, reels, posts, or tweets |
+| `content-discovery` | Keyword and hashtag search across YouTube, TikTok, and Instagram |
+| `engagement-analysis` | Per-video stats and comments, with sentiment you can summarize |
+| `video-download` | Download YouTube, TikTok, and Instagram videos to a hosted file |
+
+Each skill is a `SKILL.md` file the agent reads on demand, plus an `agents/openai.yaml` descriptor.
+
+## Example prompts
+
+Once the skills are installed and your key is set, ask for outcomes, not endpoints:
+
+```text
+Get the transcript of this TikTok and pull out the three main claims it makes.
+```
+
+```text
+Research the @MrBeast YouTube channel: subscriber count and his last 10 videos
+with view counts, then tell me which topics show up most.
+```
+
+```text
+Find the top reels for the hashtag "coldplunge" this week and rank them by views.
+```
+
+```text
+Pull the top comments on this Instagram reel and summarize the sentiment.
+```
+
+The agent picks the right skill, calls the matching endpoint, and shapes the result to your request.
+
+## How it works under the hood
+
+Every skill maps onto the REST API documented in this reference. For example, `video-transcripts` calls [`POST /youtube/transcript`](/api-reference/youtube-transcript-api), [`POST /tiktok/transcript`](/api-reference/tiktok-transcript-api), and the other transcript endpoints depending on the URL.
+
+Because the skills use plain REST, there is nothing to run and nothing to keep in sync. A successful call costs one credit, failed calls are free, and your per-tier rate limits apply exactly as they do for direct API calls.
+
+## Credits and rate limiting
+
+Skills consume credits identically to the REST API and MCP: one credit per successful call, failures free. The monthly credit allowance on your plan acts as a spend cap. See [Authentication](/authentication) for key management and the [API Reference](/api-reference) for per-endpoint details.
