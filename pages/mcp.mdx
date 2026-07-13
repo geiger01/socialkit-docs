@@ -30,7 +30,23 @@ Tools are listed even without a key — calls only fail (with a clean 401 surfac
 
 ## Add to Claude Desktop
 
-Open **Settings → Developer → Edit Config** and add a `socialkit` entry under `mcpServers`:
+The fastest way is Claude's built-in **custom connector** — no config file, no restart.
+
+1. In Claude Desktop (or Claude on the web), open **Customize → Connectors** (on some versions it's **Settings → Connectors**).
+2. Click **Add custom connector**.
+3. Give it a name — e.g. `SocialKit` — and, under **Remote MCP server URL**, paste the URL below with your own access key swapped in for `YOUR_ACCESS_KEY`:
+
+```
+https://mcp.socialkit.dev/mcp?access_key=YOUR_ACCESS_KEY
+```
+
+4. Click **Add**. The tools appear right away. Try asking: *"Summarize this YouTube video: https://www.youtube.com/watch?v=..."*
+
+Your access key lives on your project's **Access Keys** page. It's carried in the URL here because the connector UI doesn't take custom headers — keep that connector config private (it grants full API access and spends credits).
+
+### Alternative: edit the config file
+
+Prefer headers over a URL key? Open **Settings → Developer → Edit Config** and add a `socialkit` entry under `mcpServers`, then restart Claude Desktop:
 
 ```json
 {
@@ -44,8 +60,6 @@ Open **Settings → Developer → Edit Config** and add a `socialkit` entry unde
   }
 }
 ```
-
-Restart Claude Desktop. The 33 tools will appear in the tools panel. Try asking: *"Summarize this YouTube video: https://www.youtube.com/watch?v=..."*
 
 ## Add to Claude Code
 
