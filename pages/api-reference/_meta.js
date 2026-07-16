@@ -39,6 +39,7 @@ export default {
 	'twitter-profile-api': 'Twitter Profile API',
 	'twitter-tweets-api': 'Twitter Tweets API',
 	'twitter-tweet-api': 'Twitter Tweet API',
+	'twitter-thread-api': 'Twitter Thread API',
 	'twitter-transcript-api': 'Twitter Transcript API',
 	'linkedin-profile-api': 'LinkedIn Profile API',
 	'linkedin-company-api': 'LinkedIn Company API',

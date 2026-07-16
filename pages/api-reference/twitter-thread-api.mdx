@@ -1,0 +1,108 @@
+# Twitter Thread API
+
+The Twitter Thread API reconstructs a full Twitter/X thread — a chain of self-replies by the same author — and returns it as a single post. Pass any tweet URL from the thread (first, middle, or last) and get every tweet in order, a combined text block, and full long-form content.
+
+## Endpoint
+
+```bash copy
+https://api.socialkit.dev/twitter/thread
+```
+
+#### Example Request
+
+```bash copy
+GET https://api.socialkit.dev/twitter/thread?access_key=<your-access-key>&url=https://x.com/paulg/status/1592852796185128961
+```
+
+#### Response
+
+```json
+{
+	"success": true,
+	"data": {
+		"url": "https://x.com/paulg/status/1592852796185128961",
+		"conversationId": "1592852796185128961",
+		"tweetCount": 2,
+		"isThread": true,
+		"combinedText": "It's remarkable how many people who've never run any kind of company think they know how to run a tech company better than someone who's run two.\n\nIn both those companies, people die if the software doesn't work right. Do you really think Twitter has higher engineering standards than that?",
+		"author": {
+			"name": "Paul Graham",
+			"username": "paulg",
+			"verified": true
+		},
+		"tweets": [
+			{
+				"id": "1592852796185128961",
+				"text": "It's remarkable how many people who've never run any kind of company think they know how to run a tech company better than someone who's run two.",
+				"likes": 21000,
+				"retweets": 1200,
+				"replies": 900,
+				"views": 3800000,
+				"createdAt": "2022-11-16T14:31:00.000Z"
+			},
+			{
+				"id": "1592853670319865857",
+				"text": "In both those companies, people die if the software doesn't work right. Do you really think Twitter has higher engineering standards than that?",
+				"likes": 12000,
+				"retweets": 640,
+				"replies": 410,
+				"views": 2100000,
+				"createdAt": "2022-11-16T14:34:00.000Z"
+			}
+		]
+	}
+}
+```
+
+## Parameters
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The URL of any tweet in the thread (e.g. `https://x.com/paulg/status/1592852796185128961`). The thread is reconstructed around this tweet.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+Cache the response for faster subsequent requests.
+
+---
+
+**`cache_ttl`** <small style={{margin:'0 10px'}}>number</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 2592000</small><br/>
+Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 month), minimum `3600` seconds (1 hour).
+
+## Response Fields
+
+The API returns the following data fields:
+
+- **`url`**: The original tweet URL provided
+- **`conversationId`**: The thread's conversation ID (the root tweet's ID)
+- **`tweetCount`**: Number of tweets in the reconstructed thread
+- **`isThread`**: `true` when more than one tweet was found, `false` for a standalone tweet
+- **`combinedText`**: Every tweet's text joined in order (separated by blank lines) as one block
+- **`author`**: Object containing the thread author's `name`, `username`, and `verified`
+- **`tweets`**: Array of the thread's tweets, ordered oldest to newest. Each item includes:
+  - **`id`**: The unique tweet ID string
+  - **`text`**: The full text of that tweet (full long-form text where applicable)
+  - **`likes`**, **`retweets`**, **`replies`**, **`views`**: Per-tweet engagement counts
+  - **`createdAt`**: ISO 8601 timestamp of when the tweet was posted
+
+## Use Cases
+
+- **Market & Trend Monitoring**: Capture a founder's full argument, not just the hook tweet
+- **LLM & RAG Pipelines**: Feed a complete thread as one clean text unit into summarization or retrieval
+- **Content Repurposing**: Turn a viral thread into a blog post or newsletter in one step
+- **Research & Archiving**: Store full threads with per-tweet engagement in structured JSON
+- **Creator Analysis**: See how each part of a thread performed with per-tweet stats
+
+## Notes
+
+- A "thread" is a self-reply chain by one author. If the URL is a standalone tweet or a reply to someone else, the API returns that single tweet with `isThread: false`.
+- The API walks **up** the reply chain (to reach earlier tweets) and **down** the author's recent timeline (to reach later tweets), so it works from any entry point.
+- Very recent threads reconstruct in full. For older threads, tweets posted after the one you pass rely on the author's recent timeline — passing the **last** tweet of the thread always reconstructs it completely.
+- Long-form ("note") tweets return their complete text, not the 280-character-truncated version.
+- Both `https://x.com/` and `https://twitter.com/` URL formats are supported.
+- Each request costs 1 credit regardless of thread length. Failed requests are not charged.
