@@ -61,6 +61,11 @@ Output format for the download. Supported formats: `mp4`, `mp3`, `avi`, `webm`, 
 **`quality`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 360p</small><br/>
 Video quality for the download. Supported qualities: `240p`, `360p`, `480p`, `720p`, `1080p`.
 
+---
+
+**`country`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Route the download through a specific country, for region-locked videos. Accepts a 2-letter ISO code (`GR`, `IL`, `DE`) or a country name (`Greece`, `Germany`). Example: a video only available in Greece downloads with `"country": "GR"`.
+
 ## Response Fields
 
 The API returns the following data fields:
