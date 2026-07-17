@@ -21,6 +21,7 @@ GET https://api.socialkit.dev/instagram/channel-stats?access_key=<your-access-ke
 	"success": true,
 	"data": {
 		"profileUrl": "https://www.instagram.com/yuumi_cat9",
+		"userId": "51234567890",
 		"username": "yuumi_cat9",
 		"nickname": "Yuumi_cat9",
 		"verified": false,
@@ -58,6 +59,7 @@ Cache the response for a custom TTL (in seconds). Maximum `2592000` seconds (1 m
 The API returns the following data fields:
 
 - **`profileUrl`**: The Instagram profile URL
+- **`userId`**: The account's numeric Instagram user ID (string)
 - **`username`**: The account's username (without @ prefix)
 - **`nickname`**: The account's display name
 - **`verified`**: Whether the account is verified (boolean)
