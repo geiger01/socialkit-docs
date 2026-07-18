@@ -1,0 +1,130 @@
+# Async Download API (v2) — for long videos
+
+The **v2 async download API** is built for **long or large videos** that take too long to return in a single request. Instead of waiting on one synchronous call (the [YouTube](/api-reference/youtube-download-api), [TikTok](/api-reference/tiktok-download-api), and [Instagram](/api-reference/instagram-download-api) download endpoints), you:
+
+1. **Submit** a download job and get a `jobId` back immediately.
+2. **Poll** the job until its status is `ready`.
+3. **Download** from the temporary URL in the ready response.
+
+Works for **YouTube, TikTok, Instagram, and Facebook**. Videos are downloaded at up to **720p**, with a maximum file size of **2 GB** per download. Credits are **1 per minute of video** (minimum 1), charged when the job completes.
+
+## When to use v2 vs v1
+
+- **v1** (`/{platform}/download`) — synchronous, returns the download URL in one call. Best for short videos.
+- **v2** (`/v2/{platform}/download`) — asynchronous job + polling. Best for **long videos** (podcasts, streams, long-form content) that would otherwise time out.
+
+## 1. Start a download job
+
+```bash copy
+https://api.socialkit.dev/v2/{platform}/download
+```
+
+`{platform}` is one of `youtube`, `tiktok`, `instagram`, `facebook`.
+
+#### Example Request
+
+```bash copy
+POST https://api.socialkit.dev/v2/youtube/download
+
+{
+  "access_key": "<your-access-key>",
+  "url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+  "quality": "720p",
+  "format": "mp4"
+}
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "jobId": "6a5b42b474b3bc25582a1051",
+    "status": "queued",
+    "statusUrl": "/v2/downloads/6a5b42b474b3bc25582a1051"
+  }
+}
+```
+
+## 2. Poll the job status
+
+```bash copy
+https://api.socialkit.dev/v2/downloads/{jobId}
+```
+
+Poll every few seconds until `status` is `ready` (or `failed`). A few seconds of `queued`/`processing` is normal while the video downloads.
+
+#### Response while processing
+
+```json
+{
+  "success": true,
+  "data": { "jobId": "6a5b42b474b3bc25582a1051", "status": "processing" }
+}
+```
+
+#### Response when ready
+
+```json
+{
+  "success": true,
+  "data": {
+    "jobId": "6a5b42b474b3bc25582a1051",
+    "status": "ready",
+    "platform": "youtube",
+    "quality": "720p",
+    "format": "mp4",
+    "downloadUrl": "https://socialkit-downloads.s3.amazonaws.com/...",
+    "expiresIn": 3600,
+    "durationSeconds": 1631,
+    "fileSizeMB": "117.05 MB",
+    "creditsCost": 28,
+    "title": "Video Title",
+    "thumbnail": "https://i.ytimg.com/vi/.../maxresdefault.jpg"
+  }
+}
+```
+
+The `downloadUrl` is valid for `expiresIn` seconds (default 1 hour). Fetch it promptly.
+
+## Parameters
+
+**`platform`** <small style={{margin:'0 10px'}}>path</small> <small style={{color: 'red'}}>Required</small><br/>
+One of `youtube`, `tiktok`, `instagram`, `facebook`.
+
+---
+
+**`url`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+The URL of the video to download.
+
+---
+
+**`access_key`** <small style={{margin:'0 10px'}}>string</small> <small style={{color: 'red'}}>Required</small><br/>
+Your API access key. Can be provided via the `access_key` query parameter, `x-access-key` header, or request body.
+
+---
+
+**`quality`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 720p</small><br/>
+Maximum video quality: `240p`, `360p`, `480p`, `720p`. **720p is the ceiling for v2** — higher requests are clamped to 720p.
+
+---
+
+**`format`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to mp4</small><br/>
+Output format. `mp4` (video) and `m4a` (audio) are always available. `mp3`, `webm`, `avi`, `ogg`, `wav` require server-side transcoding.
+
+---
+
+**`country`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+Route the download through a specific country for region-locked videos. Accepts a 2-letter ISO code (`GR`, `DE`) or a country name (`Greece`, `Germany`).
+
+## Job statuses
+
+- **`queued`** — the job was accepted and is about to start.
+- **`processing`** — the video is being downloaded.
+- **`ready`** — done. `downloadUrl` and metadata are in the response.
+- **`failed`** — the download could not be completed. See the `error` field.
+
+## Credits
+
+Credits are **1 per minute of video** (minimum 1) — e.g. a 27-minute video costs 28 credits. Credits are deducted **once**, when the job is first observed `ready`. Failed jobs are not charged.

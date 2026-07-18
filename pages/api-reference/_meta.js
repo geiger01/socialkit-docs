@@ -13,6 +13,7 @@ export default {
 	'youtube-search-api': 'YouTube Search API',
 	'youtube-videos-api': 'YouTube Videos API',
 	'youtube-download-api': 'YouTube Video Download API',
+	'async-download-api': 'Async Download API (v2)',
 	'tiktok-transcript-api': 'TikTok Transcript API',
 	'tiktok-summarize-api': 'TikTok Summary API',
 	'tiktok-stats-api': 'TikTok Stats API',
