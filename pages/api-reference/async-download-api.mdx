@@ -6,7 +6,7 @@ The **v2 async download API** is built for **long or large videos** that take to
 2. **Poll** the job until its status is `ready`.
 3. **Download** from the temporary URL in the ready response.
 
-Works for **YouTube, TikTok, Instagram, and Facebook**. Videos are downloaded at up to **720p**, with a maximum file size of **2 GB** per download. Credits are **1 per minute of video** (minimum 1), charged when the job completes.
+Works for **YouTube, TikTok, Instagram, and Facebook**. Videos are downloaded at up to **1080p**, with a maximum file size of **2 GB** per download. Credits are **1 per minute of video** (minimum 1), charged when the job completes.
 
 ## When to use v2 vs v1
 
@@ -106,7 +106,7 @@ Your API access key. Can be provided via the `access_key` query parameter, `x-ac
 ---
 
 **`quality`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to 720p</small><br/>
-Maximum video quality: `240p`, `360p`, `480p`, `720p`. **720p is the ceiling for v2** — higher requests are clamped to 720p.
+Maximum video quality: `240p`, `360p`, `480p`, `720p`, `1080p`. **1080p is the ceiling for v2** — higher requests are clamped to 1080p.
 
 ---
 
