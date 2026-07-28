@@ -77,6 +77,11 @@ Number of videos to return. Maximum value is 100.
 
 ---
 
+**`full_details`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
+By default, `publishedAt` (exact date) and `description` are filled only for a channel's most recent videos (fetched in one batch). Set `full_details=true` to fill these fields for **every** returned video, including older/paginated items and playlists. The extra per-video lookups run in parallel server-side, so you still make a single request, but the response is slower and uses more bandwidth. Enrichment is capped at 30 videos per request.
+
+---
+
 **`cache`** <small style={{margin:'0 10px'}}>boolean</small> <small style={{margin:'0  10px  0 0'}}>Optional</small> <small>Defaults to false</small><br/>
 Cache the response for faster subsequent requests.
 
@@ -124,4 +129,4 @@ Each result in the `results` array contains:
 - The `index` field reflects the video's position in the playlist or channel upload order
 - For channels, videos are typically returned in reverse chronological order (newest first)
 - For playlists, videos are returned in playlist order
-- `publishedAt` (exact date) and `description` are populated for a channel's most recent videos in a single request (no per-video calls needed). Older/paginated items and playlist items return `null`/empty for these two fields.
+- `publishedAt` (exact date) and `description` are populated for a channel's most recent videos in a single request (no per-video calls needed). Older/paginated items and playlist items return `null`/empty for these two fields by default. Pass `full_details=true` to fill them for every returned video.
