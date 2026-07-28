@@ -34,6 +34,8 @@ GET https://api.socialkit.dev/youtube/videos?access_key=<your-access-key>&url=ht
         "views": 95000000,
         "viewsFormatted": "95M views",
         "publishedTime": "2 weeks ago",
+        "publishedAt": "2026-07-14T15:00:00.000Z",
+        "description": "I built 100 houses and gave them all away! Subscribe for more...",
         "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       },
       {
@@ -47,6 +49,8 @@ GET https://api.socialkit.dev/youtube/videos?access_key=<your-access-key>&url=ht
         "views": 120000000,
         "viewsFormatted": "120M views",
         "publishedTime": "1 month ago",
+        "publishedAt": "2026-06-28T16:30:00.000Z",
+        "description": "Would you sit in a tank of snakes for $10,000? Let's find out...",
         "url": "https://www.youtube.com/watch?v=tpiyEe_CqB4"
       }
     ]
@@ -100,6 +104,8 @@ Each result in the `results` array contains:
 - **`views`**: Number of video views (number)
 - **`viewsFormatted`**: Human-readable view count (e.g., "95M views")
 - **`publishedTime`**: Relative time when the video was published (e.g., "2 weeks ago")
+- **`publishedAt`**: Exact publish date in ISO 8601 (e.g., `2026-07-14T15:00:00.000Z`). Available for a channel's recent videos; `null` for older/paginated items and playlists.
+- **`description`**: The video's description. Available for a channel's recent videos; empty string otherwise.
 - **`url`**: Direct URL to the YouTube video
 
 ## Use Cases
@@ -118,3 +124,4 @@ Each result in the `results` array contains:
 - The `index` field reflects the video's position in the playlist or channel upload order
 - For channels, videos are typically returned in reverse chronological order (newest first)
 - For playlists, videos are returned in playlist order
+- `publishedAt` (exact date) and `description` are populated for a channel's most recent videos in a single request (no per-video calls needed). Older/paginated items and playlist items return `null`/empty for these two fields.
