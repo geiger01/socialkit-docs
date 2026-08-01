@@ -118,6 +118,13 @@ Output format. `mp4` (video) and `m4a` (audio) are always available. `mp3`, `web
 **`country`** <small style={{margin:'0 10px'}}>string</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
 Route the download through a specific country for region-locked videos. Accepts a 2-letter ISO code (`GR`, `DE`) or a country name (`Greece`, `Germany`).
 
+---
+
+**`max_duration`** <small style={{margin:'0 10px'}}>integer</small> <small style={{margin:'0  10px  0 0'}}>Optional</small><br/>
+A hard cap on the video's length, in **seconds**. If the video is longer than this, it is **rejected before downloading** and the job ends as `failed` with **no credit charged**. Useful for capping cost — since credits are 1 per minute of video, this lets you (or your own users) avoid accidentally spending a large number of credits on a very long video. Omit for no limit.
+
+For example, `max_duration: 1800` rejects anything over 30 minutes; the failed job's `error` reads like `Video is 3:01:00 long, exceeding the 30:00 limit (max_duration=1800s). Not downloaded; no credit charged.`
+
 ## Job statuses
 
 - **`queued`** — the job was accepted and is about to start.
